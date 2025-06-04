@@ -2,8 +2,29 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@font-face {
+  font-family: "GmarketSans";
+  src: url("./assets/font/GmarketSansTTF/GmarketSansTTFLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSans";
+  src: url("./assets/font/GmarketSansTTF/GmarketSansTTFMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSans";
+  src: url("./assets/font/GmarketSansTTF/GmarketSansTTFBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
 @theme {
-  --font-TJ: sans-serif;
+  --font-GmarketSans: "GmarketSans", sans-serif;
   --color-main-green-400: #cbe55e;
 }
 
