@@ -25,7 +25,16 @@
 
 @theme {
   --font-GmarketSans: "GmarketSans", sans-serif;
-  --color-main-green-400: #cbe55e;
+  /* 초록 계열 */
+  --color-main-green-100: #cef3b5;
+  --color-main-green-400: #81de3c;
+  --color-main-green-500: #5dac23;
+  --color-main-green-600: #5bce06;
+  /* 흰색 게열  */
+  --color-main-white-500: #fffdfe;
+
+  /* 파랑 계열 */
+  --color-main-blue-300: #4bc5ff;
 }
 
 @utility text-stroke-width-* {
@@ -34,4 +43,52 @@
 
 @utility text-stroke-color-* {
   -webkit-text-stroke-color: --value([color]);
+}
+
+@utility shadow-custom {
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.16), 4px 8px 8px rgba(0, 0, 0, 0.12);
+}
+
+@utility shadow-custom-2 {
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.18);
+}
+
+/* 모바일 기본 (640px 미만) */
+html {
+  font-size: 93.75%; /* 15px */
+}
+
+/* sm: 640px 이상 */
+@media (min-width: 640px) {
+  html {
+    font-size: 93.75%; /* 15px */
+  }
+}
+
+/* md: 768px 이상 */
+@media (min-width: 768px) {
+  html {
+    font-size: 100%; /* 16px */
+  }
+}
+
+/* lg: 1024px 이상 */
+@media (min-width: 1024px) {
+  html {
+    font-size: 106.25%; /* 17px */
+  }
+}
+
+/* xl: 1280px 이상 */
+@media (min-width: 1280px) {
+  html {
+    font-size: 112.5%; /* 18px */
+  }
+}
+
+/* 2xl: 1536px 이상 */
+@media (min-width: 1536px) {
+  html {
+    font-size: 118.75%; /* 19px */
+  }
 }
