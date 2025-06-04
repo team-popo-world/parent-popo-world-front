@@ -1,0 +1,16 @@
+/* index.css */
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --font-TJ: sans-serif;
+  --color-main-green-400: #cbe55e;
+}
+
+@utility text-stroke-width-* {
+  -webkit-text-stroke-width: --value([length]);
+}
+
+@utility text-stroke-color-* {
+  -webkit-text-stroke-color: --value([color]);
+}
