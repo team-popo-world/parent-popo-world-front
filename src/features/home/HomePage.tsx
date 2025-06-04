@@ -9,7 +9,7 @@ import broccoli from "../../assets/image/common/broccoli.png";
 import donuts from "../../assets/image/common/donuts.png";
 import icecream from "../../assets/image/common/icecream.png";
 import rightArrow from "../../assets/image/common/right-arrow.png";
-
+import whiteRightArrow from "../../assets/image/common/white-right-arrow.png";
 type LabelListProps = {
   x?: number | string;
   y?: number | string;
@@ -92,8 +92,9 @@ export const HomePage: React.FC = () => {
           {/* 상점 카드 */}
           <div className="flex gap-x-6.5 justify-between h-60 mb-5">
             <div className="w-full h-full  shadow-custom rounded-xl">
-              <div className="flex items-center text-xl text-white font-medium px-6 py-3.5 w-full  bg-main-blue-300 rounded-t-xl">
-                상점
+              <div className="flex justify-between items-center text-xl text-white font-medium px-6 py-3.5 w-full  bg-main-blue-300 rounded-t-xl">
+                <span className="">상점</span>
+                <img src={whiteRightArrow} alt="" className="w-4 h-4 object-contain " />
               </div>
               <div className="flex flex-col px-4 py-3.5 text-sm justify-between gap-y-2 ">
                 <h4 className="">구매 요청</h4>
@@ -116,8 +117,8 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
             <div className="flex flex-col justify-between gap-y-2 h-full">
-              <div className="px-2 py-1 bg-[#F2FBFF] shadow-custom-2 rounded-full text-xs flex items-center justify-center">
-                등록
+              <div className="flex items-center justify-center w-14 h-14 bg-white border border-gray-100 shadow-custom-2 rounded-full">
+                +
               </div>
               <div className="flex items-center justify-center w-14 h-14 bg-white border border-gray-100 shadow-custom-2 rounded-full">
                 <img src={broccoli} alt="" className="w-3/4 h-3/4 object-contain" />
