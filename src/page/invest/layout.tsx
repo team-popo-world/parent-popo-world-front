@@ -1,0 +1,50 @@
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Header } from "../../components/header/header";
+import { ChildNavBar } from "../../components/nav-bar/ChildNavBar";
+import { useState } from "react";
+import clsx from "clsx";
+
+// http://localhost:5174/invest/analyze
+// http://localhost:5174/invest/chat-bot
+
+const urls = {
+  analyze: "모의투자 분석",
+  chatBot: "시나리오 챗봇",
+};
+
+export const InvestLayout: React.FC = () => {
+  const url = useLocation();
+  const pathname = url.pathname.split("/")[2];
+  const [isTabOpen, setIsTabOpen] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(urls[pathname as keyof typeof urls]);
+  const [selectedChild, setSelectedChild] = useState("자녀 1");
+  const navigate = useNavigate();
+  return (
+    <>
+      <Header title={selectedTab} onClick={() => setIsTabOpen(!isTabOpen)} backButtonOnClick={() => navigate("/")}>
+        {isTabOpen && (
+          <ul className="absolute top-14.5 -right-2.5 flex flex-col bg-white p-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
+            <Link to="/invest/analyze">
+              <li
+                className={clsx("text-sm text-black", selectedTab === "모의투자 분석" && "text-main-green-400")}
+                onClick={() => setSelectedTab("모의투자 분석")}
+              >
+                모의투자 분석
+              </li>
+            </Link>
+            <Link to="/invest/chat-bot">
+              <li
+                className={clsx("text-sm text-black", selectedTab === "시나리오 챗봇" && "text-main-green-400")}
+                onClick={() => setSelectedTab("시나리오 챗봇")}
+              >
+                시나리오 챗봇
+              </li>
+            </Link>
+          </ul>
+        )}
+      </Header>
+      <ChildNavBar selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
+      <Outlet />
+    </>
+  );
+};

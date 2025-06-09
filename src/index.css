@@ -1,5 +1,6 @@
 /* index.css */
 @import "tailwindcss";
+/* 데이지 UI 안쓸거임 삭제해야되는데 귀찮아서 안하는중 */
 @plugin "daisyui";
 
 @font-face {
@@ -23,18 +24,28 @@
   font-style: normal;
 }
 
+/* 
+   기본 패딩, 마진
+   px-6 pt-10
+*/
+
 @theme {
   --font-GmarketSans: "GmarketSans", sans-serif;
+
   /* 초록 계열 */
   --color-main-green-100: #cef3b5;
   --color-main-green-400: #81de3c;
   --color-main-green-500: #5dac23;
   --color-main-green-600: #5bce06;
+  --color-main-green-700: #78d335;
   /* 흰색 게열  */
   --color-main-white-500: #fffdfe;
 
   /* 파랑 계열 */
   --color-main-blue-300: #4bc5ff;
+
+  /* 빨강 계열 */
+  --color-main-red-500: #ff585c;
 }
 
 @utility text-stroke-width-* {
@@ -43,6 +54,14 @@
 
 @utility text-stroke-color-* {
   -webkit-text-stroke-color: --value([color]);
+}
+
+@utility scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
 }
 
 @utility shadow-custom {

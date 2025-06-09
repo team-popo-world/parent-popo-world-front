@@ -1,17 +1,30 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/layout/Navbar";
-import { DashboardPage } from "./features/dashboard/DashboardPage";
-import { HomePage } from "./features/home/HomePage";
-import "./App.css";
+import { HomePage } from "./page/home/home";
+import { ProductManagementPage } from "./page/store/product-management";
+import { PurchaseManagementPage } from "./page/store/purchase-management";
+import { PurchaseRequestPage } from "./page/store/purchase-request";
+import { StoreLayout } from "./page/store/layout";
+import { MobileView } from "./components/layout/mobile-view";
+import { InvestLayout } from "./page/invest/layout";
+import { InvestAnalyzePage } from "./page/invest/invest-analyze";
+import { InvestChatBotPage } from "./page/invest/chat-bot";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/users" element={<div className="p-6">Users Page (Coming Soon)</div>} />
-        <Route path="/settings" element={<div className="p-6">Settings Page (Coming Soon)</div>} />
+        <Route path="/" element={<MobileView />}>
+          <Route index element={<HomePage />} />
+          <Route path="/store" element={<StoreLayout />}>
+            <Route path="product-management" element={<ProductManagementPage />} />
+            <Route path="purchase-management" element={<PurchaseManagementPage />} />
+            <Route path="purchase-request" element={<PurchaseRequestPage />} />
+          </Route>
+          <Route path="/invest" element={<InvestLayout />}>
+            <Route path="analyze" element={<InvestAnalyzePage />} />
+            <Route path="chat-bot" element={<InvestChatBotPage />} />
+          </Route>
+        </Route>
       </Routes>
     </Router>
   );
