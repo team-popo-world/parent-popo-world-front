@@ -4,7 +4,7 @@ export const InvestAnalyzePage: React.FC = () => {
   return (
     <>
       {/* 분석 종류 */}
-      <div className="">분석 종류</div>
+      <div className="text-sm mb-2">분석 종류</div>
       <div className="flex gap-x-3.5 pb-2 mb-6  overflow-x-auto scrollbar-hidden">
         {colors.map((color, index) => (
           <div

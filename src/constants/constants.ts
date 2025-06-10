@@ -16,4 +16,7 @@ export const IMAGE_URLS = {
     watermelon: "https://res.cloudinary.com/djmcg7zgu/image/upload/v1749382424/watermelon_vrrndc.webp",
     strawberry: "https://res.cloudinary.com/djmcg7zgu/image/upload/v1749382424/strawberry_kkh2sv.webp",
   },
+  auth: {
+    bg: "https://res.cloudinary.com/djmcg7zgu/image/upload/v1749537934/parent_login_bg_ggfgfa.webp",
+  },
 };
