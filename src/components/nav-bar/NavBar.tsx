@@ -12,7 +12,7 @@ import green_store from "../../assets/image/navbar/green_store.png";
 import green_setup from "../../assets/image/navbar/green_setup.png";
 
 export const NavBar: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {

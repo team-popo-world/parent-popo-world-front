@@ -14,27 +14,30 @@ import { SignUpPage } from "./page/auth/sign-up";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<BaseLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/store" element={<StoreLayout />}>
-            <Route path="product-management" element={<ProductManagementPage />} />
-            <Route path="purchase-management" element={<PurchaseManagementPage />} />
-            <Route path="purchase-request" element={<PurchaseRequestPage />} />
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<BaseLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/store" element={<StoreLayout />}>
+              <Route path="product-management" element={<ProductManagementPage />} />
+              <Route path="purchase-management" element={<PurchaseManagementPage />} />
+              <Route path="purchase-request" element={<PurchaseRequestPage />} />
+            </Route>
+            <Route path="/invest" element={<InvestLayout />}>
+              <Route path="analyze" element={<InvestAnalyzePage />} />
+              <Route path="chat-bot" element={<InvestChatBotPage />} />
+            </Route>
           </Route>
-          <Route path="/invest" element={<InvestLayout />}>
-            <Route path="analyze" element={<InvestAnalyzePage />} />
-            <Route path="chat-bot" element={<InvestChatBotPage />} />
+          {/* 로그인, 회원가입 */}
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="sign-in" element={<SignInPage />} />
+            <Route path="sign-up" element={<SignUpPage />} />
           </Route>
-        </Route>
-        {/* 로그인, 회원가입 */}
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="sign-in" element={<SignInPage />} />
-          <Route path="sign-up" element={<SignUpPage />} />
-        </Route>
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+      <div id="modal-root" />
+    </>
   );
 }
 

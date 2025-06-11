@@ -50,7 +50,7 @@ export const PurchaseManagementPage: React.FC = () => {
               <div className="text-xs bg-main-green-700 text-main-white-500 rounded-sm px-2 py-1">승인</div>
             </div>
             {/* 아래 선 부모 패딩 좌 2rem, 우 2rem 계산후 반영 */}
-            <div className="absolute -bottom-5 -left-8 w-[calc(100%_+_4rem)] h-[0.0625rem] bg-gray-200"></div>
+            <div className="absolute -bottom-5 -left-8 w-[calc(100%_+_4rem)] h-[0.0625rem] bg-gray-200" />
           </div>
         ))}
       </div>
