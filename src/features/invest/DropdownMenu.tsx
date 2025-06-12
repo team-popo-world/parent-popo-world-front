@@ -3,15 +3,25 @@ import React from "react";
 interface DropdownMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  onView: () => void;
   onEdit: () => void;
   onDelete: () => void;
 }
 
-export const DropdownMenu: React.FC<DropdownMenuProps> = ({ isOpen, onClose, onEdit, onDelete }) => {
+export const DropdownMenu: React.FC<DropdownMenuProps> = ({ isOpen, onClose, onView, onEdit, onDelete }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-8 -right-2 flex flex-col gap-y-1 px-2 py-2 bg-white rounded-sm shadow-sm">
+    <div className="absolute top-8 -right-3 flex flex-col gap-y-[0.275rem] px-2 py-2 bg-white border border-gray-200 rounded-md ">
+      <button
+        onClick={() => {
+          onView();
+          onClose();
+        }}
+        className="text-black text-xs whitespace-nowrap hover:bg-gray-100 px-1 py-0.5 rounded"
+      >
+        조회
+      </button>
       <button
         onClick={() => {
           onEdit();

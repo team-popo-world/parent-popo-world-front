@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LabelList, Cell } from "recharts";
 import rightArrow from "../../assets/image/common/right-arrow.png";
 import { Link } from "react-router-dom";
+import { ChildNavBar } from "../../components/nav-bar/ChildNavBar";
 
 type LabelListProps = {
   x?: number | string;
@@ -35,20 +36,7 @@ export const InvestmentChart: React.FC = () => {
             <img src={rightArrow} alt="" className="w-4 h-4 object-contain" />
           </Link>
         </div>
-        <div className="flex justify-between mb-4 bg-gray-100 rounded-xl p-1">
-          {["자녀 1", "자녀 2"].map((child) => (
-            <button
-              key={child}
-              className={`flex-1 py-1 rounded-xl text-sm font-semibold transition ${
-                selectedChild === child ? "bg-white shadow text-green-600" : "text-gray-400"
-              }`}
-              onClick={() => setSelectedChild(child)}
-            >
-              {child}
-            </button>
-          ))}
-        </div>
-
+        <ChildNavBar selectedColor={"#000000"} selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
         <div className="h-72 flex items-end">
           <ResponsiveContainer className="w-full h-full">
             <BarChart data={childrenData} barCategoryGap={20}>

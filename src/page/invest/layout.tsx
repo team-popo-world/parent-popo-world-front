@@ -45,7 +45,7 @@ export const InvestLayout: React.FC = () => {
           </ul>
         )}
       </Header>
-      <ChildNavBar selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
+      <ChildNavBar selectedColor={"#000000"} selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
       <Outlet />
     </>
   );

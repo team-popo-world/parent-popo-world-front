@@ -1,19 +1,16 @@
 // 생성하기는 무조건 디폴트 시나리오 생성 클릭하면 챗봇으로 이동 뒤로가기 누르면 저장하기 취소버튼, 수정하기 클릭하면 챗봇이동, 수정완료 하고 나가면 추가로 하나 생성, 기본버전은 남기고 삭제하고 싶으면 삭제버튼
 
-import theacher_popo from "../../../assets/image/common/teacher_popo.png";
-import parents from "../../../assets/image/common/parents.png";
-import green_up_arrow from "../../../assets/image/common/green_up_arrow.png";
-import { useState } from "react";
-import clsx from "clsx";
+import { useState, useRef, useEffect } from "react";
 import { Modal } from "../../../components/modal/Modal";
 import { SideModal } from "../../../components/modal/SideModal";
-import arrow_right from "../../../assets/image/common/arrow-right.png";
-import arrow_down from "../../../assets/image/common/arrow-down.png";
 import { ChildNavBar } from "../../../components/nav-bar/ChildNavBar";
 import { ChatBotHeader } from "../../../components/header/header";
-import { Link } from "react-router-dom";
+import ChatMessage from "../../../features/invest/ChatMessage";
+import ChatOutModal from "../../../features/invest/ChatOutModal";
+import ChatTurnSideModal from "../../../features/invest/ChatTurnSideModal";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import ArrowUp from "../../../components/icons/ArrowUp";
 
-const colors = ["#1DB3FB", "#78D335", "#C57CF0", "#FE4A4E", "#FFBE00", "#FEE0DF"];
 const themes = {
   "아기돼지 삼형제": {
     id: 1,
@@ -61,119 +58,93 @@ const turns = [
   { title: "10턴", content: "10턴의 상세 내용입니다." },
 ];
 
+interface ChatMessage {
+  message: string;
+  isTeacher: boolean;
+}
+
 export const InvestChatBotPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const scenarioType = searchParams.get("scenarioType");
+  const scenarioName = searchParams.get("scenarioName");
+  console.log(scenarioType, scenarioName);
+
   const [selectedTheme, setSelectedTheme] = useState<keyof typeof scenarioNames>(
-    themes["아기돼지 삼형제"].name as keyof typeof scenarioNames
-  );
-  const [selectedScenario, setSelectedScenario] = useState<string>(
-    scenarioNames[selectedTheme as keyof typeof scenarioNames][0]
+    scenarioType as keyof typeof scenarioNames
   );
 
   const [selectedChild, setSelectedChild] = useState("자녀 1");
 
   const [senarioCreateModalOpen, setSenarioCreateModalOpen] = useState(false);
   const [senarioModalOpen, setSenarioModalOpen] = useState(false);
-  const [openTurn, setOpenTurn] = useState<{ [key: string]: boolean }>({
-    "1턴": false,
-    "2턴": false,
-    "3턴": false,
-    "4턴": false,
-    "5턴": false,
-    "6턴": false,
-    "7턴": false,
-    "8턴": false,
-    "9턴": false,
-    "10턴": false,
-  });
+
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      message: "안녕하세요! 포포 교수님입니다. 오늘도 즐거운 금융 교육을 시작해볼까요?",
+      isTeacher: true,
+    },
+  ]);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  const handleSendMessage = () => {
+    if (!inputRef.current?.textContent?.trim()) return;
+
+    // 사용자 메시지 추가
+    Promise.resolve(
+      setMessages((prev) => [...prev, { message: inputRef.current?.textContent || "", isTeacher: false }])
+    ).then(() => {
+      inputRef.current!.textContent = "";
+    });
+
+    // 포포 교수님 응답 (실제로는 API 호출 등으로 대체)
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          message: "네, 좋은 질문이에요! 그 부분에 대해 자세히 설명해드릴게요.",
+          isTeacher: true,
+        },
+      ]);
+    }, 1000);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <>
       {/* 시나리오 종류 */}
       <Modal isOpen={senarioCreateModalOpen} onClose={() => setSenarioCreateModalOpen(false)}>
-        <div className="flex flex-col gap-y-4 bg-white rounded-lg p-6 w-[320px]" onClick={(e) => e.stopPropagation()}>
-          <div className="flex flex-col gap-y-2">
-            <div className="text font-medium">정말 나가시겠습니까?</div>
-            <div className="text-xs text-gray-600">지금 나가시면 저장되지 않습니다.</div>
-          </div>
-          <div className="flex gap-x-2 mt-2 ml-auto">
-            <Link to={"/invest/scenario-select"}>
-              <button
-                onClick={() => {
-                  // TODO: 시나리오 생성 로직
-                  setSenarioCreateModalOpen(false);
-                }}
-                className=" px-4 py-2 text-sm text-white bg-gray-900 rounded hover:bg-gray-800"
-              >
-                나가기
-              </button>
-            </Link>
-            <button
-              onClick={() => setSenarioCreateModalOpen(false)}
-              className=" px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded hover:bg-gray-200"
-            >
-              취소
-            </button>
-          </div>
-        </div>
+        <ChatOutModal setSenarioCreateModalOpen={setSenarioCreateModalOpen} />
       </Modal>
       <SideModal isOpen={senarioModalOpen} onClose={() => setSenarioModalOpen(false)}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <div className="text-base font-semibold">시나리오 정보</div>
-          <button
-            onClick={() => setSenarioModalOpen(false)}
-            aria-label="닫기"
-            className="text-2xl text-gray-400 hover:text-gray-700"
-          >
-            &times;
-          </button>
-        </div>
-
-        {/* 시나리오 종류/태그 */}
-        <div className="flex gap-x-2 px-6 py-4">
-          <span
-            className="px-2 py-1 rounded text-xs font-medium"
-            style={{ backgroundColor: themes[selectedTheme].color, color: "#fff" }}
-          >
-            {themes[selectedTheme].name}
-          </span>
-          <span className="px-2 py-1 rounded text-xs font-medium bg-gray-900 text-main-white-500">
-            {scenarioNames[selectedTheme as keyof typeof scenarioNames][0]}
-          </span>
-        </div>
-
-        {/* 턴 정보 */}
-        <div className="px-6 pb-6">
-          {turns.map((turn, idx) => (
-            <div key={idx} className="mb-2">
-              <button
-                className="w-full flex justify-between items-center px-3 py-2 bg-gray-100 rounded hover:bg-gray-200 text-sm font-medium"
-                onClick={() => setOpenTurn({ ...openTurn, [turn.title]: !openTurn[turn.title] })}
-              >
-                <span>{turn.title}</span>
-                <span className="text-lg">
-                  {openTurn[turn.title] ? (
-                    <img src={arrow_down} alt="arrow_down" className="w-4 h-4 object-contain" />
-                  ) : (
-                    <img src={arrow_right} alt="arrow_right" className="w-4 h-4 object-contain" />
-                  )}
-                </span>
-              </button>
-              {openTurn[turn.title] && (
-                <div className="bg-gray-50 border border-gray-200 rounded-b px-3 py-2 text-xs text-gray-700">
-                  {turn.content}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="w-fit mt-auto ml-auto bg-black text-sm text-white px-2 py-1 mb-8 mr-8 rounded-lg">
-          저장하고 나가기
-        </div>
+        <ChatTurnSideModal
+          turns={turns}
+          scenarioColor={themes[selectedTheme].color}
+          selectedTheme={selectedTheme}
+          scenarioName={scenarioName || ""}
+          setSenarioModalOpen={setSenarioModalOpen}
+          quitButtonOnClick={() => {
+            navigate("/invest/scenario-select");
+          }}
+        />
       </SideModal>
       <>
         {/* 헤더 */}
         <ChatBotHeader
-          title={"턴 정보"}
+          title={"시나리오 챗봇"}
           onClick={() => {}}
           backButtonOnClick={() => {
             setSenarioCreateModalOpen(true);
@@ -185,61 +156,36 @@ export const InvestChatBotPage: React.FC = () => {
         <div className="absolute top-18 right-7 text-[0.625rem] px-1 py-0.5 bg-white rounded-xl shadow-custom-2 border border-gray-100">
           턴
         </div>
-        <ChildNavBar selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
+        <ChildNavBar
+          selectedColor={themes[selectedTheme].color}
+          selectedChild={selectedChild}
+          setSelectedChild={setSelectedChild}
+        />
       </>
       {/* 채팅 리스트 */}
-      <div className="flex flex-col gap-y-2 overflow-y-auto h-[calc(100vh-20.5rem)] ">
-        <div className="flex ">
-          <div className="flex justify-center items-center w-12 h-12 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">
-            <img src={theacher_popo} alt={"포포 교수님"} className="w-4/5 h-4/5 object-contain" />
-          </div>
-          <div className="text-xs py-2.5 px-2">포포 교수님</div>
-        </div>
-        <div className="bg-[#FAF8F9] rounded-lg text-xs p-2 ml-12 mr-2">
-          채팅 내용 채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-          내용채팅 내용
-        </div>
-
-        <div className="flex self-end ">
-          <div className="text-xs py-2.5 px-2">부모님</div>
-          <div className="flex justify-center items-center w-12 h-12 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">
-            <img src={parents} alt={"부모님"} className="w-3/4 h-3/4 object-contain" />
-          </div>
-        </div>
-        <div className="bg-[#FAF8F9] rounded-lg text-xs p-2 ml-12 mr-2">
-          채팅 내용 채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-          내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용 채팅 내용 채팅 내용채팅 내용채팅
-          내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-          내용채팅 내용채팅 내용채팅 내용채팅 내용 채팅 내용 채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-          내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-          내용
-        </div>
-        <div className="flex ">
-          <div className="flex justify-center items-center w-12 h-12 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">
-            <img src={theacher_popo} alt={"포포 교수님"} className="w-4/5 h-4/5 object-contain" />
-          </div>
-          <div className="text-xs py-2.5 px-2">포포 교수님</div>
-        </div>
-        <div className="bg-[#FAF8F9] rounded-lg text-xs p-2 ml-12 mr-2">
-          채팅 내용 채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-          내용채팅 내용
-        </div>
-        <div className="flex self-end ">
-          <div className="text-xs py-2.5 px-2">부모님</div>
-          <div className="flex justify-center items-center w-12 h-12 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">
-            <img src={parents} alt={"부모님"} className="w-3/4 h-3/4 object-contain" />
-          </div>
-        </div>
-        <div className="bg-[#FAF8F9] rounded-lg text-xs p-2 ml-12 mr-2">
-          채팅 내용 채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-          내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용 채팅 내용 채팅 내용채팅 내용채팅
-          내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
-        </div>
+      <div className="flex flex-col gap-y-3 overflow-y-auto h-[calc(100vh-20.5rem)]" ref={chatContainerRef}>
+        {messages.map((msg, index) => (
+          <ChatMessage key={index} message={msg.message} isTeacher={msg.isTeacher} />
+        ))}
       </div>
       {/* 채팅 입력 */}
-      <div className="absolute flex flex-col-reverse bottom-6 left-8 w-[calc(100%-4rem)]  px-4 pt-4 pb-12 bg-main-white-500 rounded-xl shadow-custom-2 border border-gray-100 ">
-        <div className=" overflow-y-auto focus:outline-none" contentEditable></div>
-        <img src={green_up_arrow} alt={"화살표"} className="absolute bottom-4 right-4  w-8 h-8 object-contain" />
+      <div className="absolute flex flex-col-reverse bottom-6 left-8 w-[calc(100%-4rem)] px-4 pt-4 pb-11 bg-main-white-500 rounded-xl shadow-custom-2 border border-gray-100">
+        <div
+          ref={inputRef}
+          className="overflow-y-auto focus:outline-none text-xs"
+          contentEditable
+          onInput={handleSendMessage}
+          onKeyDown={handleKeyPress}
+        />
+        <button
+          onClick={handleSendMessage}
+          className="absolute flex justify-center items-center bottom-2 right-2 w-6 h-6 object-contain rounded-full"
+          style={{
+            backgroundColor: themes[selectedTheme].color,
+          }}
+        >
+          <ArrowUp width={16} height={16} fill="white" />
+        </button>
       </div>
     </>
   );
