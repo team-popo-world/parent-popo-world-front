@@ -11,6 +11,7 @@ import { InvestChatBotPage } from "./page/invest/chat-bot";
 import { AuthLayout } from "./page/auth/layout";
 import { SignInPage } from "./page/auth/sign-in";
 import { SignUpPage } from "./page/auth/sign-up";
+import { InvestScenarioSelectPage } from "./page/invest/scenario-select";
 
 function App() {
   return (
@@ -24,10 +25,13 @@ function App() {
               <Route path="purchase-management" element={<PurchaseManagementPage />} />
               <Route path="purchase-request" element={<PurchaseRequestPage />} />
             </Route>
+            {/* 모의투자 */}
             <Route path="/invest" element={<InvestLayout />}>
               <Route path="analyze" element={<InvestAnalyzePage />} />
-              <Route path="chat-bot" element={<InvestChatBotPage />} />
+              <Route path="scenario-select" element={<InvestScenarioSelectPage />} />
             </Route>
+            {/* 모의투자 레이아웃(헤더) 얘는 다른거라서 따로 빼둠 */}
+            <Route path="/invest/chat-bot" element={<InvestChatBotPage />} />
           </Route>
           {/* 로그인, 회원가입 */}
           <Route path="/auth" element={<AuthLayout />}>

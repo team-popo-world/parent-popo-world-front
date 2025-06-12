@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChildCard } from "../../features/home/ChildCard";
 import { StoreCard } from "../../features/home/StoreCard";
 import { QuickIcons } from "../../features/home/QuickIcons";
@@ -7,10 +7,20 @@ import defaultChildBoyImage from "../../assets/image/common/boy.png";
 import defaultChildGirlImage from "../../assets/image/common/girl.png";
 import { PopoButton } from "../../components/button/popoButton";
 import { AddButton } from "../../components/button/AddButton";
+import { Modal } from "../../components/modal/Modal";
 
 export const HomePage: React.FC = () => {
+  const [isOpenParentCode, setIsOpenParentCode] = useState(false);
+  const parentCode = localStorage.getItem("parentCode");
   return (
     <>
+      <Modal isOpen={isOpenParentCode} onClose={() => setIsOpenParentCode(false)}>
+        <div className="flex flex-col gap-4 bg-white rounded-3xl p-4" onClick={(e) => e.stopPropagation()}>
+          <h1>부모 코드</h1>
+          <p>{parentCode}</p>
+        </div>
+      </Modal>
+
       {/* 환영 문구 */}
       <div className="flex w-full mb-10">
         <div className="flex justify-between items-center gap-x-6">
@@ -28,7 +38,7 @@ export const HomePage: React.FC = () => {
       <ChildCard image={defaultChildGirlImage} name="자녀 이름" gender="자녀 성별" />
 
       {/* 자녀 추가 등록 버튼 */}
-      <AddButton text="자녀 추가 등록" onClick={() => {}} />
+      <AddButton text="자녀 추가 등록" onClick={() => setIsOpenParentCode(true)} />
 
       {/* 상점 화면 */}
       <div className="flex gap-x-6.5 justify-between h-60 mb-5">

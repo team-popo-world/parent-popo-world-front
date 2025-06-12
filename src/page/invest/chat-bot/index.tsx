@@ -1,3 +1,5 @@
+// 생성하기는 무조건 디폴트 시나리오 생성 클릭하면 챗봇으로 이동 뒤로가기 누르면 저장하기 취소버튼, 수정하기 클릭하면 챗봇이동, 수정완료 하고 나가면 추가로 하나 생성, 기본버전은 남기고 삭제하고 싶으면 삭제버튼
+
 import theacher_popo from "../../../assets/image/common/teacher_popo.png";
 import parents from "../../../assets/image/common/parents.png";
 import green_up_arrow from "../../../assets/image/common/green_up_arrow.png";
@@ -7,6 +9,9 @@ import { Modal } from "../../../components/modal/Modal";
 import { SideModal } from "../../../components/modal/SideModal";
 import arrow_right from "../../../assets/image/common/arrow-right.png";
 import arrow_down from "../../../assets/image/common/arrow-down.png";
+import { ChildNavBar } from "../../../components/nav-bar/ChildNavBar";
+import { ChatBotHeader } from "../../../components/header/header";
+import { Link } from "react-router-dom";
 
 const colors = ["#1DB3FB", "#78D335", "#C57CF0", "#FE4A4E", "#FFBE00", "#FEE0DF"];
 const themes = {
@@ -64,6 +69,8 @@ export const InvestChatBotPage: React.FC = () => {
     scenarioNames[selectedTheme as keyof typeof scenarioNames][0]
   );
 
+  const [selectedChild, setSelectedChild] = useState("자녀 1");
+
   const [senarioCreateModalOpen, setSenarioCreateModalOpen] = useState(false);
   const [senarioModalOpen, setSenarioModalOpen] = useState(false);
   const [openTurn, setOpenTurn] = useState<{ [key: string]: boolean }>({
@@ -84,35 +91,25 @@ export const InvestChatBotPage: React.FC = () => {
       {/* 시나리오 종류 */}
       <Modal isOpen={senarioCreateModalOpen} onClose={() => setSenarioCreateModalOpen(false)}>
         <div className="flex flex-col gap-y-4 bg-white rounded-lg p-6 w-[320px]" onClick={(e) => e.stopPropagation()}>
-          <div className="text-lg font-medium">시나리오 생성</div>
-
           <div className="flex flex-col gap-y-2">
-            <div className="text-sm text-gray-600">시나리오 종류</div>
-            <div className="px-3 py-2 bg-gray-100 rounded text-sm">{selectedTheme}</div>
+            <div className="text font-medium">정말 나가시겠습니까?</div>
+            <div className="text-xs text-gray-600">지금 나가시면 저장되지 않습니다.</div>
           </div>
-
-          <div className="flex flex-col gap-y-2">
-            <div className="text-sm text-gray-600">시나리오 이름</div>
-            <input
-              type="text"
-              placeholder="시나리오 이름을 입력하세요"
-              className="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-gray-900"
-            />
-          </div>
-
-          <div className="flex gap-x-2 mt-2">
-            <button
-              onClick={() => {
-                // TODO: 시나리오 생성 로직
-                setSenarioCreateModalOpen(false);
-              }}
-              className="flex-1 px-4 py-2 text-sm text-white bg-gray-900 rounded hover:bg-gray-800"
-            >
-              생성
-            </button>
+          <div className="flex gap-x-2 mt-2 ml-auto">
+            <Link to={"/invest/scenario-select"}>
+              <button
+                onClick={() => {
+                  // TODO: 시나리오 생성 로직
+                  setSenarioCreateModalOpen(false);
+                }}
+                className=" px-4 py-2 text-sm text-white bg-gray-900 rounded hover:bg-gray-800"
+              >
+                나가기
+              </button>
+            </Link>
             <button
               onClick={() => setSenarioCreateModalOpen(false)}
-              className="flex-1 px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded hover:bg-gray-200"
+              className=" px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded hover:bg-gray-200"
             >
               취소
             </button>
@@ -130,6 +127,7 @@ export const InvestChatBotPage: React.FC = () => {
             &times;
           </button>
         </div>
+
         {/* 시나리오 종류/태그 */}
         <div className="flex gap-x-2 px-6 py-4">
           <span
@@ -168,57 +166,29 @@ export const InvestChatBotPage: React.FC = () => {
             </div>
           ))}
         </div>
+        <div className="w-fit mt-auto ml-auto bg-black text-sm text-white px-2 py-1 mb-8 mr-8 rounded-lg">
+          저장하고 나가기
+        </div>
       </SideModal>
-      <div className="text-sm mb-2">시나리오 종류</div>
-      <div className="flex gap-x-3.5 pb-2 mb-6  overflow-x-auto scrollbar-hidden">
-        {Object.values(themes).map((theme) => (
-          <div
-            key={theme.id}
-            className="px-2 py-1 text-main-white-500 rounded-sm text-xs whitespace-nowrap"
-            style={{ backgroundColor: theme.color }}
-            onClick={() => {
-              setSelectedTheme(theme.name as keyof typeof scenarioNames);
-              setSelectedScenario(scenarioNames[theme.name as keyof typeof scenarioNames][0]);
-            }}
-          >
-            {theme.name}
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-between mb-2">
-        <div className="text-sm">시나리오</div>
-        <div
-          className="text-xs px-2 py-1 rounded-sm bg-gray-900 text-main-white-500"
-          onClick={() => setSenarioCreateModalOpen(true)}
-        >
-          시나리오 생성
+      <>
+        {/* 헤더 */}
+        <ChatBotHeader
+          title={"턴 정보"}
+          onClick={() => {}}
+          backButtonOnClick={() => {
+            setSenarioCreateModalOpen(true);
+          }}
+          noteButtonOnClick={() => {
+            setSenarioModalOpen(true);
+          }}
+        />
+        <div className="absolute top-18 right-7 text-[0.625rem] px-1 py-0.5 bg-white rounded-xl shadow-custom-2 border border-gray-100">
+          턴
         </div>
-      </div>
-      <div className="flex gap-x-3.5 pb-2 mb-6  overflow-x-auto scrollbar-hidden">
-        {scenarioNames[selectedTheme as keyof typeof scenarioNames].map((name) => (
-          <div
-            key={name}
-            className={clsx(
-              "px-2 py-1 rounded-sm text-xs whitespace-nowrap",
-              selectedScenario === name ? "bg-gray-900 text-main-white-500" : "bg-gray-100 text-gray-500"
-            )}
-            onClick={() => setSelectedScenario(name)}
-          >
-            {name}
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-between mb-6">
-        <div className="text-sm">시나리오 챗봇</div>
-        <div
-          className="text-xs px-2 py-1 rounded-sm bg-gray-900 text-main-white-500"
-          onClick={() => setSenarioModalOpen(true)}
-        >
-          시나리오 정보
-        </div>
-      </div>
+        <ChildNavBar selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
+      </>
       {/* 채팅 리스트 */}
-      <div className="flex flex-col gap-y-2 overflow-y-auto h-60">
+      <div className="flex flex-col gap-y-2 overflow-y-auto h-[calc(100vh-20.5rem)] ">
         <div className="flex ">
           <div className="flex justify-center items-center w-12 h-12 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">
             <img src={theacher_popo} alt={"포포 교수님"} className="w-4/5 h-4/5 object-contain" />
@@ -244,7 +214,16 @@ export const InvestChatBotPage: React.FC = () => {
           내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
           내용
         </div>
-
+        <div className="flex ">
+          <div className="flex justify-center items-center w-12 h-12 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">
+            <img src={theacher_popo} alt={"포포 교수님"} className="w-4/5 h-4/5 object-contain" />
+          </div>
+          <div className="text-xs py-2.5 px-2">포포 교수님</div>
+        </div>
+        <div className="bg-[#FAF8F9] rounded-lg text-xs p-2 ml-12 mr-2">
+          채팅 내용 채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅 내용채팅
+          내용채팅 내용
+        </div>
         <div className="flex self-end ">
           <div className="text-xs py-2.5 px-2">부모님</div>
           <div className="flex justify-center items-center w-12 h-12 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">

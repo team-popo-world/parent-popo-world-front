@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Header } from "../../components/header/header";
+import { ChatBotHeader, Header } from "../../components/header/header";
 import { ChildNavBar } from "../../components/nav-bar/ChildNavBar";
 import { useState } from "react";
 import clsx from "clsx";
@@ -9,7 +9,8 @@ import clsx from "clsx";
 
 const urls = {
   analyze: "모의투자 분석",
-  chatBot: "시나리오 챗봇",
+  "chat-bot": "시나리오 챗봇",
+  "scenario-select": "시나리오 선택",
 };
 
 export const InvestLayout: React.FC = () => {
@@ -19,6 +20,7 @@ export const InvestLayout: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(urls[pathname as keyof typeof urls]);
   const [selectedChild, setSelectedChild] = useState("자녀 1");
   const navigate = useNavigate();
+
   return (
     <>
       <Header title={selectedTab} onClick={() => setIsTabOpen(!isTabOpen)} backButtonOnClick={() => navigate("/")}>
@@ -32,12 +34,12 @@ export const InvestLayout: React.FC = () => {
                 모의투자 분석
               </li>
             </Link>
-            <Link to="/invest/chat-bot">
+            <Link to="/invest/scenario-select">
               <li
-                className={clsx("text-sm text-black", selectedTab === "시나리오 챗봇" && "text-main-green-400")}
-                onClick={() => setSelectedTab("시나리오 챗봇")}
+                className={clsx("text-sm text-black", selectedTab === "시나리오 선택" && "text-main-green-400")}
+                onClick={() => setSelectedTab("시나리오 선택")}
               >
-                시나리오 챗봇
+                시나리오 선택
               </li>
             </Link>
           </ul>

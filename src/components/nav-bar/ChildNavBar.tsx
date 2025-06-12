@@ -5,7 +5,7 @@ interface ChildNavBarProps {
 
 export const ChildNavBar: React.FC<ChildNavBarProps> = ({ selectedChild, setSelectedChild }) => {
   return (
-    <div className="flex justify-between mb-8 bg-gray-100 rounded-xl p-1">
+    <div className="flex justify-between mb-8  bg-gray-100 rounded-xl p-1">
       {["자녀 1", "자녀 2"].map((child) => (
         <button
           key={child}
