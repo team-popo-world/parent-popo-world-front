@@ -13,6 +13,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     const pages = [];
     const maxVisiblePages = 3;
 
+    // 총 페이지가 보여지는 페이지보다 적으면 전부 그냥 보여주기
     if (totalPages <= maxVisiblePages) {
       // 모든 페이지 표시
       for (let i = 1; i <= totalPages; i++) {
@@ -20,16 +21,16 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       }
     } else {
       // 현재 페이지 주변의 페이지들 표시
-      let startPage = Math.max(1, currentPage - 2);
-      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+      let startPage = Math.max(1, currentPage - 1); // 시작페이지 1
+      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); // 끝페이지 3
 
       if (endPage - startPage + 1 < maxVisiblePages) {
         startPage = Math.max(1, endPage - maxVisiblePages + 1);
       }
 
       if (startPage > 1) {
-        pages.push(1);
-        if (startPage > 2) pages.push("...");
+        // pages.push(1);
+        pages.push("...");
       }
 
       for (let i = startPage; i <= endPage; i++) {
@@ -37,8 +38,8 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       }
 
       if (endPage < totalPages) {
-        if (endPage < totalPages - 1) pages.push("...");
-        pages.push(totalPages);
+        pages.push("...");
+        // pages.push(totalPages);
       }
     }
 

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import apiClient from "../../../api/api";
 import { useAuthStore } from "../../../zustand/auth";
+import Cookies from "js-cookie";
 
 interface SignInForm {
   email: string;
@@ -14,7 +15,7 @@ interface SignInForm {
 
 export function SignInPage() {
   const navigate = useNavigate();
-  const { setAccessToken, setUser } = useAuthStore();
+  const { setUser, isAuthenticated } = useAuthStore();
   const [formData, setFormData] = useState<SignInForm>({
     email: "",
     password: "",
@@ -32,19 +33,36 @@ export function SignInPage() {
     e.preventDefault();
     try {
       const response = await apiClient.post("/auth/login", formData);
+      console.log("응답 헤더:", response.headers);
 
-      // 토큰 저장
+      // 액세스 토큰 저장
       const accessToken = response.headers["authorization"]?.replace("Bearer ", "");
       if (accessToken) {
-        setAccessToken(accessToken);
+        Cookies.set("accessToken", accessToken, {
+          expires: 1, // 1일 후 만료
+          secure: true,
+          sameSite: "strict", // CSRF 공격 방지
+        });
+      }
+
+      // 리프레시 토큰 저장
+      const refreshToken = response.headers["refresh-token"];
+      if (refreshToken) {
+        Cookies.set("refreshToken", refreshToken, {
+          expires: 14, // 14일 후 만료
+          secure: true,
+          sameSite: "strict", // CSRF 공격 방지
+        });
       }
 
       // 사용자 정보 저장
-      if (response.data.user) {
+      if (response.data) {
+        console.log(response.data);
         setUser({
-          email: response.data.user.email,
-          name: response.data.user.name,
+          name: response.data.name,
+          parentCode: response.data.parentCode,
         });
+        console.log("로그인 성공");
       }
 
       // 메인 페이지로 이동

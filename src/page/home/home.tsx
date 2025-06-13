@@ -8,10 +8,14 @@ import defaultChildGirlImage from "../../assets/image/common/girl.png";
 import { PopoButton } from "../../components/button/popoButton";
 import { AddButton } from "../../components/button/AddButton";
 import { Modal } from "../../components/modal/Modal";
+import { useAuthStore } from "../../zustand/auth";
 
 export const HomePage: React.FC = () => {
   const [isOpenParentCode, setIsOpenParentCode] = useState(false);
-  const parentCode = localStorage.getItem("parentCode");
+  const authStorage = localStorage.getItem("auth-storage");
+  const authData = authStorage ? JSON.parse(authStorage) : null;
+  const parentCode = authData?.state?.user?.parentCode;
+  const { logout } = useAuthStore();
   return (
     <>
       <Modal isOpen={isOpenParentCode} onClose={() => setIsOpenParentCode(false)}>
@@ -29,6 +33,9 @@ export const HomePage: React.FC = () => {
             <div className="flex flex-col">
               <span className="">안녕하세요!</span>
               <span className="">부모님 환영합니다!</span>
+              <span className="" onClick={logout}>
+                로그아웃
+              </span>
             </div>
           </div>
         </div>

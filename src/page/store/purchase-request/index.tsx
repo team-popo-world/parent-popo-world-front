@@ -9,9 +9,9 @@ export const PurchaseRequestPage: React.FC = () => {
     <>
       <div className="flex justify-between items-center mb-4">
         <span className="text-sm">구매요청</span>
-        <div className="flex justify-between items-center gap-x-2">
-          <span className="text-sm text-gray-800">월간</span>
-          <span className="text-sm text-center bg-main-green-700 text-main-white-500 rounded-sm px-2 py-1">주간</span>
+        <div className="flex justify-between items-center gap-x-1">
+          <span className="text-sm text-gray-800 border border-gray-200 rounded-sm px-2 py-1">월간</span>
+          <span className="text-sm text-center bg-gray-800 text-main-white-500 rounded-sm px-2 py-1">주간</span>
         </div>
       </div>
       <div className="flex flex-col gap-y-8 ">
@@ -33,8 +33,8 @@ export const PurchaseRequestPage: React.FC = () => {
             </div>
             {/* 오른쪽 */}
             <div className="flex gap-x-2 items-center">
-              <div className="text-xs text-gray-800">2025.05.20</div>
-              <div className="text-xs bg-main-green-700 text-main-white-500 rounded-sm px-2 py-1">승인</div>
+              <div className="text-xs text-gray-700 px-2 py-1 bg-gray-200 rounded-md">2025.05.20</div>
+              <div className="text-xs bg-main-green-700  text-main-white-500 rounded-sm px-2 py-1">확인</div>
             </div>
             {/* 아래 선 부모 패딩 좌 2rem, 우 2rem 계산후 반영 */}
             <div className="absolute -bottom-5 -left-8 w-[calc(100%_+_4rem)] h-[0.0625rem] bg-gray-200"></div>

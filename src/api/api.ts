@@ -16,7 +16,6 @@ export class ApiError extends Error {
  * 기본 설정:
  * - baseURL: 환경 변수에서 API URL을 가져오거나 기본값 사용
  * - timeout: 5초
- * - withCredentials: true (CORS 요청에서 쿠키 전송 허용)
  * - 기본 헤더: Content-Type: application/json
  */
 
@@ -24,10 +23,6 @@ const API_URL = "http://52.78.53.247:8080";
 
 const apiClient = axios.create({
   baseURL: API_URL,
-  timeout: 5000,
-  headers: {
-    "Content-Type": "application/json",
-  },
   withCredentials: true, // CORS 요청에서 쿠키 전송을 허용
 });
 
@@ -41,8 +36,8 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     // 1. 인증 토큰 처리
-    // localStorage와 쿠키에서 토큰을 확인하고 Authorization 헤더에 추가
-    const token = localStorage.getItem("token") || Cookies.get("token");
+    // 쿠키에서 토큰을 가져와서 Authorization 헤더에 추가
+    const token = Cookies.get("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -76,20 +71,6 @@ apiClient.interceptors.request.use(
  */
 apiClient.interceptors.response.use(
   (response) => {
-    // 헤더에서 토큰 확인 및 저장
-    const accessToken = response.headers["authorization"];
-    const refreshToken = response.headers["refresh-token"];
-
-    if (accessToken) {
-      // Bearer 토큰 형식에서 실제 토큰만 추출
-      const token = accessToken.replace("Bearer ", "");
-      localStorage.setItem("token", token);
-    }
-
-    if (refreshToken) {
-      localStorage.setItem("refreshToken", refreshToken);
-    }
-
     return response;
   },
   (error: AxiosError) => {
@@ -106,7 +87,7 @@ apiClient.interceptors.response.use(
         return Promise.reject(new ApiError(status, "잘못된 요청입니다."));
       case 401:
         // 토큰 만료 시 리프레시 토큰으로 재시도
-        const refreshToken = localStorage.getItem("refreshToken");
+        const refreshToken = Cookies.get("refreshToken");
         if (refreshToken) {
           // 리프레시 토큰으로 새로운 액세스 토큰 요청
           return apiClient
@@ -115,7 +96,7 @@ apiClient.interceptors.response.use(
               const newAccessToken = response.headers["authorization"];
               if (newAccessToken) {
                 const token = newAccessToken.replace("Bearer ", "");
-                localStorage.setItem("token", token);
+                Cookies.set("token", token);
                 // 원래 요청 재시도
                 const originalRequest = error.config;
                 if (originalRequest) {
@@ -127,15 +108,15 @@ apiClient.interceptors.response.use(
             })
             .catch(() => {
               // 리프레시 토큰도 만료된 경우 로그아웃 처리
-              localStorage.removeItem("token");
-              localStorage.removeItem("refreshToken");
+              Cookies.remove("token");
+              Cookies.remove("refreshToken");
               window.location.href = "/auth/sign-in";
               return Promise.reject(new ApiError(401, "인증이 필요합니다."));
             });
         }
         // 리프레시 토큰이 없는 경우 로그아웃
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
+        Cookies.remove("token");
+        Cookies.remove("refreshToken");
         window.location.href = "/auth/sign-in";
         return Promise.reject(new ApiError(status, "인증이 필요합니다."));
       case 403:

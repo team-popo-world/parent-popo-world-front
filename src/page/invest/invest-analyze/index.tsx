@@ -283,27 +283,24 @@ export const InvestAnalyzePage: React.FC = () => {
       {/* 체류시간 분석 그래프 */}
       <div className="flex justify-between items-center mb-5">
         <div className="text-sm">{investTypes[selectedAnalyzeType].title}</div>
-        <div className="flex gap-x-1.5 items-center">
-          <div
-            className="text-sm py-1 px-2 rounded-sm"
-            style={{
-              backgroundColor: selectedAnalyzePeriod === "monthly" ? investTypes[selectedAnalyzeType].color : "",
-              color: selectedAnalyzePeriod === "monthly" ? "#fffdfe" : "#000",
-            }}
-            onClick={() => setSelectedAnalyzePeriod("monthly")}
-          >
-            월간
-          </div>
-          <div
-            className="text-sm py-1 px-2 rounded-sm"
-            style={{
-              backgroundColor: selectedAnalyzePeriod === "weekly" ? investTypes[selectedAnalyzeType].color : "",
-              color: selectedAnalyzePeriod === "weekly" ? "#fffdfe" : "#000",
-            }}
-            onClick={() => setSelectedAnalyzePeriod("weekly")}
-          >
-            주간
-          </div>
+        <div className="flex justify-between bg-gray-100 rounded-xl p-1">
+          {[
+            { label: "월간", value: "monthly" as const },
+            { label: "주간", value: "weekly" as const },
+          ].map((period) => (
+            <button
+              key={period.value}
+              className={`flex-1 py-1 px-3 rounded-lg text-sm font-semibold transition ${
+                selectedAnalyzePeriod === period.value ? "bg-white shadow" : ""
+              }`}
+              style={{
+                color: selectedAnalyzePeriod === period.value ? investTypes[selectedAnalyzeType].color : "#99a1af",
+              }}
+              onClick={() => setSelectedAnalyzePeriod(period.value)}
+            >
+              {period.label}
+            </button>
+          ))}
         </div>
       </div>
 

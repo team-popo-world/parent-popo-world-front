@@ -7,7 +7,7 @@ import clsx from "clsx";
 const urls = {
   "product-management": "상품관리",
   "purchase-management": "구매관리",
-  "purchase-request": "구매요청",
+  "purchase-request": "사용요청",
 };
 
 export const StoreLayout: React.FC = () => {
@@ -24,7 +24,7 @@ export const StoreLayout: React.FC = () => {
           <ul className="absolute top-14.5 -right-2.5 flex flex-col bg-white p-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
             <Link to="/store/product-management">
               <li
-                className={clsx("text-sm text-black", selectedTab === "상품관리" && "text-main-green-400")}
+                className={clsx("text-xs", selectedTab === "상품관리" ? "text-black font-medium" : "text-gray-400")}
                 onClick={() => setSelectedTab("상품관리")}
               >
                 상품관리
@@ -32,7 +32,7 @@ export const StoreLayout: React.FC = () => {
             </Link>
             <Link to="/store/purchase-management">
               <li
-                className={clsx("text-sm text-black", selectedTab === "구매관리" && "text-main-green-400")}
+                className={clsx("text-xs", selectedTab === "구매관리" ? "text-black font-medium" : "text-gray-400")}
                 onClick={() => setSelectedTab("구매관리")}
               >
                 구매관리
@@ -40,16 +40,16 @@ export const StoreLayout: React.FC = () => {
             </Link>
             <Link to="/store/purchase-request">
               <li
-                className={clsx("text-sm text-black", selectedTab === "구매요청" && "text-main-green-400")}
-                onClick={() => setSelectedTab("구매요청")}
+                className={clsx("text-xs k", selectedTab === "사용요청" ? "text-black font-medium" : "text-gray-400")}
+                onClick={() => setSelectedTab("사용요청")}
               >
-                구매요청
+                사용요청
               </li>
             </Link>
           </ul>
         )}
       </Header>
-      <ChildNavBar selectedColor={"#78d335"} selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
+      <ChildNavBar selectedColor={"#000000"} selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
       <Outlet />
     </>
   );

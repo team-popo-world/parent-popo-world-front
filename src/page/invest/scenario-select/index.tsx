@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "../../../components/modal/Modal";
 import { SideModal } from "../../../components/modal/SideModal";
 
@@ -8,6 +8,7 @@ import { TurnSideModal } from "../../../features/invest/TurnSideModal";
 import { ScenarioCard } from "../../../features/invest/ScenarioCard";
 import Pagination from "../../../features/invest/Pagination";
 import ThemeSelector from "../../../features/invest/ThemeSelector";
+import { getScenarioList, type PaginatedResponse, type ScenarioItem } from "../../../api/invest/scenario-list";
 
 const colors = ["#1DB3FB", "#78D335", "#C57CF0", "#FE4A4E", "#FFBE00", "#FEE0DF"];
 
@@ -52,6 +53,27 @@ export const InvestScenarioSelectPage: React.FC = () => {
     themes["아기돼지 삼형제"].name as keyof typeof scenarioNames
   );
 
+  // 드롭다운 메뉴 상태 관리
+  const [openDropdowns, setOpenDropdowns] = useState<{ [key: string]: boolean }>({});
+  // 컴포넌트 내부
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 10;
+
+  const [scenarioList, setScenarioList] = useState<PaginatedResponse<ScenarioItem>>({
+    content: [],
+    totalElements: 0,
+    totalPages: 0,
+    size: 0,
+    number: 0,
+  });
+
+  useEffect(() => {
+    getScenarioList(currentPage, 5).then((data) => {
+      console.log(data);
+      setScenarioList(data);
+    });
+  }, [currentPage]);
+
   const [senarioCreateModalOpen, setSenarioCreateModalOpen] = useState(false);
   const [senarioModalOpen, setSenarioModalOpen] = useState(false);
   const [openTurn, setOpenTurn] = useState<{ [key: string]: boolean }>({
@@ -66,12 +88,6 @@ export const InvestScenarioSelectPage: React.FC = () => {
     "9턴": false,
     "10턴": false,
   });
-
-  // 드롭다운 메뉴 상태 관리
-  const [openDropdowns, setOpenDropdowns] = useState<{ [key: string]: boolean }>({});
-  // 컴포넌트 내부
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
 
   const handleDropdownToggle = (scenarioName: string) => {
     setOpenDropdowns((prev) => ({

@@ -28,7 +28,10 @@ export const InvestLayout: React.FC = () => {
           <ul className="absolute top-14.5 -right-2.5 flex flex-col bg-white p-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
             <Link to="/invest/analyze">
               <li
-                className={clsx("text-sm text-black", selectedTab === "모의투자 분석" && "text-main-green-400")}
+                className={clsx(
+                  "text-xs ",
+                  selectedTab === "모의투자 분석" ? "text-black font-medium" : "text-gray-400"
+                )}
                 onClick={() => setSelectedTab("모의투자 분석")}
               >
                 모의투자 분석
@@ -36,7 +39,10 @@ export const InvestLayout: React.FC = () => {
             </Link>
             <Link to="/invest/scenario-select">
               <li
-                className={clsx("text-sm text-black", selectedTab === "시나리오 선택" && "text-main-green-400")}
+                className={clsx(
+                  "text-xs ",
+                  selectedTab === "시나리오 선택" ? "text-black font-medium" : "text-gray-400"
+                )}
                 onClick={() => setSelectedTab("시나리오 선택")}
               >
                 시나리오 선택

@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import apiClient from "../../../api/api";
-import { useAuthStore } from "../../../zustand/auth";
 
 interface SignUpForm {
   email: string;
@@ -15,14 +14,13 @@ interface SignUpForm {
 
 export function SignUpPage() {
   const navigate = useNavigate();
-  const { setAccessToken, setUser } = useAuthStore();
   const [formData, setFormData] = useState<SignUpForm>({
     email: "",
     password: "",
     name: "",
     sex: "",
     age: null,
-    role: "PARENT",
+    role: "Parent",
     parentCode: "",
   });
 
@@ -38,23 +36,10 @@ export function SignUpPage() {
     e.preventDefault();
     try {
       const response = await apiClient.post("/auth/signup", formData);
+      console.log(response.data);
 
-      // 토큰 저장
-      const accessToken = response.headers["authorization"]?.replace("Bearer ", "");
-      if (accessToken) {
-        setAccessToken(accessToken);
-      }
-
-      // 사용자 정보 저장
-      if (response.data.user) {
-        setUser({
-          email: response.data.user.email,
-          name: response.data.user.name,
-        });
-      }
-
-      // 메인 페이지로 이동
-      navigate("/");
+      // 로그인 페이지로 이동
+      navigate("/auth/sign-in");
     } catch (error) {
       console.error("회원가입 실패:", error);
       alert("회원가입에 실패했습니다. 다시 시도해주세요.");

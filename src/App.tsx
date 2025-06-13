@@ -12,13 +12,15 @@ import { AuthLayout } from "./page/auth/layout";
 import { SignInPage } from "./page/auth/sign-in";
 import { SignUpPage } from "./page/auth/sign-up";
 import { InvestScenarioSelectPage } from "./page/invest/scenario-select";
+import { ProtectedRoute } from "./components/layout/ProtectedRoute";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<BaseLayout />}>
+          {/* prettier-ignore */}
+          <Route path="/" element={<ProtectedRoute><BaseLayout /></ProtectedRoute>}>
             <Route index element={<HomePage />} />
             <Route path="/store" element={<StoreLayout />}>
               <Route path="product-management" element={<ProductManagementPage />} />
