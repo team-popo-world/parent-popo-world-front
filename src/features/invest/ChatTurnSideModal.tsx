@@ -31,15 +31,17 @@ export default function ChatTurnSideModal({
   });
   return (
     <>
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-        <div className="text-base font-semibold">시나리오 정보</div>
-        <button
-          onClick={() => setSenarioModalOpen(false)}
-          aria-label="닫기"
-          className="text-2xl text-gray-400 hover:text-gray-700"
-        >
-          &times;
-        </button>
+      <div className="flex flex-col px-6 pt-4 pb-3 border-b border-gray-100">
+        <div className="flex justify-between ">
+          <div className="text-base font-semibold">{scenarioName}</div>
+          <button onClick={() => setSenarioModalOpen(false)} aria-label="닫기" className="text-lg font-bold text-black">
+            &times;
+          </button>
+        </div>
+        <div className="flex gap-x-1">
+          <div className="text-xs text-gray-500">#태그</div>
+          <div className="text-xs text-gray-500">#태그</div>
+        </div>
       </div>
 
       {/* 시나리오 종류/태그 */}
@@ -50,7 +52,6 @@ export default function ChatTurnSideModal({
         >
           {selectedTheme}
         </span>
-        <span className="px-2 py-1 rounded text-xs font-medium bg-gray-900 text-main-white-500">{scenarioName}</span>
       </div>
 
       {/* 턴 정보 */}

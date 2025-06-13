@@ -144,7 +144,7 @@ export const InvestChatBotPage: React.FC = () => {
       <>
         {/* 헤더 */}
         <ChatBotHeader
-          title={"시나리오 챗봇"}
+          title={`${scenarioName}`}
           onClick={() => {}}
           backButtonOnClick={() => {
             setSenarioCreateModalOpen(true);
@@ -156,16 +156,17 @@ export const InvestChatBotPage: React.FC = () => {
         <div className="absolute top-18 right-7 text-[0.625rem] px-1 py-0.5 bg-white rounded-xl shadow-custom-2 border border-gray-100">
           턴
         </div>
-        <ChildNavBar
-          selectedColor={themes[selectedTheme].color}
-          selectedChild={selectedChild}
-          setSelectedChild={setSelectedChild}
-        />
+        <ChildNavBar selectedColor={"#000000"} selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
       </>
       {/* 채팅 리스트 */}
       <div className="flex flex-col gap-y-3 overflow-y-auto h-[calc(100vh-20.5rem)]" ref={chatContainerRef}>
         {messages.map((msg, index) => (
-          <ChatMessage key={index} message={msg.message} isTeacher={msg.isTeacher} />
+          <ChatMessage
+            key={index}
+            message={msg.message}
+            isTeacher={msg.isTeacher}
+            parentChatColor={themes[selectedTheme].color}
+          />
         ))}
       </div>
       {/* 채팅 입력 */}
@@ -174,15 +175,14 @@ export const InvestChatBotPage: React.FC = () => {
           ref={inputRef}
           className="overflow-y-auto focus:outline-none text-xs"
           contentEditable
-          onInput={handleSendMessage}
           onKeyDown={handleKeyPress}
         />
         <button
           onClick={handleSendMessage}
-          className="absolute flex justify-center items-center bottom-2 right-2 w-6 h-6 object-contain rounded-full"
-          style={{
-            backgroundColor: themes[selectedTheme].color,
-          }}
+          className="bg-black absolute flex justify-center items-center bottom-2 right-2 w-6 h-6 object-contain rounded-full"
+          // style={{
+          //   backgroundColor: themes[selectedTheme].color,
+          // }}
         >
           <ArrowUp width={16} height={16} fill="white" />
         </button>

@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  ReferenceLine,
 } from "recharts";
 
 const investTypes: Record<string, { title: string; color: string }> = {
@@ -157,6 +158,13 @@ export const InvestAnalyzePage: React.FC = () => {
               <YAxis label={{ value: "단위 (분)", position: "top", angle: 0, offset: 15, dx: 20 }} />
               <Tooltip />
               <Legend />
+              {/* 평균 라인 추가 */}
+              <ReferenceLine
+                y={DwellTimeDummyData.reduce((acc, curr) => acc + curr.overallDwellTime, 0) / DwellTimeDummyData.length}
+                stroke="#666"
+                strokeDasharray="3 3"
+                label={{ value: "평균", position: "left", offset: 10, dx: 5 }}
+              />
               <Line
                 type="monotone"
                 dataKey="overallDwellTime"
