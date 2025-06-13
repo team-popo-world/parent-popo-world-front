@@ -9,6 +9,7 @@ import { PopoButton } from "../../components/button/popoButton";
 import { AddButton } from "../../components/button/AddButton";
 import { Modal } from "../../components/modal/Modal";
 import { useAuthStore } from "../../zustand/auth";
+import { Link } from "react-router-dom";
 
 export const HomePage: React.FC = () => {
   const [isOpenParentCode, setIsOpenParentCode] = useState(false);
@@ -48,7 +49,7 @@ export const HomePage: React.FC = () => {
       <AddButton text="자녀 추가 등록" onClick={() => setIsOpenParentCode(true)} />
 
       {/* 상점 화면 */}
-      <div className="flex gap-x-6.5 justify-between h-60 mb-5">
+      <div className="flex gap-x-5 justify-between h-60 mb-5">
         <StoreCard />
         <QuickIcons />
       </div>

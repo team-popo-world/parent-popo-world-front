@@ -29,7 +29,7 @@ export const InvestmentChart: React.FC = () => {
 
   return (
     <section className="py-2">
-      <div className="rounded-2xl shadow-lg bg-white p-4 w-full max-w-md mx-auto">
+      <div className="rounded-2xl shadow-lg bg-main-white-500 border border-gray-100 p-4 w-full max-w-md ">
         <div className="flex justify-between items-center mb-3">
           <h4 className="text-lg font-bold">모의투자 게임 자녀 분석</h4>
           <Link to="/invest/analyze">
