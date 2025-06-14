@@ -32,14 +32,14 @@ const themes = {
     name: "달빛 도둑",
     color: "#FE4A4E",
   },
-};
+} as const;
 
-const scenarioNames = {
-  "아기돼지 삼형제": ["아기돼지1", "아기돼지2", "아기돼지3"],
-  "푸드 트럭 왕국": ["푸드트럭1", "푸드트럭2", "푸드트럭3"],
-  "마법 왕국": ["마법왕국1", "마법왕국2", "마법왕국3"],
-  "달빛 도둑": ["달빛도둑1", "달빛도둑2", "달빛도둑3"],
-};
+// const scenarioNames = {
+//   "아기돼지 삼형제": ["아기돼지1", "아기돼지2", "아기돼지3"],
+//   "푸드 트럭 왕국": ["푸드트럭1", "푸드트럭2", "푸드트럭3"],
+//   "마법 왕국": ["마법왕국1", "마법왕국2", "마법왕국3"],
+//   "달빛 도둑": ["달빛도둑1", "달빛도둑2", "달빛도둑3"],
+// };
 
 const turns = [
   {
@@ -70,9 +70,8 @@ export const InvestChatBotPage: React.FC = () => {
   const scenarioName = searchParams.get("scenarioName");
   console.log(scenarioType, scenarioName);
 
-  const [selectedTheme, setSelectedTheme] = useState<keyof typeof scenarioNames>(
-    scenarioType as keyof typeof scenarioNames
-  );
+  const [selectedTheme, setSelectedTheme] = useState<keyof typeof themes>(scenarioType as keyof typeof themes);
+  console.log(setSelectedTheme);
 
   const [selectedChild, setSelectedChild] = useState("자녀 1");
 

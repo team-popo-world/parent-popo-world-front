@@ -1,10 +1,10 @@
 import React from "react";
 
-interface Theme {
-  id: string;
-  name: string;
-  color: string;
-}
+// interface Theme {
+//   id: string;
+//   name: string;
+//   color: string;
+// }
 
 interface ThemeSelectorProps {
   bgColor: string;

@@ -15,7 +15,7 @@ interface SignInForm {
 
 export function SignInPage() {
   const navigate = useNavigate();
-  const { setUser, isAuthenticated } = useAuthStore();
+  const { setUser } = useAuthStore();
   const [formData, setFormData] = useState<SignInForm>({
     email: "",
     password: "",

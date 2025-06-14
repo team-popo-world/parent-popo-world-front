@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LabelList, Cell } from "recharts";
-import rightArrow from "../../assets/image/common/right-arrow.png";
 
 type LabelListProps = {
   x?: number | string;
@@ -10,7 +9,7 @@ type LabelListProps = {
 };
 
 export const ProductChart: React.FC = () => {
-  const [selectedChild, setSelectedChild] = useState("자녀 1");
+  // const [selectedChild, setSelectedChild] = useState("자녀 1");
 
   const childrenData = [
     { name: "6월 6일", value: 14 },
@@ -72,7 +71,7 @@ export const ProductChart: React.FC = () => {
                     ) : null
                   }
                 />
-                {childrenData.map((entry: { name: string; value: number }, idx: number) => (
+                {childrenData.map((_, idx: number) => (
                   <Cell key={`cell-${idx}`} fill={BarColor[idx]} />
                 ))}
               </Bar>

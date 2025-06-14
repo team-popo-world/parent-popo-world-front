@@ -10,7 +10,7 @@ import Pagination from "../../../features/invest/Pagination";
 import ThemeSelector from "../../../features/invest/ThemeSelector";
 import { getScenarioList, type PaginatedResponse, type ScenarioItem } from "../../../api/invest/scenario-list";
 
-const colors = ["#1DB3FB", "#78D335", "#C57CF0", "#FE4A4E", "#FFBE00", "#FEE0DF"];
+// const colors = ["#1DB3FB", "#78D335", "#C57CF0", "#FE4A4E", "#FFBE00", "#FEE0DF"];
 
 interface Theme {
   id: string;
@@ -66,7 +66,7 @@ export const InvestScenarioSelectPage: React.FC = () => {
     size: 0,
     number: 0,
   });
-
+  console.log(scenarioList);
   useEffect(() => {
     getScenarioList(currentPage, 5).then((data) => {
       console.log(data);
@@ -108,10 +108,12 @@ export const InvestScenarioSelectPage: React.FC = () => {
 
   const handleView = (scenarioName: string) => {
     // TODO: 조회 로직 구현
+    console.log(scenarioName);
     setSenarioModalOpen(true);
   };
 
   const handleThemeSelect = (themeName: string, firstScenario: string) => {
+    console.log(themeName, firstScenario);
     setSelectedTheme(themeName as keyof typeof scenarioNames);
   };
 

@@ -80,7 +80,7 @@ export const InvestmentChart: React.FC = () => {
                     ) : null
                   }
                 />
-                {childrenData.map((entry: { name: string; value: number }, idx: number) => (
+                {childrenData.map((_, idx: number) => (
                   <Cell key={`cell-${idx}`} fill={BarColor[idx]} />
                 ))}
               </Bar>

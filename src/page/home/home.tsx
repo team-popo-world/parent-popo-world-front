@@ -9,7 +9,6 @@ import { PopoButton } from "../../components/button/popoButton";
 import { AddButton } from "../../components/button/AddButton";
 import { Modal } from "../../components/modal/Modal";
 import { useAuthStore } from "../../zustand/auth";
-import { Link } from "react-router-dom";
 
 export const HomePage: React.FC = () => {
   const [isOpenParentCode, setIsOpenParentCode] = useState(false);

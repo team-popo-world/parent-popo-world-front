@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { ChatBotHeader, Header } from "../../components/header/header";
+import { Header } from "../../components/header/header";
 import { ChildNavBar } from "../../components/nav-bar/ChildNavBar";
 import { useState } from "react";
 import clsx from "clsx";

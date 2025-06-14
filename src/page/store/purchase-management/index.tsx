@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IMAGE_URLS } from "../../../constants/constants";
 import coinIcon from "@/assets/image/common/common_coin.webp";
 import { ProductChart } from "../../../features/store/ProductChart";
@@ -32,6 +32,7 @@ export const PurchaseManagementPage: React.FC = () => {
         {Array.from({ length: 5 }).map((_, index) => (
           <div className="relative flex justify-between items-center ">
             {/* 왼쪽 */}
+            {index}
             <div className="flex items-center gap-x-4">
               <div className="w-17 h-17 aspect-square bg-main-white-500 flex justify-center items-center border-2 border-gray-100 shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100">
                 <img src={IMAGE_URLS.items.donut} alt="" className="w-9 h-9" />

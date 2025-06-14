@@ -22,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     } else {
       // 현재 페이지 주변의 페이지들 표시
       let startPage = Math.max(1, currentPage - 1); // 시작페이지 1
-      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); // 끝페이지 3
+      const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); // 끝페이지 3
 
       if (endPage - startPage + 1 < maxVisiblePages) {
         startPage = Math.max(1, endPage - maxVisiblePages + 1);

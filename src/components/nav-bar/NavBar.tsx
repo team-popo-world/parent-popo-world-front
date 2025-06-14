@@ -5,35 +5,29 @@ import gray_chart from "../../assets/image/navbar/gray_chart.png";
 import gray_store from "../../assets/image/navbar/gray_store.png";
 import gray_setup from "../../assets/image/navbar/gray_setup.png";
 
-import green_back from "../../assets/image/navbar/green_bank.png";
-import green_home from "../../assets/image/navbar/green_home.png";
-import green_chart from "../../assets/image/navbar/green_chart.png";
-import green_store from "../../assets/image/navbar/green_store.png";
-import green_setup from "../../assets/image/navbar/green_setup.png";
-
 export const NavBar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollY = window.scrollY;
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
 
-  //     if (currentScrollY > lastScrollY) {
-  //       setIsVisible(false);
-  //     } else {
-  //       setIsVisible(true);
-  //     }
+      if (currentScrollY > lastScrollY) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
 
-  //     setLastScrollY(currentScrollY);
-  //   };
+      setLastScrollY(currentScrollY);
+    };
 
-  //   window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [lastScrollY]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   return (
     <div

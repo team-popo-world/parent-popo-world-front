@@ -16,7 +16,7 @@ export const ScenarioCard = ({
   handleEdit: (name: string) => void;
   handleView: (name: string) => void;
   handleDelete: (name: string) => void;
-  openDropdowns: any;
+  openDropdowns: Record<string, boolean>;
 }) => {
   return (
     <div key={name} className="px-6 py-5 border border-gray-100 rounded-xl shadow-md ">
