@@ -1,39 +1,28 @@
-# GitHub Actions 워크플로우 이름
 name: Deploy
-
-# 워크플로우 실행 조건 설정
 on:
-  # main 브랜치에 푸시가 발생할 때 실행
   push:
     branches: ["main"]
-
-# 실행할 작업 정의
 jobs:
-  # 빌드 작업 정의
   build:
-    # Ubuntu 최신 버전에서 실행
     runs-on: ubuntu-latest
+    container: pandoc/latex
     steps:
-      # 코드 체크아웃
       - uses: actions/checkout@v2
-
-      # 빌드된 결과물을 다른 저장소로 푸시
+      - name: Install mustache (to update the date)
+        run: apk add ruby && gem install mustache
+      - name: creates output
+        run: sh ./build.sh
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          # GitHub 토큰 설정 (시크릿에서 가져옴)
           API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }}
         with:
-          # 푸시할 소스 디렉토리
-          source-directory: "."
-          # 대상 GitHub 사용자명
-          destination-github-username: "eungyu123"
-          # 대상 저장소 이름
-          destination-repository-name: "parent-popo-world-front"
-          # 커밋에 사용할 이메일 (시크릿에서 가져옴)
+          source-directory: "output"
+          destination-github-username: eungyu123
+          destination-repository-name: parent-popo-world-front
           user-email: ${{ secrets.EMAIL }}
-          # 커밋 메시지 (원본 커밋 메시지 사용)
           commit-message: ${{ github.event.commits[0].message }}
-          # 대상 브랜치
           target-branch: main
+      - name: Test get variable exported by push-to-another-repository
+        run: echo $DESTINATION_CLONED_DIRECTORY
