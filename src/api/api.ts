@@ -40,7 +40,6 @@ apiClient.interceptors.request.use(
     // 쿠키에서 토큰을 가져와서 Authorization 헤더에 추가
     const token = useAuthStore.getState().accessToken;
     if (token) {
-      console.log("token", token);
       config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -92,8 +91,9 @@ apiClient.interceptors.response.use(
         const refreshToken = Cookies.get("refreshToken");
         if (refreshToken) {
           // 리프레시 토큰으로 새로운 액세스 토큰 요청
+          console.log("refreshToken", refreshToken);
           return apiClient
-            .post("/auth/token/refresh", { refreshToken })
+            .post("/auth/token/refresh", {}, { headers: { "Refresh-Token": refreshToken } })
             .then((response) => {
               const newAccessToken = response.headers["authorization"];
               if (newAccessToken) {

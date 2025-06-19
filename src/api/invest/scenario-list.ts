@@ -27,15 +27,16 @@ export const getScenarioList = async (
   page: number,
   size: number,
   childId: string,
-  chatbotId: string
+  chapterId: string
 ): Promise<ScenarioList> => {
   try {
     const response = await apiClient.post<ScenarioList>("/api/chatbot/items", {
       page,
       size,
       childId,
-      chatbotId,
+      chapterId,
     });
+
     return response.data;
   } catch (error) {
     if (error instanceof ApiError) {

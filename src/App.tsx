@@ -8,7 +8,6 @@ import { QuestLayout } from "./page/quest/layout";
 import { BaseLayout } from "./page/layout";
 import { InvestLayout } from "./page/invest/layout";
 import { InvestAnalyzePage } from "./page/invest/invest-analyze";
-import { InvestChatBotPage } from "./page/invest/chat-bot";
 import { AuthLayout } from "./page/auth/layout";
 import { SignInPage } from "./page/auth/sign-in";
 import { SignUpPage } from "./page/auth/sign-up";
@@ -31,8 +30,7 @@ function App() {
               <Route path="purchase-request" element={<PurchaseRequestPage />} />
             </Route>
             {/* 모의투자 */}
-            <Route path="/invest" element={<InvestLayout />}>
-              <Route path="analyze" element={<InvestAnalyzePage />} />
+            <Route path="/invest">
               <Route path="scenario-select" element={<InvestScenarioSelectPage />} />
             </Route>
             {/* 모의투자 레이아웃(헤더) 얘는 다른거라서 따로 빼둠 */}
@@ -44,7 +42,10 @@ function App() {
               <Route path="quest-list" element={<QuestListPage/>}/>
               
             </Route>
-
+            {/* 분석센터 */}
+            <Route path="/analyze">
+              <Route path="invest" element={<InvestAnalyzePage />} />
+            </Route>
           </Route>
           {/* 로그인, 회원가입 */}
           <Route path="/auth" element={<AuthLayout />}>
