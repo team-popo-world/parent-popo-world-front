@@ -1,15 +1,22 @@
 import { IMAGE_URLS } from "../../constants/constants";
 import addIcon from "../../assets/image/common/add-icon.png";
+import { useState, useRef, useEffect } from "react";
+import { LABEL_LIST } from "../../api/market/products-register";
 
 export const ProductResisterContent = ({
   selectedAddProductImage,
   selectedAddProductName,
   selectedAddProductPrice,
   selectedAddProductQuantity,
+  selectedAddProductLabel,
   setSelectedAddProductImage,
   setSelectedAddProductName,
   setSelectedAddProductPrice,
   setSelectedAddProductQuantity,
+  setSelectedAddProductLabel,
+  isDropdownOpen,
+  setIsDropdownOpen,
+  dropdownRef,
   onConfirm,
   onClose,
 }: {
@@ -17,19 +24,82 @@ export const ProductResisterContent = ({
   selectedAddProductName: string;
   selectedAddProductPrice: string;
   selectedAddProductQuantity: string;
+  selectedAddProductLabel: string;
   setSelectedAddProductImage: (image: string) => void;
   setSelectedAddProductName: (name: string) => void;
   setSelectedAddProductPrice: (price: string) => void;
   setSelectedAddProductQuantity: (quantity: string) => void;
+  setSelectedAddProductLabel: (label: string) => void;
+  isDropdownOpen: boolean;
+  setIsDropdownOpen: (isOpen: boolean) => void;
+  dropdownRef: React.RefObject<HTMLDivElement | null>;
   onConfirm: () => void;
   onClose: () => void;
 }) => {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <>
       {/* 제목 */}
-      <div className="flex items-center gap-x-1 mb-2">
-        <div className="">상품 추가등록</div>
-        <img src={addIcon} alt="" className="w-8 h-8 object-contain" />
+      <div className="flex justify-between items-center gap-x-1 mb-2">
+        <div className="flex items-center gap-x-1">
+          <div className="">상품 추가등록</div>
+          <img src={addIcon} alt="" className="w-8 h-8 object-contain" />
+        </div>
+        {/* 상품 카테고리 드롭다운 */}
+        <div
+          ref={dropdownRef}
+          className="relative min-w-28 h-8 border border-gray-100 shadow-custom-2 rounded-md bg-white cursor-pointer"
+        >
+          <button
+            type="button"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center w-full h-full border-0 outline-none pl-3 pr-8 bg-transparent cursor-pointer text-sm text-black"
+          >
+            {selectedAddProductLabel || "선택하세요"}
+          </button>
+          <div className="absolute top-0 right-0 w-8 h-full border-l border-gray-100 flex justify-center items-center">
+            <svg
+              className={`w-3 h-3 text-gray-400 transition-transform duration-300 ${
+                isDropdownOpen ? "rotate-180" : ""
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <ul
+            className={`absolute top-full left-0 w-full bg-white border border-gray-100 shadow-custom-2 rounded-md mt-1 list-none p-0 overflow-hidden transition-all duration-300 ease-in-out ${
+              isDropdownOpen ? "block" : "hidden"
+            }`}
+          >
+            {Object.values(LABEL_LIST).map((label) => (
+              <li
+                key={label}
+                onClick={() => {
+                  setSelectedAddProductLabel(label);
+                  setIsDropdownOpen(false);
+                }}
+                className="border-b border-gray-100 py-2 px-3 text-sm text-black hover:bg-gray-50 transition-colors duration-100 cursor-pointer last:border-b-0"
+              >
+                {label}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* 상품 카테고리 드롭다운 끝 */}
       </div>
       {/* 상품 이미지, 이름, 가격 설정 */}
       <div className="grid grid-cols-2 gap-x-2 gap-y-2 mb-5">

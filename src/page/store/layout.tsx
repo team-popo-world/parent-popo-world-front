@@ -49,7 +49,7 @@ export const StoreLayout: React.FC = () => {
           </ul>
         )}
       </Header>
-      <ChildNavBar selectedColor={"#000000"} selectedChild={selectedChild} setSelectedChild={setSelectedChild} />
+      <ChildNavBar selectedColor={"#000000"} />
       <Outlet />
     </>
   );

@@ -6,6 +6,7 @@ export interface StoreItem {
   quantity: number;
   type: string;
   imageUrl: string;
+  label: string;
 }
 
 export const getStoreItems = async (childId: string): Promise<StoreItem[]> => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AddButton } from "../../../components/button/AddButton";
 import { BottomSheet } from "../../../components/bottom-sheet/BottomSheet";
 import { IMAGE_URLS } from "../../../constants/constants";
@@ -7,6 +7,8 @@ import { ProductResisterContent } from "../../../features/store/ProductResisterC
 import { createStoreProduct } from "../../../api/market/products-register";
 import { useAuthStore } from "../../../zustand/auth";
 import { getStoreItems, type StoreItem } from "../../../api/market/store";
+import { deleteStoreProduct } from "../../../api/market/delete";
+import { LABEL_LIST } from "../../../api/market/products-register";
 
 export const ProductManagementPage: React.FC = () => {
   const [isAddProductBottomSheetOpen, setIsAddProductBottomSheetOpen] = useState(false);
@@ -15,7 +17,11 @@ export const ProductManagementPage: React.FC = () => {
   const [selectedEditProduct, setSelectedEditProduct] = useState<StoreItem | null>(null);
   const [selectedAddProductName, setSelectedAddProductName] = useState("");
   const [selectedAddProductPrice, setSelectedAddProductPrice] = useState("");
+  const [selectedAddProductLabel, setSelectedAddProductLabel] = useState("");
   const [selectedAddProductQuantity, setSelectedAddProductQuantity] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const [items, setItems] = useState<StoreItem[]>([]);
   const { selectedChildId } = useAuthStore();
 
@@ -28,6 +34,7 @@ export const ProductManagementPage: React.FC = () => {
 
   const handleProductClick = (product: StoreItem) => {
     setSelectedEditProduct(product);
+    setSelectedAddProductLabel(product.name);
     setIsEditProductBottomSheetOpen(true);
   };
 
@@ -40,10 +47,30 @@ export const ProductManagementPage: React.FC = () => {
       productPrice: parseInt(selectedAddProductPrice),
       productStock: parseInt(selectedAddProductQuantity),
       productImage: selectedAddProductImage,
+      label: selectedAddProductLabel,
     });
-    console.log("response", response);
+    console.log("등록 response", response);
 
     setIsAddProductBottomSheetOpen(false);
+  };
+
+  const handleCreateProductModalClose = () => {
+    setIsAddProductBottomSheetOpen(false);
+    setSelectedAddProductImage(IMAGE_URLS.items.donut);
+    setSelectedAddProductName("");
+    setSelectedAddProductPrice("");
+    setSelectedAddProductQuantity("");
+    setSelectedAddProductLabel("");
+  };
+
+  const handleDeleteProduct = async () => {
+    if (!selectedChildId || !selectedEditProduct) return;
+    const response = await deleteStoreProduct({
+      childId: selectedChildId,
+      productId: selectedEditProduct?.id || "",
+    });
+    console.log("삭제 response", response);
+    setIsEditProductBottomSheetOpen(false);
   };
 
   return (
@@ -57,8 +84,14 @@ export const ProductManagementPage: React.FC = () => {
       <div className="grid grid-cols-3 gap-x-8 gap-y-4">
         {items.map((item) => (
           <div className="flex flex-col gap-y-2" onClick={() => handleProductClick(item)}>
-            <div className="flex w-full aspect-square bg-main-white-500 justify-center items-center border-2 border-gray-100 text-lg shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100">
+            <div className="relative flex w-full aspect-square bg-main-white-500 justify-center items-center border-2 border-gray-100 text-lg shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100">
               <img src={item.imageUrl} alt={item.name} className="w-1/2 h-1/2 object-contain" />
+              {/* 라벨 */}
+              {item.label && (
+                <div className="absolute top-1 right-1 bg-main-green-400 text-main-white-500 text-xs rounded-full px-1 py-0.5">
+                  {LABEL_LIST[item.label as keyof typeof LABEL_LIST]}
+                </div>
+              )}
             </div>
             <div className="flex flex-col gap-y-0.5 px-0.5">
               <span className="text-xs text-black">{item.name}</span>
@@ -72,7 +105,7 @@ export const ProductManagementPage: React.FC = () => {
       </div>
 
       {/* 상품 추가 Bottom Sheet */}
-      <BottomSheet isOpen={isAddProductBottomSheetOpen} onClose={() => setIsAddProductBottomSheetOpen(false)}>
+      <BottomSheet isOpen={isAddProductBottomSheetOpen} onClose={handleCreateProductModalClose}>
         <ProductResisterContent
           selectedAddProductImage={selectedAddProductImage}
           selectedAddProductName={selectedAddProductName}
@@ -82,8 +115,13 @@ export const ProductManagementPage: React.FC = () => {
           setSelectedAddProductName={setSelectedAddProductName}
           setSelectedAddProductPrice={setSelectedAddProductPrice}
           setSelectedAddProductQuantity={setSelectedAddProductQuantity}
+          setSelectedAddProductLabel={setSelectedAddProductLabel}
+          selectedAddProductLabel={selectedAddProductLabel}
+          isDropdownOpen={isDropdownOpen}
+          setIsDropdownOpen={setIsDropdownOpen}
+          dropdownRef={dropdownRef}
           onConfirm={handleAddProduct}
-          onClose={() => setIsAddProductBottomSheetOpen(false)}
+          onClose={handleCreateProductModalClose}
         />
       </BottomSheet>
       {/* 상품 수정 Bottom Sheet */}
@@ -117,7 +155,7 @@ export const ProductManagementPage: React.FC = () => {
         <div className="grid grid-cols-2 gap-x-2 w-full ">
           <div
             className="text-center bg-main-red-500 text-main-white-500 text-sm rounded-xl py-3 shadow-custom-2"
-            onClick={() => setIsEditProductBottomSheetOpen(false)}
+            onClick={handleDeleteProduct}
           >
             삭제
           </div>
