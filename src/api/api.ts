@@ -80,6 +80,12 @@ apiClient.interceptors.response.use(
       return Promise.reject(new ApiError(0, "네트워크 연결을 확인해주세요."));
     }
 
+    if (error.config?.url?.includes("/auth/token/refresh")) {
+      Cookies.remove("refreshToken");
+      useAuthStore.getState().logout();
+      return Promise.reject(new ApiError(401, "인증이 필요합니다."));
+    }
+
     const { status } = error.response;
 
     if (status === 401) {
@@ -125,7 +131,6 @@ apiClient.interceptors.response.use(
     switch (status) {
       case 400:
         return Promise.reject(new ApiError(status, "잘못된 요청입니다."));
-
       case 403:
         // 권한 에러
         return Promise.reject(new ApiError(status, "접근 권한이 없습니다."));
