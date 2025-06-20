@@ -1,21 +1,12 @@
 import apiClient, { ApiError } from "../api";
+import type { ProductItem } from "./type";
 
 interface StoreProductRequest {
   childId: string;
   productName: string;
   productPrice: number;
-  productStock: number;
   productImage: string;
   label: string;
-}
-
-interface StoreProductResponse {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  type: string;
-  imageUrl: string;
 }
 
 export const LABEL_LIST = {
@@ -29,20 +20,19 @@ export const LABEL_LIST = {
 
 const REVERSE_LABEL_LIST = Object.fromEntries(Object.entries(LABEL_LIST).map(([key, value]) => [value, key]));
 
+// 상품 등록
 export const createStoreProduct = async ({
   childId,
   productName,
   productPrice,
-  productStock,
   productImage,
   label,
-}: StoreProductRequest): Promise<StoreProductResponse | undefined> => {
+}: StoreProductRequest): Promise<ProductItem | undefined> => {
   try {
-    const response = await apiClient.post<StoreProductResponse>("/api/store/parent/products", {
+    const response = await apiClient.post<ProductItem>("/api/store/parent/products", {
       childId,
       productName,
       productPrice,
-      productStock,
       productImage,
       label: REVERSE_LABEL_LIST[label],
     });

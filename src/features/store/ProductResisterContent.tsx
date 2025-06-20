@@ -1,35 +1,20 @@
 import { IMAGE_URLS } from "../../constants/constants";
 import addIcon from "../../assets/image/common/add-icon.png";
-import { useState, useRef, useEffect } from "react";
-import { LABEL_LIST } from "../../api/market/products-register";
+import { useEffect } from "react";
+import { LABEL_LIST } from "../../api/market/registerProduct";
+import type { ProductItem } from "../../api/market/type";
 
 export const ProductResisterContent = ({
-  selectedAddProductImage,
-  selectedAddProductName,
-  selectedAddProductPrice,
-  selectedAddProductQuantity,
-  selectedAddProductLabel,
-  setSelectedAddProductImage,
-  setSelectedAddProductName,
-  setSelectedAddProductPrice,
-  setSelectedAddProductQuantity,
-  setSelectedAddProductLabel,
+  selectedAddProduct,
+  setSelectedAddProduct,
   isDropdownOpen,
   setIsDropdownOpen,
   dropdownRef,
   onConfirm,
   onClose,
 }: {
-  selectedAddProductImage: string;
-  selectedAddProductName: string;
-  selectedAddProductPrice: string;
-  selectedAddProductQuantity: string;
-  selectedAddProductLabel: string;
-  setSelectedAddProductImage: (image: string) => void;
-  setSelectedAddProductName: (name: string) => void;
-  setSelectedAddProductPrice: (price: string) => void;
-  setSelectedAddProductQuantity: (quantity: string) => void;
-  setSelectedAddProductLabel: (label: string) => void;
+  selectedAddProduct: ProductItem | null;
+  setSelectedAddProduct: (product: ProductItem) => void;
   isDropdownOpen: boolean;
   setIsDropdownOpen: (isOpen: boolean) => void;
   dropdownRef: React.RefObject<HTMLDivElement | null>;
@@ -65,7 +50,7 @@ export const ProductResisterContent = ({
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="flex items-center w-full h-full border-0 outline-none pl-3 pr-8 bg-transparent cursor-pointer text-sm text-black"
           >
-            {selectedAddProductLabel || "선택하세요"}
+            {selectedAddProduct?.label || "선택하세요"}
           </button>
           <div className="absolute top-0 right-0 w-8 h-full border-l border-gray-100 flex justify-center items-center">
             <svg
@@ -89,7 +74,7 @@ export const ProductResisterContent = ({
               <li
                 key={label}
                 onClick={() => {
-                  setSelectedAddProductLabel(label);
+                  setSelectedAddProduct({ ...selectedAddProduct, label } as ProductItem);
                   setIsDropdownOpen(false);
                 }}
                 className="border-b border-gray-100 py-2 px-3 text-sm text-black hover:bg-gray-50 transition-colors duration-100 cursor-pointer last:border-b-0"
@@ -104,7 +89,7 @@ export const ProductResisterContent = ({
       {/* 상품 이미지, 이름, 가격 설정 */}
       <div className="grid grid-cols-2 gap-x-2 gap-y-2 mb-5">
         <div className="w-40 h-40 aspect-square bg-main-white-500 flex justify-center items-center self-end border-2 border-gray-100 shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100">
-          <img src={selectedAddProductImage} alt="" className="w-1/2 h-1/2 object-contain" />
+          <img src={selectedAddProduct?.imageUrl} alt="" className="w-1/2 h-1/2 object-contain" />
         </div>
         <div className="flex flex-col gap-y-0.5 ">
           <label htmlFor="" className="text-sm text-black">
@@ -112,8 +97,10 @@ export const ProductResisterContent = ({
           </label>
           <input
             type="text"
-            value={selectedAddProductName}
-            onChange={(e) => setSelectedAddProductName(e.target.value)}
+            value={selectedAddProduct?.productName}
+            onChange={(e) =>
+              setSelectedAddProduct({ ...selectedAddProduct, productName: e.target.value } as ProductItem)
+            }
             className="pl-2 py-0.5 text-sm text-black border border-gray-100 shadow-custom-2 rounded-md focus:outline-none"
           />
           <label htmlFor="" className="text-sm text-black mt-3">
@@ -121,17 +108,13 @@ export const ProductResisterContent = ({
           </label>
           <input
             type="text"
-            value={selectedAddProductPrice}
-            onChange={(e) => setSelectedAddProductPrice(e.target.value)}
-            className="pl-2 py-0.5 text-sm text-black border border-gray-100 shadow-custom-2 rounded-md focus:outline-none"
-          />
-          <label htmlFor="" className="text-sm text-black mt-3">
-            상품 개수
-          </label>
-          <input
-            type="text"
-            value={selectedAddProductQuantity}
-            onChange={(e) => setSelectedAddProductQuantity(e.target.value)}
+            value={selectedAddProduct?.price}
+            onChange={(e) =>
+              setSelectedAddProduct({
+                ...selectedAddProduct,
+                price: e.target.value === "" ? 0 : Number(e.target.value),
+              } as ProductItem)
+            }
             className="pl-2 py-0.5 text-sm text-black border border-gray-100 shadow-custom-2 rounded-md focus:outline-none"
           />
         </div>
@@ -143,7 +126,7 @@ export const ProductResisterContent = ({
           <div
             key={index}
             className="w-15 h-15 aspect-square bg-main-white-500 flex justify-center items-center border-2 border-gray-100 shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100"
-            onClick={() => setSelectedAddProductImage(image)}
+            onClick={() => setSelectedAddProduct({ ...selectedAddProduct, imageUrl: image } as ProductItem)}
           >
             <img src={image} alt="" className="w-1/2 h-1/2 object-contain" />
           </div>
