@@ -3,6 +3,7 @@ import addIcon from "../../assets/image/common/add-icon.png";
 import { useEffect } from "react";
 import { LABEL_LIST } from "../../api/market/registerProduct";
 import type { ProductItem } from "../../api/market/type";
+import clsx from "clsx";
 
 export const ProductResisterContent = ({
   selectedAddProduct,
@@ -77,7 +78,10 @@ export const ProductResisterContent = ({
                   setSelectedAddProduct({ ...selectedAddProduct, label } as ProductItem);
                   setIsDropdownOpen(false);
                 }}
-                className="border-b border-gray-100 py-2 px-3 text-sm text-black hover:bg-gray-50 transition-colors duration-100 cursor-pointer last:border-b-0"
+                className={clsx(
+                  "border-b border-gray-100 py-2 px-3 text-sm text-black hover:bg-gray-50 transition-colors duration-100 cursor-pointer last:border-b-0",
+                  selectedAddProduct?.label === label ? "bg-gray-100" : ""
+                )}
               >
                 {label}
               </li>

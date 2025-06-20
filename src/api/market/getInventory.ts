@@ -13,5 +13,6 @@ export interface __InventoryItem {
 
 export const getInventory = async (childId: string): Promise<__InventoryItem[]> => {
   const response = await apiClient.get(`/api/store/parent/child-inventory?childId=${childId}`);
+  console.log("getInventory", response.data);
   return response.data;
 };

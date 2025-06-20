@@ -4,11 +4,15 @@ import { getPendingApprove } from "../../../api/market/getPendingApprove";
 import { useAuthStore } from "../../../zustand/auth";
 import { approveProduct } from "../../../api/market/approve-product";
 import type { ProductItem } from "../../../api/market/type";
+import clsx from "clsx";
+import Pagination from "../../../components/page/Pagination";
 
 // 무한 스크롤 구현
 export const PurchaseRequestPage: React.FC = () => {
   const { selectedChildId } = useAuthStore();
   const [pendingApprovals, setPendingApprovals] = useState<ProductItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // 구매요청 리스트 조회
   useEffect(() => {
@@ -24,19 +28,26 @@ export const PurchaseRequestPage: React.FC = () => {
     approveProduct(productId, selectedChildId);
   };
 
+  // 페이지네이션 계산
+  const totalPages = Math.ceil(pendingApprovals.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = pendingApprovals.slice(startIndex, endIndex);
+
+  // 페이지 변경 핸들러
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   // 상품 사용 확인 후 리스트 업데이트
   return (
     <>
       <div className="flex justify-between items-center mb-4">
         <span className="text-sm">상품 사용 확인</span>
-        <div className="flex justify-between items-center gap-x-1">
-          <span className="text-sm text-gray-800 border border-gray-200 rounded-sm px-2 py-1">월간</span>
-          <span className="text-sm text-center bg-gray-800 text-main-white-500 rounded-sm px-2 py-1">주간</span>
-        </div>
       </div>
       <div className="flex flex-col gap-y-8 ">
         {/* 구매요청 리스트 */}
-        {pendingApprovals.map((item) => (
+        {currentItems.map((item) => (
           <div className="relative flex justify-between items-center ">
             {/* 왼쪽 */}
             <div className="flex items-center gap-x-4">
@@ -66,6 +77,13 @@ export const PurchaseRequestPage: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* 페이지네이션 */}
+      {totalPages > 1 && (
+        <div className="mt-8">
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        </div>
+      )}
     </>
   );
 };
