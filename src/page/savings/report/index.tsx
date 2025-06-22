@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import PopoImg from "../../../assets/image/common/popo.png"; // 여러 개의 저축통장 정보 배열 (가장 최근 통장이 맨 앞에 오도록)
+import DonutChart from "../../../features/savings/DonutChart";
 const savingsList = [
   {
     id: 1,
@@ -73,13 +74,13 @@ export const SavingsReportPage: React.FC = () => {
         <div className="bg-white p-4 pb-1 ml-2">
           <div className="">시작일 ~ 종료일</div>
           <div className="bg-gray-200 w-fit px-2 rounded-md mt-1">
-            {savingsInfo.current}냥
+            {savingsInfo.start} ~ {savingsInfo.end}
           </div>
         </div>
         <div className="bg-white p-4 pb-1 ml-2">
           <div className="">목표 달성시 보상</div>
           <div className="bg-gray-200 w-fit px-2 rounded-md mt-1">
-            {savingsInfo.current}냥
+            +{savingsInfo.reward}냥
           </div>
         </div>{" "}
         <div className="bg-white p-4 pb-1 ml-2">
@@ -88,8 +89,12 @@ export const SavingsReportPage: React.FC = () => {
             <span className="font-bold">{savingsInfo.current}</span> /{" "}
             {savingsInfo.goal}냥
           </div>
-          <div>
-            {Math.round((savingsInfo.current / savingsInfo.goal) * 100)}%
+          <div className="flex justify-center items-center mt-4 mr-2">
+            <DonutChart
+              percentage={Math.round(
+                (savingsInfo.current / savingsInfo.goal) * 100
+              )}
+            />
           </div>
         </div>
         <button
