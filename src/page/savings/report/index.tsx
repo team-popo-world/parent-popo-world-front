@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-// 여러 개의 저축통장 정보 배열 (가장 최근 통장이 맨 앞에 오도록)
+import PopoImg from "../../../assets/image/common/popo.png"; // 여러 개의 저축통장 정보 배열 (가장 최근 통장이 맨 앞에 오도록)
 const savingsList = [
   {
     id: 1,
@@ -10,6 +10,10 @@ const savingsList = [
     end: "2025.09.15", // 종료일
     reward: 200, // 목표 달성시 보상
     history: [
+      { date: "7월 19일", name: "이현기", amount: 100, total: 2100 },
+      { date: "7월 18일", name: "이현기", amount: 100, total: 2000 },
+      { date: "7월 17일", name: "이현기", amount: 100, total: 1900 },
+      { date: "7월 16일", name: "이현기", amount: 100, total: 1800 },
       { date: "7월 19일", name: "이현기", amount: 100, total: 2100 },
       { date: "7월 18일", name: "이현기", amount: 100, total: 2000 },
       { date: "7월 17일", name: "이현기", amount: 100, total: 1900 },
@@ -34,6 +38,7 @@ const savingsList = [
 export const SavingsReportPage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const savingsInfo = savingsList[currentIndex];
+  const [showHistory, setShowHistory] = useState(false);
 
   return (
     // 전체 레이아웃
@@ -87,9 +92,45 @@ export const SavingsReportPage: React.FC = () => {
             {Math.round((savingsInfo.current / savingsInfo.goal) * 100)}%
           </div>
         </div>
-        <button className="block bg-blue-800 text-white mx-auto cursor-pointer px-2 py-1 rounded-md my-5">
+        <button
+          className="block bg-blue-800 text-white mx-auto cursor-pointer px-2 py-1 rounded-md my-5"
+          onClick={() => setShowHistory((prev) => !prev)}
+        >
           저축 내역 보기
         </button>
+        {showHistory && (
+          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+            <div className="bg-white h-[32rem] w-[20rem] rounded-2xl overflow-y-auto relative">
+              <div className="bg-blue-800 h-[3rem] text-[1.2rem] flex items-center justify-center text-white sticky top-0 z-10">
+                저축내역
+                <button
+                  className="cursor-pointer text-[1rem] text-blue-800 font-bold absolute right-3 bg-gray-100 rounded-full w-6 h-6 text-center"
+                  onClick={() => setShowHistory(false)}
+                >
+                  ×
+                </button>
+              </div>
+              {savingsInfo.history.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-between mb-4"
+                >
+                  <div className="bg-purple-200 w-15 h-15 rounded-xl mt-8 ml-5 flex items-center justify-center relative">
+                    <img src={PopoImg} alt="포포" className="w-12 h-12" />
+                    <span className="absolute text-sm top-[-1.3rem]">
+                      {item.date}
+                    </span>
+                  </div>
+                  <div className="text-lg mt-8 ml-[-7rem]">{item.name}</div>
+                  <div className="flex flex-col mr-5 mt-8">
+                    <span className="text-blue-500">+{item.amount}</span>
+                    <span>{item.total}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {currentIndex < savingsList.length - 1 && (
           <button
             className="text-gray-500 absolute right-[-3rem] top-1/2 -translate-y-1/2 text-[5rem] cursor-pointer"
