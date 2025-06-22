@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 // 여러 개의 저축통장 정보 배열 (가장 최근 통장이 맨 앞에 오도록)
 const savingsList = [
   {
@@ -34,13 +34,20 @@ const savingsList = [
 export const SavingsReportPage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const savingsInfo = savingsList[currentIndex];
-  
 
   return (
     // 전체 레이아웃
     <div className="flex flex-col items-center relative">
+      {currentIndex > 0 && (
+        <button
+          className="text-gray-500 absolute left-[-3rem] top-1/2 -translate-y-1/2 text-[5rem] cursor-pointer"
+          onClick={() => setCurrentIndex(currentIndex - 1)}
+        >
+          <MdChevronLeft />
+        </button>
+      )}
       {/* 카드 전체 박스 */}
-      <div className="h-[31rem] w-[20rem] rounded-2xl shadow-md border-gray-200 border-2">
+      <div className=" w-[20rem] rounded-2xl shadow-md border-gray-200 border-2">
         {/* 카드 상단 정보 */}
         <div className="bg-blue-400 h-[3rem] w-[19.8rem] text-[1.2rem] flex items-center justify-center text-white rounded-t-xl">
           저축 통장
@@ -80,6 +87,17 @@ export const SavingsReportPage: React.FC = () => {
             {Math.round((savingsInfo.current / savingsInfo.goal) * 100)}%
           </div>
         </div>
+        <button className="block bg-blue-800 text-white mx-auto cursor-pointer px-2 py-1 rounded-md my-5">
+          저축 내역 보기
+        </button>
+        {currentIndex < savingsList.length - 1 && (
+          <button
+            className="text-gray-500 absolute right-[-3rem] top-1/2 -translate-y-1/2 text-[5rem] cursor-pointer"
+            onClick={() => setCurrentIndex(currentIndex + 1)}
+          >
+            <MdChevronRight />
+          </button>
+        )}
       </div>
     </div>
   );
