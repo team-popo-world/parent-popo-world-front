@@ -9,11 +9,49 @@ interface Props {
 }
 
 const SavingsHistoryModal: React.FC<Props> = ({ open, onClose, history }) => {
+  // 모달이 열릴 때 body 스크롤 막기
+  React.useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    
+    if (open) {
+      // body 스크롤 막기
+      document.body.style.cssText = `
+        overflow: hidden !important;
+        touch-action: none !important;
+        position: fixed !important;
+        width: 100% !important;
+        height: 100% !important;
+      `;
+    }
+
+    // cleanup function - 모달이 닫힐 때 원래 상태로 복구
+    return () => {
+      document.body.style.overflow = originalStyle;
+      document.body.style.touchAction = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    };
+  }, [open]);
+
   if (!open) return null;
 
+  // 모달 배경 클릭 시 닫기
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
-      <div className="bg-white h-[32rem] w-[20rem] rounded-2xl overflow-y-auto relative">
+    <div 
+      className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center touch-none"
+      onClick={handleBackdropClick}
+    >
+      <div 
+        className="bg-white h-[32rem] w-[20rem] rounded-2xl overflow-y-auto relative"
+        onClick={e => e.stopPropagation()}
+      >
         <div className="bg-blue-800 h-[3rem] text-[1.2rem] flex items-center justify-center text-white sticky top-0 z-10">
           저축내역
           <button
@@ -23,9 +61,11 @@ const SavingsHistoryModal: React.FC<Props> = ({ open, onClose, history }) => {
             ×
           </button>
         </div>
-        {history.map((item, idx) => (
-          <SavingsHistoryRow key={idx} item={item} />
-        ))}
+        <div className="overflow-y-auto">
+          {history.map((item, idx) => (
+            <SavingsHistoryRow key={idx} item={item} />
+          ))}
+        </div>
       </div>
     </div>
   );
