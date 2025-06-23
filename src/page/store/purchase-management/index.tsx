@@ -13,12 +13,15 @@ import { BottomSheet } from "../../../components/bottom-sheet/BottomSheet";
 // 무한 스크롤 구현
 
 export const PurchaseManagementPage: React.FC = () => {
+  const todayDate = new Date();
   const { selectedChildId } = useAuthStore();
   const [items, setItems] = useState<ProductItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedDate, setSelectedDate] = useState<string>("2025.05");
+  const [selectedDate, setSelectedDate] = useState<string>(
+    `${todayDate.getFullYear()}.${(todayDate.getMonth() + 1).toString().padStart(2, "0")}`
+  );
   const [bottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
-  const [selectedYear, setSelectedYear] = useState<number>(2025);
+  const [selectedYear, setSelectedYear] = useState<number>(todayDate.getFullYear());
   const itemsPerPage = 10;
 
   useEffect(() => {

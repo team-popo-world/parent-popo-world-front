@@ -86,7 +86,7 @@ export const InvestScenarioSelectPage: React.FC = () => {
 
   useEffect(() => {
     if (selectedChildId) {
-      getScenarioList(currentPage, 5, selectedChildId, themes[selectedTheme].chapterId).then((data) => {
+      getScenarioList(currentPage - 1, 5, selectedChildId, themes[selectedTheme].chapterId).then((data) => {
         setScenarioList(data.scenarioList);
         setTotalPages(Number(data.totalPageSize));
         setOpenDropdowns(
