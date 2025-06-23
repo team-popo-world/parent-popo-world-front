@@ -8,50 +8,16 @@ interface PopularProduct {
   avgPrice: number;
 }
 
-const popularProducts: PopularProduct[] = [
-  {
-    name: "레고",
-    category: "장난감",
-    count: 4,
-    totalAmount: 2000,
-    avgPrice: 500.0,
-  },
-  {
-    name: "과자",
-    category: "간식",
-    count: 4,
-    totalAmount: 600,
-    avgPrice: 150.0,
-  },
-  {
-    name: "학습지",
-    category: "교육",
-    count: 2,
-    totalAmount: 600,
-    avgPrice: 300.0,
-  },
-  {
-    name: "초콜릿",
-    category: "간식",
-    count: 1,
-    totalAmount: 100,
-    avgPrice: 100.0,
-  },
-  {
-    name: "게임시간",
-    category: "오락",
-    count: 2,
-    totalAmount: 300,
-    avgPrice: 150.0,
-  },
-];
+interface WeeklyTopProductsProps {
+  data: PopularProduct[];
+}
 
-export const WeeklyTopProducts = () => {
+export const WeeklyTopProducts = ({ data }: WeeklyTopProductsProps) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-6 border border-gray-100">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">🏆 이번 주 인기 상품 TOP 5</h3>
       <div className="space-y-3 max-h-80 overflow-y-auto">
-        {popularProducts.map((product, index) => (
+        {data.map((product, index) => (
           <div
             key={`product-${index}`}
             className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"

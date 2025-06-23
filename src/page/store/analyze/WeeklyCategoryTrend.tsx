@@ -10,65 +10,6 @@ interface WeeklyTrendData {
   기타: number;
 }
 
-const weeklyData: WeeklyTrendData[] = [
-  {
-    day: "일",
-    간식: 0,
-    오락: 0,
-    장난감: 0,
-    교육: 0,
-    기타: 0,
-  },
-  {
-    day: "월",
-    간식: 0,
-    오락: 0,
-    장난감: 0,
-    교육: 0,
-    기타: 0,
-  },
-  {
-    day: "화",
-    간식: 0,
-    오락: 0,
-    장난감: 0,
-    교육: 0,
-    기타: 0,
-  },
-  {
-    day: "수",
-    간식: 300,
-    오락: 0,
-    장난감: 0,
-    교육: 0,
-    기타: 0,
-  },
-  {
-    day: "목",
-    간식: 100,
-    오락: 200,
-    장난감: 2000,
-    교육: 300,
-    기타: 0,
-  },
-  {
-    day: "금",
-    간식: 300,
-    오락: 0,
-    장난감: 0,
-    교육: 200,
-    기타: 0,
-  },
-  {
-    day: "토",
-    간식: 0,
-    오락: 0,
-    장난감: 0,
-    교육: 0,
-    기타: 86,
-  },
-];
-
 const colors = {
   간식: "#FF6B6B",
   오락: "#4ECDC4",
@@ -111,14 +52,18 @@ const CustomTopRoundedBar = (props: any, category: string) => {
   return <path d={path} fill={fill} />;
 };
 
-export const WeeklyCategoryTrend = () => {
+interface WeeklyCategoryTrendProps {
+  data: WeeklyTrendData[];
+}
+
+export const WeeklyCategoryTrend = ({ data }: WeeklyCategoryTrendProps) => {
   return (
     <div className=" rounded-lg px-1 py-6 shadow-sm mb-6 border border-gray-100">
       <h3 className="px-4 text-lg font-semibold text-gray-800 mb-6">주간 카테고리별 소비 추이</h3>
 
       <div className="w-full h-72 -ml-5 text-xs">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={weeklyData} margin={{ top: 0, right: 4, left: 4, bottom: 0 }}>
+          <BarChart data={data} margin={{ top: 0, right: 4, left: 4, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="day" />
             <YAxis

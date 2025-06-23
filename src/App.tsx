@@ -17,7 +17,7 @@ import { QuestListPage } from "./page/quest/quest-list";
 import { CreateQuestPage } from "./page/quest/create-quest";
 import { SavingsReportPage } from "./page/savings/report";
 import { SavingsLayout } from "./page/savings/layout";
-import { ProductAnalyze } from "./page/store/analyze/ProductAnalyze";
+import { ProductAnalyzePage } from "./page/store/analyze/ProductAnalyzePage";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
               <Route path="product-management" element={<ProductManagementPage />} />
               <Route path="purchase-management" element={<PurchaseManagementPage />} />
               <Route path="purchase-request" element={<PurchaseRequestPage />} />
-              <Route path="analyze" element={<ProductAnalyze />} />
+              <Route path="analyze" element={<ProductAnalyzePage />} />
             </Route>
             {/* 모의투자 */}
             <Route path="/invest">

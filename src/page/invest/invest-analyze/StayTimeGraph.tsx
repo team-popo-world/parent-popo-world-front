@@ -1,7 +1,7 @@
 // 체류시간 그래프
 
 import { Legend, XAxis, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, YAxis } from "recharts";
-import graph1DataRaw from "./graph1_all.csv";
+import graph1AllDummy from "./graph1_all_dummy";
 
 // CSV 파싱 및 변환 함수
 function parseTimeToSeconds(timeStr: string): number {
@@ -15,21 +15,21 @@ function parseTimeToSeconds(timeStr: string): number {
   return days * 86400 + hours * 3600 + minutes * 60 + seconds;
 }
 
-const DwellTimeData = (graph1DataRaw as any[]).map((row) => ({
+const StayTime = (graph1AllDummy as any[]).map((row) => ({
   startedAt: row.startedAt,
   avgStayTime: Number(row.avgStayTime),
   tagAvgStayTime: parseTimeToSeconds(row.tagAvgStayTime),
 }));
 
-export default function DwellTimeGraph() {
+export default function StayTimeGraph() {
   // 평균 계산
-  const avgStayTimeMean = DwellTimeData.length
-    ? DwellTimeData.reduce((acc, curr) => acc + curr.avgStayTime, 0) / DwellTimeData.length
+  const avgStayTimeMean = StayTime.length
+    ? StayTime.reduce((acc, curr) => acc + curr.avgStayTime, 0) / StayTime.length
     : 0;
   return (
     <div className="w-[calc(100%_+_1rem)] h-80 -ml-4 text-xs">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={DwellTimeData} margin={{ top: 40, right: 10, left: 0, bottom: 0 }}>
+        <LineChart data={StayTime} margin={{ top: 40, right: 10, left: 0, bottom: 0 }}>
           <XAxis dataKey="startedAt" />
           <YAxis label={{ value: "단위 (초)", position: "top", angle: 0, offset: 15, dx: 20 }} />
           <Tooltip formatter={(value: number) => `${value.toFixed(2)}초`} />
