@@ -21,6 +21,7 @@ interface Theme {
   color: string;
   chapterId: string;
 }
+
 const themes: Record<string, Theme> = {
   "아기돼지 삼형제": {
     id: "1",

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HomePage } from "./page/home/home";
 import { ProductManagementPage } from "./page/store/product-management";
 import { PurchaseManagementPage } from "./page/store/purchase-management";
@@ -19,9 +20,19 @@ import { SavingsReportPage } from "./page/savings/report";
 import { SavingsLayout } from "./page/savings/layout";
 import { ProductAnalyzePage } from "./page/store/analyze/ProductAnalyzePage";
 
+// QueryClient 인스턴스 생성
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
           {/* prettier-ignore */}
@@ -62,7 +73,7 @@ function App() {
         </Routes>
       </Router>
       <div id="modal-root" />
-    </>
+    </QueryClientProvider>
   );
 }
 
