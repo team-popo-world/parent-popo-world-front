@@ -23,6 +23,7 @@ export const ProductAnalyzePage = () => {
       setLoading(true);
       getStoreAnalyze({ child_id: selectedChildId })
         .then((data) => {
+          console.log(data);
           setAnalyzeData(data);
           setLoading(false);
         })
