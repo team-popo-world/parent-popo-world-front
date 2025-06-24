@@ -1,11 +1,17 @@
 import React from "react";
-import type { SavingsHistory } from "../../api/savings/type";
 import { SavingsHistoryRow } from "./SavingsHistoryRow";
+
+interface SavingsHistoryItem {
+  date: string;
+  name: string;
+  amount: number;
+  total: number;
+}
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  history: SavingsHistory[];
+  history: SavingsHistoryItem[];
 }
 
 const SavingsHistoryModal: React.FC<Props> = ({ open, onClose, history }) => {
@@ -49,11 +55,11 @@ const SavingsHistoryModal: React.FC<Props> = ({ open, onClose, history }) => {
       onClick={handleBackdropClick}
     >
       <div
-        className="bg-white h-[32rem] w-[20rem] rounded-2xl overflow-y-auto relative"
+        className="bg-white h-[36.7rem] w-[20rem] rounded-2xl overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="bg-blue-800 h-[3rem] text-[1.2rem] flex items-center justify-center text-white sticky top-0 z-10">
-          저축내역
+          저축 내역
           <button
             className="cursor-pointer text-[1rem] text-blue-800 font-bold absolute right-3 bg-gray-100 rounded-full w-6 h-6 text-center"
             onClick={onClose}
@@ -62,9 +68,15 @@ const SavingsHistoryModal: React.FC<Props> = ({ open, onClose, history }) => {
           </button>
         </div>
         <div className="overflow-y-auto">
-          {history.map((item, idx) => (
-            <SavingsHistoryRow key={idx} item={item} />
-          ))}
+          {history.length > 0 ? (
+            history.map((item, idx) => (
+              <SavingsHistoryRow key={idx} item={item} />
+            ))
+          ) : (
+            <div className="p-4 text-center text-gray-500">
+              저축 내역이 없습니다.
+            </div>
+          )}
         </div>
       </div>
     </div>
