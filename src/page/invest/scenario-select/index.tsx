@@ -21,6 +21,7 @@ interface Theme {
   color: string;
   chapterId: string;
 }
+
 const themes: Record<string, Theme> = {
   "아기돼지 삼형제": {
     id: "1",
@@ -86,7 +87,7 @@ export const InvestScenarioSelectPage: React.FC = () => {
 
   useEffect(() => {
     if (selectedChildId) {
-      getScenarioList(currentPage, 5, selectedChildId, themes[selectedTheme].chapterId).then((data) => {
+      getScenarioList(currentPage - 1, 5, selectedChildId, themes[selectedTheme].chapterId).then((data) => {
         setScenarioList(data.scenarioList);
         setTotalPages(Number(data.totalPageSize));
         setOpenDropdowns(
