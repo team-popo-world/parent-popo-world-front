@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { savingsList } from "../../../api/savings/dummyData";
 import SavingsHistoryModal from "../../../features/savings/SavingsHistoryModal";
 import SavingsCard from "../../../features/savings/SavingsCard";
@@ -12,21 +12,10 @@ export const SavingsReportPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center relative">
       {currentIndex > 0 && (
-        <NavigationButton
-          direction="left"
-          onClick={() => setCurrentIndex(currentIndex - 1)}
-          className="left-[-3rem]"
-        />
+        <NavigationButton direction="left" onClick={() => setCurrentIndex(currentIndex - 1)} className="left-[-3rem]" />
       )}
-      <SavingsCard
-        savingsInfo={savingsInfo}
-        onShowHistory={() => setShowHistory((prev) => !prev)}
-      />
-      <SavingsHistoryModal
-        open={showHistory}
-        onClose={() => setShowHistory(false)}
-        history={savingsInfo.history}
-      />
+      <SavingsCard savingsInfo={savingsInfo} onShowHistory={() => setShowHistory((prev) => !prev)} />
+      <SavingsHistoryModal open={showHistory} onClose={() => setShowHistory(false)} history={savingsInfo.history} />
       {currentIndex < savingsList.length - 1 && (
         <NavigationButton
           direction="right"
