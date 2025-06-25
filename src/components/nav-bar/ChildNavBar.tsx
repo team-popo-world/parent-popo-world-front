@@ -1,10 +1,10 @@
 import { useAuthStore } from "../../zustand/auth";
 
 interface ChildNavBarProps {
-  selectedColor: string;
+  selectedColor?: string;
 }
 
-export const ChildNavBar: React.FC<ChildNavBarProps> = ({ selectedColor }) => {
+export const ChildNavBar: React.FC<ChildNavBarProps> = ({ selectedColor = "#000000" }) => {
   const { child, selectedChildId, setSelectedChildId } = useAuthStore();
 
   return (

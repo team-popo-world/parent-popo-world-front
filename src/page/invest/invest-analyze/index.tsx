@@ -6,68 +6,91 @@ import TradingRatioGraph2 from "./TradingRatioGraph2";
 import TradingRatioGraph3 from "./TradingRatioGraph3";
 import BettingSuccessGraph from "./BettingSuccessGraph";
 import BalanceTrendGraph from "./BalanceTrendGraph";
+import { useQuery } from "@tanstack/react-query";
+import { getInvestAnalyze } from "../../../api/analyze/invest";
+import { useAuthStore } from "../../../zustand/auth";
+import { ChildNavBar } from "../../../components/nav-bar/ChildNavBar";
+
+// avg_stay_time
+// buy_ratio
+// sell_ratio
+// buy_sell_ratio
+// bet_ratio
+// avg_cash_ratio
+// invest_style
 
 export const investTypes: Record<string, { title: string; color: string }> = {
-  dwellTime: {
+  avg_stay_time: {
     title: "평균 턴 체류시간",
     color: "#1DB3FB",
   },
-  tradingRatio1: {
+  buy_ratio: {
     title: "구매 비율",
     color: "#78D335",
   },
-  tradingRatio2: {
+  sell_ratio: {
     title: "판매 비율",
     color: "#FF9600",
   },
-  tradingRatio3: {
+  buy_sell_ratio: {
     title: "구매 판매 비율",
     color: "#4D4B4D",
   },
-  bettingSuccess: {
+  bet_ratio: {
     title: "배팅 성공률",
     color: "#C57CF0",
   },
-  balanceTrend: {
+  avg_cash_ratio: {
     title: "여유자금 추이",
     color: "#FE4A4E",
   },
-  investType: {
-    title: "투자 성향",
-    color: "#FFBE00",
-  },
+  // invest_style: {
+  //   title: "투자 성향",
+  //   color: "#FFBE00",
+  // },
 };
 
 export const InvestAnalyzePage: React.FC = () => {
-  const [selectedAnalyzeType, setSelectedAnalyzeType] = useState<string>("tradingRatio1");
-  const [selectedAnalyzePeriod, setSelectedAnalyzePeriod] = useState<"monthly" | "weekly">("monthly");
+  const [selectedAnalyzeType, setSelectedAnalyzeType] = useState<string>("buy_ratio");
+  const [selectedAnalyzePeriod, setSelectedAnalyzePeriod] = useState<"all" | "week">("all");
+  const { selectedChildId } = useAuthStore();
+
+  const { data: investAnalyzeData } = useQuery({
+    queryKey: ["investAnalyze", selectedAnalyzeType, selectedAnalyzePeriod],
+    queryFn: () =>
+      getInvestAnalyze({
+        graph: selectedAnalyzeType,
+        range: selectedAnalyzePeriod,
+        selectedChildId: selectedChildId || "",
+      }),
+    enabled: !!selectedAnalyzeType && !!selectedAnalyzePeriod && !!selectedChildId,
+  });
 
   const AnalyzeGraph = () => {
-    if (selectedAnalyzeType === "dwellTime") {
+    if (selectedAnalyzeType === "avg_stay_time") {
       // 체류시간
       return <StayTimeGraph />;
-    } else if (selectedAnalyzeType === "tradingRatio1") {
+    } else if (selectedAnalyzeType === "buy_ratio") {
       // 구매 판매 비율
       return <TradingRatioGraph1 />;
-    } else if (selectedAnalyzeType === "tradingRatio2") {
+    } else if (selectedAnalyzeType === "sell_ratio") {
       // 구매 판매 비율
       return <TradingRatioGraph2 />;
-    } else if (selectedAnalyzeType === "tradingRatio3") {
+    } else if (selectedAnalyzeType === "buy_sell_ratio") {
       // 구매 판매 비율
       return <TradingRatioGraph3 />;
-    } else if (selectedAnalyzeType === "bettingSuccess") {
+    } else if (selectedAnalyzeType === "bet_ratio") {
       // 배팅 성공률
       return <BettingSuccessGraph />;
-    } else if (selectedAnalyzeType === "balanceTrend") {
+    } else if (selectedAnalyzeType === "avg_cash_ratio") {
       // 여유자금 추이
       return <BalanceTrendGraph selectedAnalyzeType={selectedAnalyzeType} />;
-    } else if (selectedAnalyzeType === "investType") {
-      return <div className=""></div>;
     }
   };
 
   return (
     <>
+      <ChildNavBar />
       {/* 분석 종류 */}
       <div className="text-sm mb-2">분석 종류</div>
       <div className="flex gap-x-3.5 pb-2 mb-6  overflow-x-auto scrollbar-hidden">
@@ -88,8 +111,8 @@ export const InvestAnalyzePage: React.FC = () => {
         <div className="text-sm">{investTypes[selectedAnalyzeType].title}</div>
         <div className="flex justify-between bg-gray-100 rounded-xl p-1">
           {[
-            { label: "월간", value: "monthly" as const },
-            { label: "주간", value: "weekly" as const },
+            { label: "전체", value: "all" as const },
+            { label: "주간", value: "week" as const },
           ].map((period) => (
             <button
               key={period.value}
