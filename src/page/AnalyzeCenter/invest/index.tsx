@@ -44,10 +44,6 @@ export const investTypes: Record<string, { title: string; color: string }> = {
     title: "여유자금 추이",
     color: "#FE4A4E",
   },
-  // invest_style: {
-  //   title: "투자 성향",
-  //   color: "#FFBE00",
-  // },
 };
 
 export const InvestAnalyzePage: React.FC = () => {
@@ -90,7 +86,6 @@ export const InvestAnalyzePage: React.FC = () => {
 
   return (
     <>
-      <ChildNavBar />
       {/* 분석 종류 */}
       <div className="text-sm mb-2">분석 종류</div>
       <div className="flex gap-x-3.5 pb-2 mb-6  overflow-x-auto scrollbar-hidden">

@@ -1,50 +1,29 @@
 import React, { useState } from "react";
 import { ChildCard } from "../../features/home/ChildCard";
-import { StoreCard } from "../../features/home/StoreCard";
-import { QuickIcons } from "../../features/home/QuickIcons";
-import { InvestmentChart } from "../../features/home/InvestmentChart";
 import defaultChildBoyImage from "../../assets/image/common/boy.png";
 import defaultChildGirlImage from "../../assets/image/common/girl.png";
 import { PopoButton } from "../../components/button/popoButton";
 import { AddButton } from "../../components/button/AddButton";
 import { Modal } from "../../components/modal/Modal";
 import { useAuthStore } from "../../zustand/auth";
-import { HomeQuestCard } from "../../features/home/HomeQuestCard";
-
+import { IMAGE_URLS } from "../../constants/constants";
+import type { Child } from "../../zustand/auth";
+import { Link } from "react-router-dom";
 export const HomePage: React.FC = () => {
   const [isOpenParentCode, setIsOpenParentCode] = useState(false);
-  const [isOpenChildInfo, setIsOpenChildInfo] = useState(false);
-  const [selectedChild, setSelectedChild] = useState<any>(null);
   const authStorage = localStorage.getItem("auth-storage");
   const authData = authStorage ? JSON.parse(authStorage) : null;
   const parentCode = authData?.state?.user?.parentCode;
   const { logout, child } = useAuthStore();
 
-  const handleChildClick = (childData: any) => {
-    setSelectedChild(childData);
-    setIsOpenChildInfo(true);
-  };
-
   return (
     <>
-      <Modal
-        isOpen={isOpenParentCode}
-        onClose={() => setIsOpenParentCode(false)}
-      >
-        <div
-          className="flex flex-col gap-4 bg-white rounded-3xl p-6 w-72"
-          onClick={(e) => e.stopPropagation()}
-        >
+      <Modal isOpen={isOpenParentCode} onClose={() => setIsOpenParentCode(false)}>
+        <div className="flex flex-col gap-4 bg-white rounded-3xl p-6 w-72" onClick={(e) => e.stopPropagation()}>
           <div className="flex flex-col items-center gap-3">
             <div className="flex items-center gap-2 self-start">
               <div className="w-7 h-7 rounded-full bg-main-green-100 flex items-center justify-center">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
                     fill="#4CAF50"
@@ -59,121 +38,93 @@ export const HomePage: React.FC = () => {
             </div>
 
             <div className="w-full bg-gray-50 rounded-xl p-3 text-center">
-              <p className="text-xl font-bold text-main-green-500 tracking-wider">
-                {parentCode}
-              </p>
+              <p className="text-xl font-bold text-main-green-500 tracking-wider">{parentCode}</p>
             </div>
-            <p className="text-sm text-gray-500 text-center">
-              이 코드를 자녀계정에서 입력해주세요
-            </p>
+            <p className="text-sm text-gray-500 text-center">이 코드를 자녀계정에서 입력해주세요</p>
           </div>
-        </div>
-      </Modal>
-
-      <Modal isOpen={isOpenChildInfo} onClose={() => setIsOpenChildInfo(false)}>
-        <div
-          className="flex flex-col gap-3 bg-white rounded-3xl px-5 py-4 w-80"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {selectedChild && (
-            <>
-              <div className="flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-                  <img
-                    src={
-                      selectedChild.sex === "M"
-                        ? defaultChildBoyImage
-                        : defaultChildGirlImage
-                    }
-                    alt="프로필"
-                    className="w-9 h-9 object-contain"
-                  />
-                </div>
-                <div className="flex flex-col gap-0.5 min-w-0">
-                  <h1 className="text-base font-bold text-gray-800 truncate">
-                    {selectedChild.name}
-                  </h1>
-                  <div className="flex items-center gap-1.5">
-                    <span className="px-1.5 py-0.5 rounded-full text-xs font-medium bg-main-green-100 text-main-green-500">
-                      {selectedChild.sex === "M" ? "남자" : "여자"}
-                    </span>
-                    <span className="px-1.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-500">
-                      {selectedChild.age}세
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 bg-gray-50 rounded-xl p-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">이메일</span>
-                  <span className="text-sm text-gray-800 font-medium truncate max-w-[180px]">
-                    {selectedChild.email}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">가입일</span>
-                  <span className="text-sm text-gray-800 font-medium">
-                    {new Date(selectedChild.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">보유 포인트</span>
-                  <span className="text-sm font-bold text-main-green-500">
-                    {selectedChild.point.toLocaleString()}P
-                  </span>
-                </div>
-              </div>
-            </>
-          )}
         </div>
       </Modal>
 
       {/* 환영 문구 */}
-      <div className="flex w-full mb-10">
-        <div className="flex justify-between items-center gap-x-6">
-          <PopoButton onClick={() => {}} />
-          <div className="flex">
-            <div className="flex flex-col">
-              <span className="">안녕하세요!</span>
-              <span className="">부모님 환영합니다!</span>
-              <span className="" onClick={logout}>
-                로그아웃
-              </span>
+      <div className="min-h-screen bg-base-300 font-SpoqaHanSansNeo scrollbar-hidden">
+        <div
+          className=" py-9.5 mx-auto max-w-md min-h-screen relative bg-cover bg-center bg-no-repeat scrollbar-hidden"
+          style={{ backgroundImage: `url(${IMAGE_URLS.auth.bg})` }}
+        >
+          <div className="flex w-full px-7 mb-10">
+            <div className="flex justify-between items-center gap-x-6">
+              <PopoButton onClick={() => {}} />
+              <div className="flex">
+                <div className="flex flex-col">
+                  <span className="">안녕하세요!</span>
+                  <span className="">부모님 환영합니다!</span>
+                  <span
+                    className=""
+                    onClick={() => {
+                      console.log("로그아웃");
+                      logout();
+                    }}
+                  >
+                    로그아웃
+                  </span>
+                </div>
+              </div>
             </div>
+          </div>
+          {/* 자녀 카드 */}
+          <div className="flex pl-8 pr-7 flex-nowrap overflow-x-auto scrollbar-hidden gap-x-3 mb-4">
+            {child.map((child: Child) => (
+              <ChildCard
+                key={child.userId}
+                image={child.sex === "M" ? defaultChildBoyImage : defaultChildGirlImage}
+                child={child}
+              />
+            ))}
+          </div>
+
+          <div className="flex flex-col px-7">
+            <AddButton text="자녀 추가 등록" onClick={() => setIsOpenParentCode(true)} />
+
+            {/* 상단 타이틀 */}
+            <div className="bg-white/75 rounded-lg pt-2.5 pl-3 mb-2 h-24">
+              <div>
+                <div className="text-base font-bold text-black">총 투자 분석 레포트!</div>
+                <div className="text-sm text-main-gray-500">자녀의 모든 활동에 대한 분석을 받아보세요</div>
+              </div>
+            </div>
+            {/* 2x2 그리드 */}
+            {/* prettier-ignore */}
+            <div className="grid grid-cols-[2fr_1fr] gap-2 mb-12">
+              <Link to="/invest/scenario-select" className="flex flex-col  h-28 bg-white/75 rounded-lg shadow py-2.5 px-3">
+                <div className="text-base font-bold text-black">모의투자</div>   
+                <div className="text-xs text-main-gray-500">모의투자 시나리오를 만들어보세요</div>
+              </Link>
+              <Link to="/store/product-management" className="flex flex-col h-28 bg-white/75 rounded-lg shadow py-2.5 px-3">
+                <div className="text-base font-bold text-black">상점</div>
+                <div className="text-xs text-main-gray-500">상품을 등록하고 내역을 확인하세요</div>
+              </Link>
+              <Link to="/savings" className="flex flex-col h-28 bg-white/75 rounded-lg shadow py-2.5 px-3">
+                <div className="text-base font-bold text-black">저축통장</div>
+                <div className="text-xs text-main-gray-500">자녀 저축통장 내역을 확인해보세요</div>
+              </Link>
+              <Link to="/quest" className="flex flex-col h-28 bg-white/75 rounded-lg shadow py-2.5 px-3">
+                <div className="text-base font-bold text-black">퀘스트</div>
+                <div className="text-xs text-main-gray-500">퀘스트를 등록하세요</div>
+              </Link>
+            </div>
+            {/* 분석 센터 화면 */}
+            <h2 className="text-lg font-bold text-black mb-2">자녀의 금융 분석결과를 확인하세요!</h2>
+            <Link
+              to="/analyze"
+              className="flex flex-col justify-end w-full h-[28rem] bg-white/75 rounded-xl shadow py-2.5 px-3"
+            >
+              <div className="text-2xl font-bold text-black mb-1">분석센터</div>
+              <div className="text-sm font-light px-3 py-1 bg-[#FFBF63] w-fit rounded-lg text-white">모의투자</div>
+            </Link>
+            {/* 네비바 */}
           </div>
         </div>
       </div>
-      {/* 자녀 카드 */}
-      {child.map((child) => (
-        <div key={child.userId} onClick={() => handleChildClick(child)}>
-          <ChildCard
-            image={
-              child.sex === "M" ? defaultChildBoyImage : defaultChildGirlImage
-            }
-            name={child.name}
-            gender={child.sex === "M" ? "남자" : "여자"}
-          />
-        </div>
-      ))}
-
-      {/* 자녀 추가 등록 버튼 */}
-      <AddButton
-        text="자녀 추가 등록"
-        onClick={() => setIsOpenParentCode(true)}
-      />
-
-      {/* 상점 화면 */}
-      <div className="flex gap-x-5 justify-between h-60 mb-5">
-        <StoreCard />
-        <QuickIcons />
-      </div>
-
-      {/* 퀘스트 화면 */}
-      <div className="flex gap-x-5 justify-between h-60 mb-5">
-        <HomeQuestCard />
-      </div>
-      <InvestmentChart />
     </>
   );
 };

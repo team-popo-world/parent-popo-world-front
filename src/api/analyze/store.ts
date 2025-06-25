@@ -1,8 +1,8 @@
-import axios from "axios";
+import apiClient from "../api";
 
 export const getStoreAnalyze = async ({ child_id }: { child_id: string }) => {
   try {
-    const response = await axios.get(`http://43.203.175.69:8001/api/dashboard/${child_id}?day=7`);
+    const response = await apiClient.get(`/api/dashboard/${child_id}?day=7`);
     console.log(response.data);
     return response.data;
   } catch (error) {

@@ -1,5 +1,4 @@
 import plusIcon from "@/assets/image/common/add-icon.png";
-import clsx from "clsx";
 
 interface AddButtonProps {
   text: string;
@@ -7,13 +6,10 @@ interface AddButtonProps {
   className?: string;
 }
 
-export const AddButton: React.FC<AddButtonProps> = ({ text, onClick, className }) => {
+export const AddButton: React.FC<AddButtonProps> = ({ text, onClick }) => {
   return (
     <div
-      className={clsx(
-        "flex py-5 w-full mb-10 bg-main-white-500 justify-center items-center border-2 border-gray-100 text-[1.05rem] shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100",
-        className
-      )}
+      className=" flex py-5 w-full mb-10 bg-white/75 justify-center items-center border-2 border-gray-100 text-[1.05rem] rounded-xl active:scale-95 transition-all duration-100"
       onClick={onClick}
     >
       {text}
