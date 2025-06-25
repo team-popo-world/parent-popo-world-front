@@ -4,6 +4,7 @@ import type { SavingsAccount } from "../../../api/savings/type";
 import SavingsHistoryModal from "../../../features/savings/SavingsHistoryModal";
 import SavingsCard from "../../../features/savings/SavingsCard";
 import NavigationButton from "../../../features/savings/NavigationButton";
+import { useAuthStore } from "../../../zustand/auth";
 
 // 날짜 포맷 변환 함수
 const formatDate = (dateString: string) => {
@@ -19,14 +20,15 @@ export const SavingsReportPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
+  const { selectedChildId } = useAuthStore();
 
   useEffect(() => {
-    const childId = "d0a188a3-e24e-4772-95f7-07e59ce8885e"; // 실제로는 context나 props에서 받아와야 합니다
+    if (!selectedChildId) return;
 
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const accounts = await fetchSavingsAccounts(childId);
+        const accounts = await fetchSavingsAccounts(selectedChildId);
         // 최신순으로 정렬
         const sortedAccounts = accounts.sort(
           (a, b) =>
@@ -41,17 +43,27 @@ export const SavingsReportPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+    // 새로운 자녀가 선택되면 currentIndex를 0으로 초기화
+    setCurrentIndex(0);
+  }, [selectedChildId]);
+
+  if (!selectedChildId) {
+    return (
+      <div className="flex justify-center items-center flex-1 text-gray-500">
+        자녀를 선택해주세요.
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">로딩중...</div>
+      <div className="flex justify-center items-center flex-1">로딩중...</div>
     );
   }
 
   if (error || savingsAccounts.length === 0) {
     return (
-      <div className="flex justify-center items-center h-screen text-red-500">
+      <div className="flex justify-center items-center flex-1 text-red-500">
         {error || "저축통장이 없습니다."}
       </div>
     );
@@ -66,7 +78,7 @@ export const SavingsReportPage: React.FC = () => {
   }));
 
   return (
-    <div className="flex flex-col items-center relative">
+    <div className="flex flex-col items-center relative flex-1 pt-8">
       {currentIndex > 0 && (
         <NavigationButton
           direction="left"

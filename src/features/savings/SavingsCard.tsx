@@ -25,7 +25,7 @@ const SavingsCard: React.FC<SavingsCardProps> = ({
   const reward = Math.floor(savingsInfo.goal * 0.1);
 
   return (
-    <div className="w-[20rem] rounded-2xl shadow-md border-gray-200 border-2">
+    <div className="w-[20rem] rounded-2xl shadow-md border-gray-200 border-2 mt-[-2rem]">
       <div className="bg-blue-400 h-[3rem] w-[19.8rem] text-[1.2rem] flex items-center justify-center text-white rounded-t-xl">
         저축 통장
       </div>
