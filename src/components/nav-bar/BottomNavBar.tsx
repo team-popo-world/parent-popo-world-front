@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
   },
   {
     icon: mypageIcon,
-    path: "/savings/report",
+    path: "/mypage",
   },
 ];
 
