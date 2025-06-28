@@ -198,7 +198,7 @@ export const HomePage: React.FC = () => {
             </h2>
             <Link
               to="/analyze"
-              className="flex flex-col  w-full bg-white/75 rounded-3xl shadow py-4 px-3"
+              className="flex flex-col  w-full bg-white/75 rounded-3xl shadow py-4 px-3 mb-13"
             >
               <img src={analyzeCenter} alt="" className="w-full mb-2" />
               <div className="text-2xl font-bold text-black mb-1 ml-2">

@@ -127,7 +127,7 @@ export const MyPage: React.FC = () => {
               </div>
 
               {/* 부모 정보 */}
-              <div className="space-y-3 mb-4">
+              <div className="space-y-3 mb-2">
                 <div className="flex justify-between items-center">
                   <span className="text-blue-200">부모 코드</span>
                   <span className="font-medium text-white">
@@ -157,12 +157,6 @@ export const MyPage: React.FC = () => {
                 )}
               </div>
 
-              <button
-                onClick={() => setIsOpenParentCode(true)}
-                className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              >
-                부모 코드 보기
-              </button>
             </div>
           </div>
         </div>
@@ -223,7 +217,7 @@ export const MyPage: React.FC = () => {
         </div>
 
         {/* 설정 섹션 */}
-        <div className="px-6 py-6">
+        <div className="px-6 py-6 mb-[-1rem]">
           <h3 className="text-lg font-bold text-gray-800 mb-4">설정</h3>
           <div className="bg-white rounded-xl overflow-hidden shadow-sm">
             <button className="w-full px-4 py-4 text-left hover:bg-gray-50 transition-colors border-b border-gray-100">
