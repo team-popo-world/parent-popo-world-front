@@ -164,12 +164,14 @@ export const HomePage: React.FC = () => {
                   ))
                 )}
               </div>
-              <div className="flex justify-end mt-2">
-                <AddButton
-                  text="자녀 추가"
+              <div className="flex justify-center mt-4">
+                <button
                   onClick={() => setIsOpenParentCode(true)}
-                  className="flex items-center gap-1.5 text-xs font-medium text-white bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 px-3.5 py-1.5 rounded-full shadow-sm hover:shadow-md transition-all duration-300"
-                />
+                  className="mt-[-0.6rem]  flex items-center gap-2 bg-gradient-to-r from-[#4AA8FF] to-[#4B9DFF] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:from-[#3d8edb] hover:to-[#3d8edb] transition-all duration-200 shadow-sm"
+                >
+                  <span className="text-xl leading-none">+</span>
+                  자녀 추가
+                </button>
               </div>
             </div>
 
