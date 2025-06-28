@@ -6,7 +6,7 @@ interface ChildCardProps {
   image: string;
   child: Child;
   selected: boolean;
-  setSelectedChildId: (id: string) => void;
+  setSelectedChildId: () => void;
 }
 
 // name: string;
@@ -25,33 +25,77 @@ export const ChildCard: React.FC<ChildCardProps> = ({
 }) => {
   return (
     <div
-      className={clsx(
-        "min-w-[19rem] min-h-[14.5rem]  flex flex-col pl-4 py-4   shadow-lg rounded-xl active:scale-95 transition-all duration-100",
+      className={`relative min-w-[12rem] p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 ${
         selected
-          ? "border-0 border-main-green-500 text-main-gray-600 bg-white "
-          : "border-0 border-main-green-500 text-main-gray-500/60 bg-white/75"
-      )}
-      onClick={() => setSelectedChildId(child.userId)}
+          ? "bg-gradient-to-br from-sky-400 via-blue-400 to-indigo-500 shadow-lg hover:shadow-xl"
+          : "bg-white shadow-md hover:shadow-lg border border-sky-50/50"
+      }`}
+      onClick={setSelectedChildId}
     >
-      {/* 이미지, 이름 */}
-      <div className="flex gap-x-2 rounded-xl mb-6">
-        <div className="w-13 h-13 flex justify-center items-center rounded-full bg-gray-100">
-          <img src={image} alt="" className="w-4/5 h-4/5 object-contain" />
+      <div className="relative z-10">
+        <div className="flex items-center gap-4 mb-4">
+          <div
+            className={`w-14 h-14 rounded-xl overflow-hidden ${
+              selected
+                ? "ring-2 ring-white/30 shadow-inner"
+                : "ring-1 ring-sky-100/30"
+            }`}
+          >
+            <img
+              src={image}
+              alt={child.name}
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+            />
+          </div>
+          <div>
+            <h3
+              className={`text-lg font-bold mb-1 ${
+                selected ? "text-white" : "text-gray-900"
+              }`}
+            >
+              {child.name}
+            </h3>
+            <div
+              className={`text-sm ${
+                selected ? "text-sky-100" : "text-sky-500"
+              }`}
+            >
+              {child.age}세
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col justify-center gap-y-0.5">
-          <div className="text-base font-bold">{child.name}</div>
-          <div className="text-xs">@ {child.sex === "M" ? "남자" : "여자"}</div>
+
+        <div className="space-y-3">
+          <div
+            className={`flex items-center justify-between ${
+              selected ? "text-white" : "text-gray-700"
+            }`}
+          >
+            <span className="text-sm font-medium">보유 포인트</span>
+            <span className="font-bold">{child.point.toLocaleString()}P</span>
+          </div>
+
+          <div
+            className={`flex items-center justify-between ${
+              selected ? "text-white" : "text-gray-700"
+            }`}
+          >
+            <span className="text-sm font-medium">성별</span>
+            <span className="font-bold">
+              {child.sex === "M" ? "남자" : "여자"}
+            </span>
+          </div>
         </div>
       </div>
-      {/* 프로필 버튼 */}
-      <div className="font-bold mb-0.5 ml-2">보유 포인트: {child.point}</div>
-      <div className="font-bold mb-0.5 ml-2">저축 포인트: {child.point}</div>
-      <div className="font-bold mb-0.5 ml-2">
-        이메일: <span className="text-sm">{child.email}</span>
-      </div>
-      <div className="font-bold mb-0.5 ml-2">
-        가입일자: {child.createdAt.slice(0, 10).replace(/-/g, ".")}
-      </div>
+
+      {/* 장식용 그라데이션 원 */}
+      <div
+        className={`absolute top-0 right-0 w-40 h-40 rounded-full transform translate-x-10 -translate-y-10 transition-transform duration-500 group-hover:translate-x-8 group-hover:-translate-y-8 ${
+          selected
+            ? "bg-gradient-to-br from-white/20 to-transparent"
+            : "bg-gradient-to-br from-sky-50/30 to-transparent"
+        }`}
+      ></div>
     </div>
   );
 };

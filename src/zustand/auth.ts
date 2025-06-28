@@ -74,7 +74,8 @@ export const useAuthStore = create<AuthStore>()(
       setChildren: (child: Child[]) => {
         set({ child });
       },
-      setSelectedChildId: (childId: string) => set({ selectedChildId: childId }),
+      setSelectedChildId: (childId: string) =>
+        set({ selectedChildId: childId }),
     }),
     {
       name: "auth-storage", // localStorage에 저장될 키 이름
