@@ -1,6 +1,7 @@
 import React from "react";
 import type { Child } from "../../zustand/auth";
 import clsx from "clsx";
+import girlImage from "../../assets/image/common/girl.png";
 
 interface ChildCardProps {
   image: string;
@@ -23,6 +24,8 @@ export const ChildCard: React.FC<ChildCardProps> = ({
   selected,
   setSelectedChildId,
 }) => {
+  const profileImage = child.sex === "F" ? girlImage : image;
+
   return (
     <div
       className={`relative min-w-[12rem] p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 focus:outline-none ${
@@ -35,7 +38,7 @@ export const ChildCard: React.FC<ChildCardProps> = ({
     >
       <div className="flex items-center gap-4">
         <img
-          src={image}
+          src={profileImage}
           alt={`${child.name}의 프로필`}
           className="w-12 h-12 rounded-xl object-cover border-2 border-gray-200"
         />
