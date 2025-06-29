@@ -7,7 +7,12 @@ interface ButtonProps {
   className?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, onClick, variant = "primary", className = "" }) => {
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  variant = "primary",
+  className = "",
+}) => {
   const baseStyles = "px-4 py-2 rounded-md font-medium transition-colors";
   const variantStyles = {
     primary: "bg-blue-500 text-white hover:bg-blue-600",
@@ -16,7 +21,10 @@ export const Button: React.FC<ButtonProps> = ({ children, onClick, variant = "pr
   };
 
   return (
-    <button onClick={onClick} className={`${baseStyles} ${variantStyles[variant]} ${className}`}>
+    <button
+      onClick={onClick}
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+    >
       {children}
     </button>
   );

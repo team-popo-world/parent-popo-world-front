@@ -2,14 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChildCard } from "../../features/home/ChildCard";
 import defaultChildBoyImage from "../../assets/image/common/boy.png";
 import defaultChildGirlImage from "../../assets/image/common/girl.png";
-import { PopoButton } from "../../components/button/popoButton";
 import { Modal } from "../../components/modal/Modal";
 import { useAuthStore } from "../../zustand/auth";
 import { Link } from "react-router-dom";
-import analyzeCenter from "../../assets/image/common/analyze_center.png";
-import { AddButton } from "../../components/button/AddButton";
 import { BottomNavBar } from "../../components/nav-bar/BottomNavBar";
-import waitPopo from "@/assets/image/common/wait_popo.png";
 import xPopo from "@/assets/image/common/x_popo.png";
 
 export const HomePage: React.FC = () => {
