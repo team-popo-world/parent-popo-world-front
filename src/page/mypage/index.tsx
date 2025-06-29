@@ -98,10 +98,10 @@ export const MyPage: React.FC = () => {
         </div>
       </Modal>
 
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white">
         <div className="bg-white">
           {/* 헤더 */}
-          <div className="px-6 py-4">
+          <div className="px-4 py-4">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">
               마이페이지
             </h1>
@@ -109,7 +109,7 @@ export const MyPage: React.FC = () => {
           </div>
 
           {/* 프로필 섹션 */}
-          <div className="px-6 pb-6">
+          <div className="px-4 pb-6">
             <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center overflow-hidden">
@@ -156,19 +156,18 @@ export const MyPage: React.FC = () => {
                   </div>
                 )}
               </div>
-
             </div>
           </div>
         </div>
 
         {/* 자녀 정보 섹션 */}
-        <div className="px-6 py-6">
+        <div className="px-4 py-6">
           <h3 className="text-lg font-bold text-gray-800 mb-4">등록된 자녀</h3>
           <div className="space-y-3">
             {child.map((childInfo: Child) => (
               <div
                 key={childInfo.userId}
-                className="bg-white rounded-xl p-4 shadow-sm"
+                className="bg-gradient-to-br from-sky-400/10 via-blue-400/10 to-indigo-500/10 rounded-xl p-4"
               >
                 <div className="flex items-center gap-3">
                   <img
@@ -185,7 +184,7 @@ export const MyPage: React.FC = () => {
                       {childInfo.name}
                     </h4>
                     <p className="text-sm text-gray-500">
-                      포인트: {childInfo.point}냥
+                      포인트: {childInfo.point.toLocaleString()}냥
                     </p>
                   </div>
                   <div className="text-right">
@@ -198,7 +197,7 @@ export const MyPage: React.FC = () => {
         </div>
 
         {/* 빠른 메뉴 */}
-        <div className="px-6 py-6">
+        <div className="px-4 py-6">
           <h3 className="text-lg font-bold text-gray-800 mb-4">빠른 메뉴</h3>
           <div className="grid grid-cols-2 gap-3">
             {quickMenus.map((menu) => (
@@ -217,7 +216,7 @@ export const MyPage: React.FC = () => {
         </div>
 
         {/* 설정 섹션 */}
-        <div className="px-6 py-6 mb-[-1rem]">
+        <div className="px-4 py-6 mb-[-1rem]">
           <h3 className="text-lg font-bold text-gray-800 mb-4">설정</h3>
           <div className="bg-white rounded-xl overflow-hidden shadow-sm">
             <button className="w-full px-4 py-4 text-left hover:bg-gray-50 transition-colors border-b border-gray-100">

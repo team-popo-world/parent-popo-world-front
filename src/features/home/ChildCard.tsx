@@ -25,66 +25,59 @@ export const ChildCard: React.FC<ChildCardProps> = ({
 }) => {
   return (
     <div
-      className={`relative min-w-[12rem] p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 ${
+      className={`relative min-w-[12rem] p-5 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 focus:outline-none ${
         selected
           ? "bg-gradient-to-br from-sky-400 via-blue-400 to-indigo-500 shadow-lg hover:shadow-xl"
-          : "bg-white shadow-md hover:shadow-lg border border-sky-50/50"
+          : "bg-gradient-to-br from-sky-400/30 via-blue-400/30 to-indigo-500/30 shadow-lg hover:shadow-xl"
       }`}
       onClick={setSelectedChildId}
+      tabIndex={0}
     >
-      <div className="relative z-10">
-        <div className="flex items-center gap-4 mb-4">
-          <div
-            className={`w-14 h-14 rounded-xl overflow-hidden ${
-              selected
-                ? "ring-2 ring-white/30 shadow-inner"
-                : "ring-1 ring-sky-100/30"
-            }`}
+      <div className="flex items-center gap-4">
+        <img
+          src={image}
+          alt={`${child.name}의 프로필`}
+          className="w-12 h-12 rounded-xl object-cover border-2 border-gray-200"
+        />
+        <div>
+          <h3
+            className={clsx(
+              "font-bold",
+              selected ? "text-white" : "text-gray-900"
+            )}
           >
-            <img
-              src={image}
-              alt={child.name}
-              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <div>
-            <h3
-              className={`text-lg font-bold mb-1 ${
-                selected ? "text-white" : "text-gray-900"
-              }`}
-            >
-              {child.name}
-            </h3>
-            <div
-              className={`text-sm ${
-                selected ? "text-sky-100" : "text-sky-500"
-              }`}
-            >
-              {child.age}세
-            </div>
-          </div>
+            {child.name}
+          </h3>
+          <p
+            className={clsx(
+              "text-sm",
+              selected ? "text-white/90" : "text-gray-500"
+            )}
+          >
+            {child.age}세
+          </p>
+        </div>
+      </div>
+
+      <div className="space-y-3 mt-4">
+        <div
+          className={`flex items-center justify-between ${
+            selected ? "text-white" : "text-gray-700"
+          }`}
+        >
+          <span className="text-sm font-medium">보유 포인트</span>
+          <span className="font-bold">{child.point.toLocaleString()}P</span>
         </div>
 
-        <div className="space-y-3">
-          <div
-            className={`flex items-center justify-between ${
-              selected ? "text-white" : "text-gray-700"
-            }`}
-          >
-            <span className="text-sm font-medium">보유 포인트</span>
-            <span className="font-bold">{child.point.toLocaleString()}P</span>
-          </div>
-
-          <div
-            className={`flex items-center justify-between ${
-              selected ? "text-white" : "text-gray-700"
-            }`}
-          >
-            <span className="text-sm font-medium">성별</span>
-            <span className="font-bold">
-              {child.sex === "M" ? "남자" : "여자"}
-            </span>
-          </div>
+        <div
+          className={`flex items-center justify-between ${
+            selected ? "text-white" : "text-gray-700"
+          }`}
+        >
+          <span className="text-sm font-medium">성별</span>
+          <span className="font-bold">
+            {child.sex === "M" ? "남자" : "여자"}
+          </span>
         </div>
       </div>
 

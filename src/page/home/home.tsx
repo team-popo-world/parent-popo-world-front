@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 import analyzeCenter from "../../assets/image/common/analyze_center.png";
 import { AddButton } from "../../components/button/AddButton";
 import { BottomNavBar } from "../../components/nav-bar/BottomNavBar";
-import waitPopo from "../../assets/image/common/wait_popo.png";
+import waitPopo from "@/assets/image/common/wait_popo.png";
+import xPopo from "@/assets/image/common/x_popo.png";
 
 export const HomePage: React.FC = () => {
   const [isOpenParentCode, setIsOpenParentCode] = useState(false);
@@ -89,31 +90,34 @@ export const HomePage: React.FC = () => {
           {/* 상단 헤더 */}
           <div className="px-6 space-y-8">
             {/* 헤더 섹션 */}
-            <div className="flex items-center justify-between pt-6">
+            <div className="flex items-center justify-between pt-3">
               <div className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-sky-50 to-indigo-100/80 rounded-2xl blur-md"></div>
-                  <div className="relative w-20 h-20 rounded-full from-sky-400/20 via-blue-300/20 to-indigo-300/20 p-2.5 mr-8 ml-[-0.8rem]">
-                    <img
-                      src="/src/assets/image/common/popo.png"
-                      alt="Popo"
-                      className="w-full h-full object-contain drop-shadow-[0_2px_4px_rgba(66,153,225,0.3)]"
-                    />
-                  </div>
-                </div>
                 <div className="space-y-1">
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                    안녕하세요!
-                  </h1>
-                  <p className="text-sm text-gray-500 font-medium text-center">
-                    부모님 환영합니다
-                  </p>
+                  <div className="flex items-center justify-center">
+                    <div className="flex items-center">
+                      <div className="flex items-center relative">
+                        <h1 className="text-3xl font-extrabold tracking-tight">
+                          <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF8E8E] to-[#FFA5A5] bg-clip-text text-transparent">
+                            POPO
+                          </span>
+                        </h1>
+                        <h1 className="text-3xl font-extrabold tracking-tight">
+                          <span className="bg-gradient-to-r from-[#9181F4] via-[#A594FF] to-[#B4A9FF] bg-clip-text text-transparent">
+                            WORLD
+                          </span>
+                        </h1>
+                        <span className="ml-2.5 text-[10px] font-semibold uppercase tracking-wider bg-gradient-to-r from-gray-600/10 to-gray-400/10 text-gray-500 px-2.5 py-0.5 rounded-full border border-gray-200/50">
+                          Parent App
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <Link to="/mypage">
                 <div className="relative group">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-sky-400 rounded-full blur opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 to-sky-400 flex items-center justify-center text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-pink-600 flex items-center justify-center text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300">
                     MY
                   </div>
                 </div>
@@ -127,17 +131,17 @@ export const HomePage: React.FC = () => {
                 className="flex overflow-x-auto gap-4 pb-4 -mx-6 px-6 pt-2 scrollbar-hidden mt-[-1.5rem]"
               >
                 {child.length === 0 ? (
-                  <div className="p-6 rounded-2xl bg-white/60 backdrop-blur-sm shadow-sm flex flex-col items-center justify-center text-center w-full">
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-sky-400/10 via-blue-400/10 to-indigo-500/10 backdrop-blur-sm shadow-sm flex flex-col items-center justify-center text-center w-full min-h-[160px]">
                     <img
-                      src={waitPopo}
+                      src={xPopo}
                       alt="No Children"
-                      className="w-16 h-16 mb-3"
+                      className="w-30 h-35 ml-5 mb-4 drop-shadow-lg"
                     />
-                    <p className="text-slate-600 text-sm font-medium">
+                    <p className="text-gray-700 font-semibold mb-1">
                       아직 등록된 자녀가 없습니다
                     </p>
-                    <p className="text-slate-400 text-xs mt-1">
-                      자녀를 추가해주세요!
+                    <p className="text-gray-500 text-sm">
+                      아래 버튼을 눌러 자녀를 추가해주세요!
                     </p>
                   </div>
                 ) : (
@@ -264,7 +268,7 @@ export const HomePage: React.FC = () => {
 
                 <Link
                   to="/quest/quest-list"
-                  className="group relative overflow-hidden bg-gradient-to-br from-blue-400 via-blue-500 to-indigo-600 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="group relative overflow-hidden bg-gradient-to-br from-[#4AA8FF] via-[#4B9DFF] to-[#4B9DFF] rounded-2xl p-5 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="relative z-10 flex flex-col h-full">
                     <div className="w-12 h-12 rounded-xl bg-white/30 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -276,7 +280,11 @@ export const HomePage: React.FC = () => {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z"
+                          d="M14.81 8.62L12 6.83l-2.81 1.79c-.21.13-.47-.02-.44-.27l.83-3.03-2.77-1.23c-.22-.1-.2-.42.03-.49l2.96-.89L11.27.31a.25.25 0 01.46 0l1.47 2.4 2.96.89c.23.07.25.39.03.49l-2.77 1.23.83 3.03c.03.25-.23.4-.44.27z"
+                          fill="white"
+                        />
+                        <path
+                          d="M20 14H4v-2h16v2zm0 2H4v2h16v-2zm0 4H4v2h16v-2z"
                           fill="white"
                         />
                       </svg>
