@@ -54,3 +54,6 @@ venv/
 *.bak
 *.tmp
 *.orig
+
+# PWA
+dev-dist/
