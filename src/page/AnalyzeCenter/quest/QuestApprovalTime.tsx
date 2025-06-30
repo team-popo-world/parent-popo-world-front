@@ -28,7 +28,7 @@ export const QuestApprovalTime = () => {
             },
           }
         );
-        console.log(res.data);
+        // console.log("approvalTime data:", res.data);
         setData(res.data.result);
       } catch (err) {
         console.error("승인 소요시간 가져오기 실패", err);
@@ -47,11 +47,15 @@ export const QuestApprovalTime = () => {
 
   return (
     <section className="py-4 w-full">
-      <div className="flex justify-between items-center mb-3 px-2">
+      <div className="flex justify-between items-center mb-3 pl-2">
         <h4 className="text-lg font-bold text-gray-800">
-          부모의 승인 소요시간
+          {" "}
+          <p>
+            부모의 평균 <br />
+            승인 소요시간
+          </p>
         </h4>
-        <div className="flex items-center gap-2 text-sm font-semibold mb-[0.45rem]">
+        <div className="flex items-center gap-2 text-[0.7rem] font-semibold  ">
           <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem]">
             <div className="flex gap-2">
               <button
@@ -76,7 +80,7 @@ export const QuestApprovalTime = () => {
               </button>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-sm font-semibold mb-[0rem]">
+          <div className="flex items-center gap-2 text-[0.7rem] font-semibold mb-[0rem]">
             <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem]">
               <button
                 onClick={() => setPeriod("all")}

@@ -91,12 +91,13 @@ export const QuestCompletionTimeChart = () => {
           `/api/questAnalytics/${questType}/completion-time`,
           { params: { childId: selectedChildId, period } }
         );
-        setData(res.data.result || []);
+        setData(res.data.result.result || []);
       } catch (e) {
         console.error("데이터 fetch 실패", e);
       }
     };
     fetch();
+    // console.log("data:", data);
   }, [questType, period, selectedChildId]);
 
   const questLabelList =
@@ -115,7 +116,7 @@ export const QuestCompletionTimeChart = () => {
     ];
   });
 
-  data.forEach((quest) => {
+  data?.forEach((quest) => {
     const label =
       questType === "parent"
         ? LABEL_KO[quest.label || ""] || quest.label || ""
@@ -140,12 +141,10 @@ export const QuestCompletionTimeChart = () => {
 
   return (
     <section className="py-4 w-full">
-      <div className="flex items-center  mb-3 pl-2">
-        <h4 className="text-lg font-bold text-gray-800 mb-2 pl-2 mr-[3.4rem] ">
-          완료 시간 분포
-        </h4>
-        <div className="flex items-center gap-2 text-sm font-semibold mb-[0.45rem]">
-          <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem]">
+      <div className="flex items-center justify-between mb-3 pl-2">
+        <h4 className="text-lg  font-bold text-gray-800  ">완료 시간 분포</h4>
+        <div className="flex items-center gap-2 text-[0.7rem] font-semibold">
+          <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem] ">
             <div className="flex gap-2">
               <button
                 onClick={() => setQuestType("daily")}
@@ -169,7 +168,7 @@ export const QuestCompletionTimeChart = () => {
               </button>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-sm font-semibold mb-[0rem]">
+          <div className="flex items-center gap-2 text-[0.7rem] font-semibold mb-[0rem]">
             <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem]">
               <button
                 onClick={() => setPeriod("recent30")}

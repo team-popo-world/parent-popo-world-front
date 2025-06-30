@@ -12,6 +12,7 @@ const urls = {
   index: "분석센터",
   store: "상점 분석",
   invest: "모의투자 분석",
+  quest: "퀘스트 분석",
 };
 
 export const AnalyzeCenterLayout: React.FC = () => {
@@ -73,6 +74,19 @@ export const AnalyzeCenterLayout: React.FC = () => {
                 onClick={() => setSelectedTab("모의투자 분석")}
               >
                 모의투자 분석
+              </li>
+            </Link>
+            <Link to="/analyze/quest" className="w-full">
+              <li
+                className={clsx(
+                  "text-sm",
+                  selectedTab === "퀘스트 분석"
+                    ? "text-black font-medium"
+                    : "text-gray-400"
+                )}
+                onClick={() => setSelectedTab("퀘스트 분석")}
+              >
+                퀘스트 분석
               </li>
             </Link>
           </ul>

@@ -59,7 +59,7 @@ export const QuestRewardScatterChart = () => {
             params: { childId: selectedChildId, period },
           }
         );
-        console.log(res.data.regression_line);
+        // console.log(res.data.regression_line);
         setData(res.data.result || []);
         setRegression(res.data.regression_line || []);
       } catch (e) {
@@ -86,28 +86,28 @@ export const QuestRewardScatterChart = () => {
 
   return (
     <section className="py-4 w-full">
-      <div className="flex items-center mb-3 pl-2">
-        <h4 className="text-lg font-bold text-gray-800 mb-2 pr-4 mr-[2.7rem]">
+      <div className="flex items-center  justify-between mb-3 pl-2">
+        <p className="text-lg font-bold text-gray-800 ">
           보상과 완료율 분포 (부모)
-        </h4>
-        <div className="flex items-center gap-2 text-sm font-semibold mb-[0.45rem]">
-          <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem]">
+        </p>
+        <div className="flex items-center gap-2 text-[0.7rem] font-semibold ">
+          <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem] ">
             <button
               onClick={() => setPeriod("all")}
-              className={`px-[0.8rem] py-[0.2rem] rounded-full transition-all ${
+              className={`px-[0.6rem] py-[0.2rem] rounded-full transition-all ${
                 period === "all"
                   ? "bg-green-500 text-white shadow-sm"
-                  : "text-gray-500 hover:text-green-600"
+                  : "text-gray-500"
               }`}
             >
               전체
             </button>
             <button
               onClick={() => setPeriod("weekly")}
-              className={`px-[1rem] py-[0.2rem] rounded-full transition-all ${
+              className={`px-[0.6rem] py-[0.2rem] rounded-full transition-all ${
                 period === "weekly"
                   ? "bg-green-500 text-white shadow-sm"
-                  : "text-gray-500 hover:text-green-600"
+                  : "text-gray-500 "
               }`}
             >
               주

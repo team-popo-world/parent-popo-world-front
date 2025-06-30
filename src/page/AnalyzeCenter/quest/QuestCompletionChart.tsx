@@ -77,7 +77,7 @@ export const QuestCompletionChart = () => {
           }
         );
         setData(res.data.result || []);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err) {
         console.error("데이터 불러오기 실패:", err);
         setData([]);
@@ -141,10 +141,10 @@ export const QuestCompletionChart = () => {
 
   return (
     <section className="py-4 w-full">
-      <div className="flex justify-between items-center mb-3 px-2">
+      <div className="flex  items-center justify-between mb-3 pl-2 ">
         <h4 className="text-lg font-bold text-gray-800">완료율 그래프</h4>
-        <div className="flex items-center gap-2 text-sm font-semibold mb-[0.45rem]">
-          <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem]">
+        <div className="flex items-center gap-2 text-[0.7rem] font-semibold">
+          <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem] ">
             <div className="flex gap-2">
               <button
                 onClick={() => setQuestType("daily")}
@@ -168,7 +168,7 @@ export const QuestCompletionChart = () => {
               </button>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-sm font-semibold mb-[0rem]">
+          <div className="flex items-center gap-2 text-[0.7rem] font-semibold mb-[0rem]">
             <div className="flex bg-gray-100 rounded-full px-1 py-[0.2rem]">
               <button
                 onClick={() => setPeriod("recent30")}
