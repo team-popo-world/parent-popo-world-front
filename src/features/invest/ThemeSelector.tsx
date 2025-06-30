@@ -18,7 +18,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ bgColor, name, onClick, s
   return (
     <div
       className={`px-2 py-1 text-main-white-500 rounded-sm text-sm whitespace-nowrap active:scale-95 transition-all duration-100 ${
-        selected ? "shadow-custom-2" : ""
+        selected ? "shadow-custom-2 translate-y-[-3px]" : ""
       }`}
       style={{ backgroundColor: bgColor }}
       onClick={onClick}
