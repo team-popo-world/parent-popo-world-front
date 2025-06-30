@@ -19,6 +19,7 @@ import type {
 } from "../../../features/analyze/invest/types";
 import x_popo from "../../../assets/image/common/x_popo.png";
 import wait_popo from "../../../assets/image/common/wait_popo.png";
+import clsx from "clsx";
 
 // avg_stay_time
 // buy_ratio
@@ -88,11 +89,14 @@ export const InvestAnalyzePage: React.FC = () => {
       <>
         {/* 분석 종류 */}
         <div className="text-sm mb-2">분석 종류</div>
-        <div className="flex gap-x-3.5 pb-2 mb-6  overflow-x-auto scrollbar-hidden">
+        <div className="flex gap-x-3.5 py-2 mb-6  overflow-x-auto scrollbar-hidden">
           {Object.entries(investTypes).map(([key, investType], index) => (
             <div
               key={index}
-              className="px-2 py-1 text-main-white-500 rounded-sm text-xs whitespace-nowrap"
+              className={clsx(
+                "px-2 py-1 text-main-white-500 rounded-sm text-xs whitespace-nowrap",
+                selectedAnalyzeType === key ? "shadow-custom-2 translate-y-[-3px]" : ""
+              )}
               style={{ backgroundColor: investType.color }}
               onClick={() => setSelectedAnalyzeType(key as keyof typeof investTypes)}
             >
@@ -147,11 +151,14 @@ export const InvestAnalyzePage: React.FC = () => {
     <>
       {/* 분석 종류 */}
       <div className="text-sm mb-2">분석 종류</div>
-      <div className="flex gap-x-3.5 pb-2 mb-6  overflow-x-auto scrollbar-hidden">
+      <div className="flex gap-x-3.5 py-2 mb-6  overflow-x-auto scrollbar-hidden">
         {Object.entries(investTypes).map(([key, investType], index) => (
           <div
             key={index}
-            className="px-2 py-1 text-main-white-500 rounded-sm text-xs whitespace-nowrap"
+            className={clsx(
+              "px-2 py-1 text-main-white-500 rounded-sm text-xs whitespace-nowrap",
+              selectedAnalyzeType === key ? "shadow-custom-2 translate-y-[-3px]" : ""
+            )}
             style={{ backgroundColor: investType.color }}
             onClick={() => setSelectedAnalyzeType(key as keyof typeof investTypes)}
           >

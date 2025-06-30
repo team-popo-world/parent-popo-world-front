@@ -103,8 +103,6 @@ interface InvestChatBotProps {
   turns?: TurnState[] | null;
 }
 
-const queryClient = useQueryClient();
-
 export const InvestChatBot: React.FC<InvestChatBotProps> = ({
   scenarioType,
   scenarioName,
@@ -125,6 +123,7 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
   const [senarioCreateModalOpen, setSenarioCreateModalOpen] = useState(false);
   const [senarioModalOpen, setSenarioModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const eventSourceRef = useRef<EventSourcePolyfill | null>(null);
 

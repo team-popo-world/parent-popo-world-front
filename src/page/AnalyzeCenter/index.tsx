@@ -9,9 +9,7 @@ export const AnalyzeCenterPage = () => {
   return (
     <>
       {/* 헤더 */}
-      <p className="text-sm text-gray-600 mb-6 ">
-        자녀의 금융 활동을 한눈에 확인하세요
-      </p>
+      <p className="text-sm text-gray-600 mb-6 ">자녀의 금융 활동을 한눈에 확인하세요</p>
 
       {/* 분석 카드 3개 */}
       <div className="grid grid-cols-1 gap-4">
@@ -25,12 +23,8 @@ export const AnalyzeCenterPage = () => {
                   <img src={popoStockIcon} alt="" className="w-11" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    모의투자 분석
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    투자 성과 및 패턴 분석
-                  </p>
+                  <h3 className="text-lg font-semibold text-gray-900">모의투자 분석</h3>
+                  <p className="text-sm text-gray-600">투자 성과 및 패턴 분석</p>
                 </div>
               </div>
             </div>
@@ -47,15 +41,11 @@ export const AnalyzeCenterPage = () => {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <img src={storeIcon} alt="" className="w-11" />
+                  <img src={storeIcon} alt="" className="w-11.5 mr-1.5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    상점 분석
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    구매 패턴 및 소비 분석
-                  </p>
+                  <h3 className="text-lg font-semibold text-gray-900">상점 분석</h3>
+                  <p className="text-sm text-gray-600">구매 패턴 및 소비 분석</p>
                 </div>
               </div>
             </div>
@@ -74,12 +64,8 @@ export const AnalyzeCenterPage = () => {
                   <img src={questIcon} alt="" className="w-11" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    퀘스트 분석
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    퀘스트 달성 및 활동 분석
-                  </p>
+                  <h3 className="text-lg font-semibold text-gray-900">퀘스트 분석</h3>
+                  <p className="text-sm text-gray-600">퀘스트 달성 및 활동 분석</p>
                 </div>
               </div>
             </div>

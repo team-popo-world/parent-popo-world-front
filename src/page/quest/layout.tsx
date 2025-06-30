@@ -32,7 +32,10 @@ export const QuestLayout = () => {
           <ul className="absolute top-14.5 -right-2.5 flex flex-col bg-white p-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
             <Link to="/quest/create-quest">
               <li
-                className={clsx("text-xs", selectedTab === "퀘스트 생성" ? "text-black font-medium" : "text-gray-400")}
+                className={clsx(
+                  "text-base active:scale-95 transition-all duration-100",
+                  selectedTab === "퀘스트 생성" ? "text-black font-medium" : "text-gray-400"
+                )}
                 onClick={() => setSelectedTab("퀘스트 생성")}
               >
                 퀘스트 생성
@@ -40,7 +43,10 @@ export const QuestLayout = () => {
             </Link>
             <Link to="/quest/quest-list">
               <li
-                className={clsx("text-xs", selectedTab === "퀘스트 현황" ? "text-black font-medium" : "text-gray-400")}
+                className={clsx(
+                  "text-base active:scale-95 transition-all duration-100",
+                  selectedTab === "퀘스트 현황" ? "text-black font-medium" : "text-gray-400"
+                )}
                 onClick={() => setSelectedTab("퀘스트 현황")}
               >
                 퀘스트 현황

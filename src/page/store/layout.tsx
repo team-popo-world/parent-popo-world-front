@@ -29,7 +29,10 @@ export const StoreLayout: React.FC = () => {
           <ul className="absolute top-14.5 -right-2.5 flex flex-col bg-white p-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
             <Link to="/store/product-management">
               <li
-                className={clsx("text-xs", selectedTab === "상품관리" ? "text-black font-medium" : "text-gray-400")}
+                className={clsx(
+                  "text-base active:scale-95 transition-all duration-100",
+                  selectedTab === "상품관리" ? "text-black font-medium" : "text-gray-400"
+                )}
                 onClick={() => setSelectedTab("상품관리")}
               >
                 상품관리
@@ -37,7 +40,10 @@ export const StoreLayout: React.FC = () => {
             </Link>
             <Link to="/store/purchase-management">
               <li
-                className={clsx("text-xs", selectedTab === "구매관리" ? "text-black font-medium" : "text-gray-400")}
+                className={clsx(
+                  "text-base active:scale-95 transition-all duration-100",
+                  selectedTab === "구매관리" ? "text-black font-medium" : "text-gray-400"
+                )}
                 onClick={() => setSelectedTab("구매관리")}
               >
                 구매관리
@@ -45,7 +51,10 @@ export const StoreLayout: React.FC = () => {
             </Link>
             <Link to="/store/purchase-request">
               <li
-                className={clsx("text-xs k", selectedTab === "사용요청" ? "text-black font-medium" : "text-gray-400")}
+                className={clsx(
+                  "text-base active:scale-95 transition-all duration-100",
+                  selectedTab === "사용요청" ? "text-black font-medium" : "text-gray-400"
+                )}
                 onClick={() => setSelectedTab("사용요청")}
               >
                 사용요청

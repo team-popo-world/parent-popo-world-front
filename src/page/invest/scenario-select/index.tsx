@@ -58,8 +58,6 @@ const DEFAULT_SCENARIO_ID = {
   "달빛 도둑": "07e47c9d-4f9f-46b1-97f4-358bf3144909",
 };
 
-const queryClient = useQueryClient();
-
 export const InvestScenarioSelectPage: React.FC = () => {
   const navigate = useNavigate();
   const { openModal, closeModal } = useModalStore();
@@ -86,6 +84,7 @@ export const InvestScenarioSelectPage: React.FC = () => {
   // 컴포넌트 내부
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const queryClient = useQueryClient();
 
   const { data: scenarioData } = useQuery({
     queryKey: ["scenarioList", selectedChildId, selectedTheme, currentPage],
