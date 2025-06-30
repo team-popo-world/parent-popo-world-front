@@ -6,7 +6,7 @@ import type { ProductItem } from "../../api/market/type";
 import clsx from "clsx";
 import { PlusIcon } from "../../components/icons/PlusIcon";
 
-export const ProductResisterContent = ({
+export const ProductRegisterContent = ({
   selectedAddProduct,
   setSelectedAddProduct,
   isDropdownOpen,
@@ -121,7 +121,7 @@ export const ProductResisterContent = ({
           </label>
           <input
             type="text"
-            value={selectedAddProduct?.price}
+            value={selectedAddProduct?.price || ""}
             onChange={(e) => {
               const value = e.target.value;
               // 숫자만 허용하는 정규식
@@ -132,7 +132,6 @@ export const ProductResisterContent = ({
               } as ProductItem);
             }}
             className="pl-2 py-0.5 text-base text-black border border-gray-100 shadow-custom-2 rounded-md focus:outline-none"
-            placeholder="숫자만 입력"
           />
         </div>
       </div>

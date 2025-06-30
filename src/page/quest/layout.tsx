@@ -29,7 +29,7 @@ export const QuestLayout = () => {
     <>
       <Header title={selectedTab} onClick={() => setIsTabOpen(!isTabOpen)} backButtonOnClick={() => navigate("/")}>
         {isTabOpen && (
-          <ul className="absolute top-14.5 -right-2.5 flex flex-col bg-white p-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
+          <ul className="absolute top-16 -right-2.5 flex flex-col bg-white px-2.5 py-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
             <Link to="/quest/create-quest">
               <li
                 className={clsx(

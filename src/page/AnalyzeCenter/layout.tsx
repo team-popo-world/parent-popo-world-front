@@ -45,18 +45,7 @@ export const AnalyzeCenterLayout: React.FC = () => {
         backButtonOnClick={() => navigate(`${selectedTab === "분석센터" ? "/" : "/analyze"}`)}
       >
         {isTabOpen && (
-          <ul className="absolute top-14.5 -right-2.5 flex flex-col bg-white p-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
-            <Link to="/analyze/store" className="w-full">
-              <li
-                className={clsx(
-                  "text-base active:scale-95 transition-all duration-100 ",
-                  selectedTab === "상점 분석" ? "text-black font-medium" : "text-gray-400"
-                )}
-                onClick={() => setSelectedTab("상점 분석")}
-              >
-                상점 분석
-              </li>
-            </Link>
+          <ul className="absolute top-16 -right-2.5 flex flex-col bg-white px-2.5 py-2 rounded-xl shadow-custom-2 border border-gray-100 items-center gap-y-1">
             <Link to="/analyze/invest" className="w-full">
               <li
                 className={clsx(
@@ -66,6 +55,17 @@ export const AnalyzeCenterLayout: React.FC = () => {
                 onClick={() => setSelectedTab("모의투자 분석")}
               >
                 모의투자 분석
+              </li>
+            </Link>
+            <Link to="/analyze/store" className="w-full">
+              <li
+                className={clsx(
+                  "text-base active:scale-95 transition-all duration-100 ",
+                  selectedTab === "상점 분석" ? "text-black font-medium" : "text-gray-400"
+                )}
+                onClick={() => setSelectedTab("상점 분석")}
+              >
+                상점 분석
               </li>
             </Link>
             <Link to="/analyze/quest" className="w-full">

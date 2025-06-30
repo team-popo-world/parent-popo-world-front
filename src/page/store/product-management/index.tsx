@@ -3,7 +3,7 @@ import { AddButton } from "../../../components/button/AddButton";
 import { BottomSheet } from "../../../components/bottom-sheet/BottomSheet";
 import { IMAGE_URLS } from "../../../constants/constants";
 import coinIcon from "@/assets/image/common/common_coin.webp";
-import { ProductResisterContent } from "../../../features/store/ProductResisterContent";
+import { ProductRegisterContent } from "../../../features/store/ProductResisterContent";
 import { createStoreProduct } from "../../../api/market/registerProduct";
 import { useAuthStore } from "../../../zustand/auth";
 import { useModalStore } from "../../../zustand/modal";
@@ -15,15 +15,16 @@ import type { __ProductItem } from "../../../api/market/getStoreItems";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { uploadImageToCloudinary } from "../../../components/cloudinary/cloudinary";
 import { postPushMessage } from "../../../api/push/postPushMessage";
+import { ProductDeleteContent } from "../../../features/store/ProductDeleteContent";
 
 export const ProductManagementPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [isAddProductBottomSheetOpen, setIsAddProductBottomSheetOpen] = useState(false);
-  const [isEditProductBottomSheetOpen, setIsEditProductBottomSheetOpen] = useState(false);
+  const [isDeleteProductBottomSheetOpen, setIsDeleteProductBottomSheetOpen] = useState(false);
   const { openModal, closeModal } = useModalStore();
   const [selectedAddProduct, setSelectedAddProduct] = useState<ProductItem | null>({
     productName: "",
-    price: 0,
+    price: null,
     image: null,
     imageUrl: IMAGE_URLS.items.donut,
     label: "",
@@ -73,6 +74,8 @@ export const ProductManagementPage: React.FC = () => {
       queryClient.invalidateQueries({
         queryKey: ["storeItems", selectedChildId],
       });
+      // 삭제 완료 메시지 표시
+      alert("삭제가 완료됐습니다");
     },
   });
 
@@ -91,7 +94,7 @@ export const ProductManagementPage: React.FC = () => {
   const handleProductClick = (product: ProductItem) => {
     console.log("handleProductClick", product);
     setSelectedProduct(product);
-    setIsEditProductBottomSheetOpen(true);
+    setIsDeleteProductBottomSheetOpen(true);
   };
 
   const handleAddProduct = async () => {
@@ -171,8 +174,12 @@ export const ProductManagementPage: React.FC = () => {
 
   const handleDeleteProduct = async () => {
     if (!selectedChildId || !selectedProduct) return;
+
+    // 삭제 완료 메시지 표시
+    alert("삭제가 완료됐습니다");
+
     deleteProductMutation.mutate(selectedProduct.productId || "");
-    setIsEditProductBottomSheetOpen(false);
+    setIsDeleteProductBottomSheetOpen(false);
     setSelectedProduct(null);
     postPushMessage({ childId: selectedChildId, message: "부모님이 상품을 삭제 했어!" });
   };
@@ -214,7 +221,7 @@ export const ProductManagementPage: React.FC = () => {
 
       {/* 상품 추가 Bottom Sheet */}
       <BottomSheet isOpen={isAddProductBottomSheetOpen} onClose={handleCreateProductModalClose}>
-        <ProductResisterContent
+        <ProductRegisterContent
           selectedAddProduct={selectedAddProduct}
           setSelectedAddProduct={setSelectedAddProduct}
           isDropdownOpen={isDropdownOpen}
@@ -224,48 +231,13 @@ export const ProductManagementPage: React.FC = () => {
           onClose={handleCreateProductModalClose}
         />
       </BottomSheet>
-      {/* 상품 수정 Bottom Sheet */}
-      <BottomSheet isOpen={isEditProductBottomSheetOpen} onClose={() => setIsEditProductBottomSheetOpen(false)}>
-        {/* 제목 */}
-        <div className="flex items-center gap-x-1 mb-2">
-          <div className="">상품 조회</div>
-        </div>
-        {/* 상품 이미지, 이름, 가격 설정 */}
-        <div className="grid grid-cols-2 gap-x-2 gap-y-2 mb-5">
-          <div className="w-40 h-40 aspect-square bg-main-white-500 flex justify-center items-center border-2 border-gray-100 shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100">
-            <img src={selectedProduct?.imageUrl || ""} alt="" className="w-1/2 h-1/2 object-contain" />
-          </div>
-          <div className="flex flex-col gap-y-1 py-3">
-            <label htmlFor="" className="text-sm text-black">
-              상품 이름
-            </label>
-            <div className="pl-2 py-1 text-sm text-black border border-gray-100 shadow-custom-2 rounded-md focus:outline-none">
-              {selectedProduct?.productName}
-            </div>
-            <label htmlFor="" className="text-sm text-black mt-3">
-              상품 가격
-            </label>
-            <div className="pl-2 py-1 text-sm text-black border border-gray-100 shadow-custom-2 rounded-md focus:outline-none">
-              {selectedProduct?.price}냥
-            </div>
-          </div>
-        </div>
-
-        {/* 상품 등록, 취소 버튼 */}
-        <div className="grid grid-cols-2 gap-x-2 w-full ">
-          <div
-            className="text-center bg-main-red-500 text-main-white-500 text-sm rounded-xl py-3 shadow-custom-2"
-            onClick={handleDeleteProduct}
-          >
-            삭제
-          </div>
-          <div
-            className="text-center bg-main-white-500 text-black text-sm rounded-xl py-3 shadow-custom-2"
-            onClick={() => setIsEditProductBottomSheetOpen(false)}
-          >
-            취소
-          </div>
-        </div>
+      {/* 상품 삭제 Bottom Sheet */}
+      <BottomSheet isOpen={isDeleteProductBottomSheetOpen} onClose={() => setIsDeleteProductBottomSheetOpen(false)}>
+        <ProductDeleteContent
+          selectedProduct={selectedProduct}
+          setIsDeleteProductBottomSheetOpen={setIsDeleteProductBottomSheetOpen}
+          handleDeleteProduct={handleDeleteProduct}
+        />
       </BottomSheet>
     </>
   );

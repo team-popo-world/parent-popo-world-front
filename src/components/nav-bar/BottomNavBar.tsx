@@ -40,10 +40,7 @@ export const BottomNavBar: React.FC = () => {
 
   // 현재 페이지에서 네비바를 숨길지 확인
   const shouldHideNavBar = () => {
-    return (
-      hideNavBarPaths.some((path) => location.pathname.startsWith(path)) ||
-      isAnyModalOpen
-    ); // 모달이 열려있을 때도 숨김
+    return hideNavBarPaths.some((path) => location.pathname.startsWith(path)) || isAnyModalOpen; // 모달이 열려있을 때도 숨김
   };
 
   // 네비바를 숨겨야 하면 null 반환

@@ -2,7 +2,7 @@
 export interface ProductItem {
   productId?: string;
   productName?: string;
-  price?: number;
+  price?: number | null;
   image?: File | null;
   imageUrl?: string | null;
   childName?: string;
