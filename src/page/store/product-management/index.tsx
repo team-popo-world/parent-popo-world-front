@@ -29,10 +29,11 @@ export const ProductManagementPage: React.FC = () => {
     label: "",
   });
   const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
-
+  // 상품 카테고리 드롭다운
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // 상품 리스트
   const [items, setItems] = useState<ProductItem[]>([]);
   const { selectedChildId } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -173,6 +174,7 @@ export const ProductManagementPage: React.FC = () => {
     deleteProductMutation.mutate(selectedProduct.productId || "");
     setIsEditProductBottomSheetOpen(false);
     setSelectedProduct(null);
+    postPushMessage({ childId: selectedChildId, message: "부모님이 상품을 삭제 했어!" });
   };
 
   return (

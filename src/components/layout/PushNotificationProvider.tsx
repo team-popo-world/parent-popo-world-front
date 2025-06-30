@@ -23,6 +23,7 @@ const PushNotificationProvider = ({ queryClient }: PushNotificationProviderProps
           queryClient.invalidateQueries({ queryKey: ["purchase-request"] });
           queryClient.invalidateQueries({ queryKey: ["purchase-management"] });
           queryClient.invalidateQueries({ queryKey: ["storeItems"] });
+          queryClient.invalidateQueries({ queryKey: ["productAnalyze"] });
         }
 
         // 통장 데이터 갱신
