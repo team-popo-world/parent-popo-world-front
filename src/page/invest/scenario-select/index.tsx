@@ -15,7 +15,7 @@ import { InvestChatBot, type StoryState, type TurnState } from "./ChatBot";
 import Pagination from "../../../components/page/Pagination";
 import { Header } from "../../../components/header/header";
 import { ChildNavBar } from "../../../components/nav-bar/ChildNavBar";
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 
 interface Theme {
   id: string;
@@ -58,7 +58,7 @@ const DEFAULT_SCENARIO_ID = {
   "달빛 도둑": "07e47c9d-4f9f-46b1-97f4-358bf3144909",
 };
 
-const queryClient = new QueryClient();
+const queryClient = useQueryClient();
 
 export const InvestScenarioSelectPage: React.FC = () => {
   const navigate = useNavigate();

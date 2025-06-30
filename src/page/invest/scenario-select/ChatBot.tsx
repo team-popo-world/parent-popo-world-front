@@ -17,7 +17,7 @@ import { useModalStore } from "../../../zustand/modal";
 import Cookies from "js-cookie";
 import theacher_popo from "../../../assets/image/common/teacher_popo.png";
 import { saveScenario } from "../../../api/invest/save-scenario";
-import { QueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Theme {
   id: string;
@@ -103,7 +103,7 @@ interface InvestChatBotProps {
   turns?: TurnState[] | null;
 }
 
-const queryClient = new QueryClient();
+const queryClient = useQueryClient();
 
 export const InvestChatBot: React.FC<InvestChatBotProps> = ({
   scenarioType,
