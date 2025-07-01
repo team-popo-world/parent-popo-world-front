@@ -52,10 +52,10 @@ const themes: Record<string, Theme> = {
 };
 
 const DEFAULT_SCENARIO_ID = {
-  "아기돼지 삼형제": "a2be0f02-14c4-4a10-9c49-cbbac74bee08",
-  "푸드 트럭 왕국": "e7f634f8-3a4a-433d-9a3d-b945da07e777",
-  "마법 왕국": "816cfeef-3b9e-48c3-90f0-70a31cd67d4e",
-  "달빛 도둑": "07e47c9d-4f9f-46b1-97f4-358bf3144909",
+  "아기돼지 삼형제": "de35b439-2094-4c0f-81b5-2dcb8460282d",
+  "푸드 트럭 왕국": "d968ab00-adba-45a6-8f9b-5975bf63c985",
+  "마법 왕국": "7a0de253-fadc-45e8-aff9-389a62991313",
+  "달빛 도둑": "54791964-87a5-4eea-b057-70ab09725bb2",
 };
 
 export const InvestScenarioSelectPage: React.FC = () => {
@@ -150,9 +150,6 @@ export const InvestScenarioSelectPage: React.FC = () => {
     }));
     return turns;
   };
-
-  console.log("selectedTheme", selectedTheme);
-  console.log(Object.values(themes));
 
   useEffect(() => {
     // 챗봇이나 시나리오 생성 모달이 열려있을 때 네비바 숨기기

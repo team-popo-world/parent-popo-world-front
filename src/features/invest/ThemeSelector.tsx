@@ -14,7 +14,6 @@ interface ThemeSelectorProps {
 }
 
 const ThemeSelector: React.FC<ThemeSelectorProps> = ({ bgColor, name, onClick, selected }) => {
-  console.log("selected", selected);
   return (
     <div
       className={`px-2 py-1 text-main-white-500 rounded-sm text-sm whitespace-nowrap active:scale-95 transition-all duration-100 ${
