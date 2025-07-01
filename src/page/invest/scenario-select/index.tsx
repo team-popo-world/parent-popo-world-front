@@ -15,7 +15,8 @@ import { InvestChatBot, type StoryState, type TurnState } from "./ChatBot";
 import Pagination from "../../../components/page/Pagination";
 import { Header } from "../../../components/header/header";
 import { ChildNavBar } from "../../../components/nav-bar/ChildNavBar";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
+import { editScenario } from "../../../api/invest/edit-scenario";
 
 interface Theme {
   id: string;
@@ -91,6 +92,13 @@ export const InvestScenarioSelectPage: React.FC = () => {
     queryFn: () => getScenarioList(currentPage - 1, 5, selectedChildId || "", themes[selectedTheme].chapterId),
   });
 
+  const editScenarioMutation = useMutation({
+    mutationFn: (scenarioId: string) => editScenario(scenarioId),
+    onSuccess: () => {
+      setChatBotOpen(true);
+    },
+  });
+
   // scenarioData가 변경될 때만 상태 업데이트
   useEffect(() => {
     if (scenarioData) {
@@ -126,7 +134,7 @@ export const InvestScenarioSelectPage: React.FC = () => {
 
   const handleEdit = (scenarioId: string) => {
     setSelectedScenarioId(scenarioId);
-    setChatBotOpen(true);
+    editScenarioMutation.mutate(scenarioId);
   };
 
   const handleView = (scenarioId: string) => {

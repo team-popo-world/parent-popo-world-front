@@ -8,7 +8,6 @@ import ChatMessage from "../../../features/invest/ChatMessage";
 import ChatOutModal from "../../../features/invest/ChatOutModal";
 import ChatTurnSideModal from "../../../features/invest/ChatTurnSideModal";
 import ArrowUp from "../../../components/icons/ArrowUp";
-import { editScenario } from "../../../api/invest/edit-scenario";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { sendChatbotMessage } from "../../../api/invest/chatbot-message";
 import { useAuthStore } from "../../../zustand/auth";
@@ -46,13 +45,6 @@ const themes: Record<string, Theme> = {
     color: "#FE4A4E",
   },
 };
-
-// const scenarioNames = {
-//   "아기돼지 삼형제": ["아기돼지1", "아기돼지2", "아기돼지3"],
-//   "푸드 트럭 왕국": ["푸드트럭1", "푸드트럭2", "푸드트럭3"],
-//   "마법 왕국": ["마법왕국1", "마법왕국2", "마법왕국3"],
-//   "달빛 도둑": ["달빛도둑1", "달빛도둑2", "달빛도둑3"],
-// };
 
 // 각 주식(돼지)의 상태를 나타내는 타입
 export interface Stock {
@@ -125,10 +117,6 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
   const eventSourceRef = useRef<EventSourcePolyfill | null>(null);
 
   useEffect(() => {
-    if (scenarioId) {
-      editScenario(scenarioId);
-    }
-
     // SSE 연결
     const token = useAuthStore.getState().accessToken;
     const Refresh_key = Cookies.get("refreshToken");

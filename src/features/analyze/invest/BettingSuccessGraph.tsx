@@ -1,5 +1,5 @@
 // 배팅 성공률 그래프
-import { LineChart, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Line, ReferenceLine } from "recharts";
+import { LineChart, XAxis, YAxis, Tooltip, ResponsiveContainer, Line, ReferenceLine } from "recharts";
 import { type BettingSuccessGraphProps } from "./types";
 import { useRef, useState, useEffect } from "react";
 import LegendIcon from "../../../components/icons/Legend";
@@ -72,7 +72,7 @@ export default function BettingSuccessGraph({
               })()}
             />
             <YAxis label={{ value: "성공률 (%)", position: "top", angle: 0, offset: 15, dx: 20 }} domain={[0, 100]} />
-            <Tooltip formatter={(value: number) => `${Math.round(value)}냥`} />
+            <Tooltip formatter={(value: number) => `${Math.round(value)}%`} />
             <ReferenceLine
               y={betBuyRatioMean}
               stroke="#1DB3FB"
