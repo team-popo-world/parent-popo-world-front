@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChildCard } from "../../features/home/ChildCard";
-import defaultChildBoyImage from "../../assets/image/common/boy.png";
-import defaultChildGirlImage from "../../assets/image/common/girl.png";
 import { PopoButton } from "../../components/button/popoButton";
 import { Modal } from "../../components/modal/Modal";
 import { useAuthStore } from "../../zustand/auth";
@@ -17,7 +15,7 @@ import questIcon from "../../assets/image/common/quest.png";
 import { BottomNavBar } from "../../components/nav-bar/BottomNavBar";
 import { getUser } from "../../api/user/getUser";
 import { useQuery } from "@tanstack/react-query";
-
+import POPO_IMAGE from "../../assets/image/common/popo_img.png";
 export const HomePage: React.FC = () => {
   const [isOpenParentCode, setIsOpenParentCode] = useState(false);
   const authStorage = localStorage.getItem("auth-storage");
@@ -127,7 +125,7 @@ export const HomePage: React.FC = () => {
                 }}
               >
                 <ChildCard
-                  image={childInfo.sex === "M" ? defaultChildBoyImage : defaultChildGirlImage}
+                  image={childInfo.sex === "M" ? POPO_IMAGE : POPO_IMAGE}
                   child={childInfo}
                   selected={selectedChildId === childInfo.userId}
                   setSelectedChildId={() => setSelectedChildId(childInfo.userId)}
