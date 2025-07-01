@@ -39,7 +39,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path="/" element={<PushNotificationProvider queryClient={queryClient} />}>
+          <Route element={<PushNotificationProvider queryClient={queryClient} />}>
             {/* 홈 */}
             {/* prettier-ignore */}
             <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
