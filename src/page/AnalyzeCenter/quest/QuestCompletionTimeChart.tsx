@@ -91,13 +91,19 @@ export const QuestCompletionTimeChart = () => {
           `/api/questAnalytics/${questType}/completion-time`,
           { params: { childId: selectedChildId, period } }
         );
-        setData(res.data.result.result || []);
+        const raw = res.data?.result;
+        const normalized = Array.isArray(raw)
+          ? raw
+          : Array.isArray(raw?.result)
+          ? raw.result
+          : [];
+
+        setData(normalized);
       } catch (e) {
         console.error("데이터 fetch 실패", e);
       }
     };
     fetch();
-    // console.log("data:", data);
   }, [questType, period, selectedChildId]);
 
   const questLabelList =
@@ -108,14 +114,16 @@ export const QuestCompletionTimeChart = () => {
 
   const chartDataMap: Record<
     string,
-    { quest: string; x: number; y: number | null }[]
+    { quest: string; x: number; y: number }[]
   > = {};
+
   questLabelList.forEach((label) => {
     chartDataMap[label] = [
       { quest: label, x: questXMap[label as keyof typeof questXMap], y: null },
     ];
   });
 
+  // console.log("data:", data);
   data?.forEach((quest) => {
     const label =
       questType === "parent"
@@ -133,6 +141,7 @@ export const QuestCompletionTimeChart = () => {
         y: hour + Math.random() * 2,
       }));
     });
+    // console.log("points:", points);
 
     if (points.length > 0) {
       chartDataMap[label] = points;
