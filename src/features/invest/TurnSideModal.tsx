@@ -37,10 +37,6 @@ export function TurnSideModal({
             &times;
           </button>
         </div>
-        <div className="flex gap-x-1">
-          <div className="text-xs text-gray-500">#태그</div>
-          <div className="text-xs text-gray-500">#태그</div>
-        </div>
       </div>
 
       {/* 시나리오 종류/태그 */}

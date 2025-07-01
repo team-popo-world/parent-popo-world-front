@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../../zustand/auth";
 import { Modal } from "../../components/modal/Modal";
 import POPO_IMAGE from "../../assets/image/common/popo_img.png";
-import parentsImage from "../../assets/image/common/parents.png";
+import popo from "@/assets/image/common/popo.png";
 import type { Child } from "../../zustand/auth";
 
 export const MyPage: React.FC = () => {
@@ -141,7 +141,7 @@ export const MyPage: React.FC = () => {
             <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center overflow-hidden">
-                  <img src={parentsImage} alt="부모님" className="w-12 h-12 object-contain" />
+                  <img src={popo} alt="부모님" className="w-12 h-12 object-contain" />
                 </div>
                 <div className="flex-1">
                   <h2 className="text-xl font-bold">{userInfo?.name || "부모님"}</h2>
@@ -190,9 +190,6 @@ export const MyPage: React.FC = () => {
                   <div className="flex-1">
                     <h4 className="font-semibold text-gray-800">{childInfo.name}</h4>
                     <p className="text-sm text-gray-500">포인트: {childInfo.point}냥</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs text-gray-400">활동 중</span>
                   </div>
                 </div>
               </div>

@@ -62,10 +62,10 @@ export const PurchaseRequestPage: React.FC = () => {
             {/* 왼쪽 */}
             <div className="flex items-center gap-x-4">
               <div className="w-17 h-17 aspect-square bg-main-white-500 flex justify-center items-center border-2 border-gray-100 shadow-custom-2 rounded-xl active:scale-95 transition-all duration-100">
-                <img src={item.imageUrl || ""} alt="" className="w-9 h-9" />
+                <img src={item.imageUrl || ""} alt="" className="w-12 h-12 object-contain" />
               </div>
               <div className="flex flex-col gap-y-1 justify-center items-start ">
-                <div className="text-xs text-black">{item.productName}</div>
+                <div className="text-sm text-black">{item.productName}</div>
                 <div className="flex items-center gap-x-0.5">
                   <img src={coinIcon} alt="" className="w-3.5 h-3.5 mb-0.5" />
                   <div className="text-xs text-black">{item.price}냥</div>
@@ -76,7 +76,7 @@ export const PurchaseRequestPage: React.FC = () => {
             <div className="flex gap-x-2 items-center">
               <div className="text-xs text-gray-700 px-2 py-1 bg-gray-200 rounded-md">{item.usedAt}</div>
               <div
-                className="text-xs bg-main-green-700  text-main-white-500 rounded-sm px-2 py-1"
+                className="text-xs bg-main-green-700  text-main-white-500 rounded-sm px-2 py-1 active:scale-95 transition-all duration-100"
                 onClick={() => handleApprove(item.productId || "")}
               >
                 확인

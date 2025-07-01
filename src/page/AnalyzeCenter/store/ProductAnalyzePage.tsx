@@ -43,7 +43,7 @@ export const ProductAnalyzePage = () => {
     <>
       <div className="flex justify-between items-center mb-6 ">
         <div className="text-sm">분석 대시보드</div>
-        <div className="text-[0.8rem] text-center text-black border border-gray-300 rounded-sm px-2 py-1 cursor-pointer">
+        <div className="text-[0.8rem] text-center text-black rounded-sm px-2 py-1 cursor-pointer">
           {lastUpdated ? new Date(lastUpdated).toLocaleDateString() : new Date().toLocaleDateString()}
         </div>
       </div>

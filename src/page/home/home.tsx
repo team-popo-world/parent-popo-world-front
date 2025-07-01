@@ -141,7 +141,7 @@ export const HomePage: React.FC = () => {
             <div className="text-xl font-bold text-black mb-2">자녀와 함께 활동해보세요!</div>
             {/* 상단 타이틀 */}
 
-            <div className="relative bg-white/75 rounded-lg mb-2 h-24 px-5 py-4">
+            <div className="relative bg-white/75 rounded-lg mb-2 h-24 px-5 py-4 active:scale-95 transition-all duration-100">
               <div>
                 <div className="text-base font-bold text-black">총 투자 분석 레포트!</div>
                 <div className="text-sm text-main-gray-500">자녀의 모든 활동에 대한 분석을 받아보세요</div>
@@ -152,22 +152,22 @@ export const HomePage: React.FC = () => {
             {/* 2x2 그리드 */}
             {/* prettier-ignore */}
             <div className="grid grid-cols-[5fr_3fr] gap-2 mb-12">
-              <Link to="/invest/scenario-select" className="relative flex flex-col  h-28 bg-white/75 rounded-lg shadow py-3 px-4">
+              <Link to="/invest/scenario-select" className="relative flex flex-col  h-28 bg-white/75 rounded-lg shadow py-3 px-4 active:scale-95 transition-all duration-100">
                 <div className="text-base font-bold text-black">모의투자</div>   
                 <div className="text-xs text-main-gray-500">모의투자 시나리오를 만들어보세요</div>
                 <img src={popoStockIcon} alt="" className="absolute bottom-2 right-2 w-12.5" />
               </Link>
-              <Link to="/store/product-management" className="relative flex flex-col h-28 bg-white/75 rounded-lg shadow py-3 px-3">
+              <Link to="/store/product-management" className="relative flex flex-col h-28 bg-white/75 rounded-lg shadow py-3 px-3 active:scale-95 transition-all duration-100">
                 <div className="text-base font-bold text-black">상점</div>
                 <div className="text-xs text-main-gray-500">상품을 등록하고 내역을 확인하세요</div>
                 <img src={storeIcon} alt="" className="absolute bottom-2 right-2 w-11.5" />
               </Link>
-              <Link to="/savings/report" className="relative flex flex-col h-28 bg-white/75 rounded-lg shadow py-3 px-4">
+              <Link to="/savings/report" className="relative flex flex-col h-28 bg-white/75 rounded-lg shadow py-3 px-4 active:scale-95 transition-all duration-100">
                 <div className="text-base font-bold text-black">저축통장</div>
                 <div className="text-xs text-main-gray-500">자녀 저축통장 내역을 확인해보세요</div>
                 <img src={savingsIcon} alt="" className="absolute bottom-2 right-2 w-11.5" />
               </Link>
-              <Link to="/quest/create-quest" className="relative flex flex-col h-28 bg-white/75 rounded-lg shadow py-3 px-3">
+              <Link to="/quest/create-quest" className="relative flex flex-col h-28 bg-white/75 rounded-lg shadow py-3 px-3 active:scale-95 transition-all duration-100">
                 <div className="text-base font-bold text-black">퀘스트</div>
                 <div className="text-xs text-main-gray-500">퀘스트를 등록하세요</div>
                 <img src={questIcon} alt="" className="absolute bottom-2 right-2 w-11.5" />

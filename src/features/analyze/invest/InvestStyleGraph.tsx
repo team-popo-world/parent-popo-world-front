@@ -15,10 +15,12 @@ interface InvestStyleGraphComponentProps {
   InvestStyleData: InvestStyleGraphProps[];
 }
 
+const clusterIndexTitle = ["안정추구형", "적극투자형", "위험중립형", "공격투자형", "안정형"];
+
 export const InvestStyleGraph: React.FC<InvestStyleGraphComponentProps> = ({ InvestStyleData }) => {
   // 데이터를 RadarChart에 맞는 형식으로 변환
   const chartData = InvestStyleData.map((item) => ({
-    subject: `클러스터 ${item.cluster_num}`,
+    subject: ` ${clusterIndexTitle[item.cluster_num]}`,
     A: item.count,
   }));
 
@@ -31,7 +33,7 @@ export const InvestStyleGraph: React.FC<InvestStyleGraphComponentProps> = ({ Inv
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
           <PolarRadiusAxis angle={30} domain={[0, maxCount + 5]} />
-          <Radar name="데이터 수" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+          <Radar name="게임 수" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
           <Legend />
           <Tooltip />
         </RadarChart>

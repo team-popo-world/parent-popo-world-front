@@ -17,8 +17,7 @@ interface SignInForm {
 export function SignInPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { setUser, setAccessToken, setChildren, setSelectedChildId } =
-    useAuthStore();
+  const { setUser, setAccessToken, setChildren, setSelectedChildId } = useAuthStore();
   const [formData, setFormData] = useState<SignInForm>({
     email: "",
     password: "",
@@ -57,10 +56,7 @@ export function SignInPage() {
       const response = await apiClient.post("/auth/login", formData);
 
       // 액세스 토큰 저장
-      const accessToken = response.headers["authorization"]?.replace(
-        "Bearer ",
-        ""
-      );
+      const accessToken = response.headers["authorization"]?.replace("Bearer ", "");
       setAccessToken(accessToken);
       // 리프레시 토큰 저장
       const refreshToken = response.headers["refresh-token"];
@@ -99,9 +95,7 @@ export function SignInPage() {
   return (
     <>
       <div className="flex flex-col justify-center px-6 py-10 bg-white rounded-3xl mt-31 scrollbar-hidden">
-        <h3 className="mb-6 text-2xl font-bold text-[#5E2B00] text-center">
-          POPO WORLD
-        </h3>
+        <h3 className="mb-6 text-2xl font-bold text-[#5E2B00] text-center">POPO WORLD</h3>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1">
             <label className="text-[#5E2B00] font-bold">이메일</label>

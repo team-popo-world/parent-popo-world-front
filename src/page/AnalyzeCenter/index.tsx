@@ -15,7 +15,7 @@ export const AnalyzeCenterPage = () => {
       <div className="grid grid-cols-1 gap-4">
         {/* 모의투자 분석 */}
         <Link to="/analyze/invest" className="block">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-100 active:scale-95">
             {/* 제목 */}
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3 ">
@@ -37,7 +37,7 @@ export const AnalyzeCenterPage = () => {
 
         {/* 상점 분석 */}
         <Link to="/analyze/store" className="block">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-100 active:scale-95">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -57,7 +57,7 @@ export const AnalyzeCenterPage = () => {
 
         {/* 퀘스트 분석 */}
         <Link to="/analyze/quest" className="block mb-[-1rem]">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-100 active:scale-95">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">

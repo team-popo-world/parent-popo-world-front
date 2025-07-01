@@ -137,6 +137,7 @@ export const InvestScenarioSelectPage: React.FC = () => {
   const handleDelete = async (scenarioId: string) => {
     await deleteScenario(scenarioId);
     queryClient.invalidateQueries({ queryKey: ["scenarioList"] });
+    alert("시나리오가 삭제되었습니다.");
   };
 
   const parseTurns = (story: string | undefined) => {

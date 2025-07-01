@@ -59,7 +59,7 @@ export const investTypes: Record<string, { title: string; color: string }> = {
   },
   invest_style: {
     title: "투자 성향",
-    color: "#cf6fff",
+    color: "#8079DE",
   },
 };
 
@@ -108,7 +108,7 @@ export const InvestAnalyzePage: React.FC = () => {
             <div
               key={index}
               className={clsx(
-                "px-2 py-1 text-main-white-500 rounded-sm text-xs whitespace-nowrap",
+                "px-2 py-1 text-main-white-500 rounded-sm text-sm whitespace-nowrap",
                 selectedAnalyzeType === key ? "shadow-custom-2 translate-y-[-3px]" : ""
               )}
               style={{ backgroundColor: investType.color }}
@@ -173,7 +173,7 @@ export const InvestAnalyzePage: React.FC = () => {
           <div
             key={index}
             className={clsx(
-              "px-2 py-1 text-main-white-500 rounded-sm text-xs whitespace-nowrap",
+              "px-2 py-1 text-main-white-500 rounded-sm text-sm whitespace-nowrap",
               selectedAnalyzeType === key ? "shadow-custom-2 translate-y-[-3px]" : ""
             )}
             style={{ backgroundColor: investType.color }}

@@ -207,11 +207,6 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
     };
   }, []);
 
-  const handleCloseModal = () => {
-    closeModal();
-    closeNavModal();
-  };
-
   const handleSendMessage = () => {
     if (!inputRef.current?.textContent?.trim() || isLoading) return;
 
@@ -235,12 +230,20 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
     }
   };
 
+  const handleCloseModal = () => {
+    closeModal();
+    closeNavModal();
+    setSenarioCreateModalOpen(false);
+  };
+
   const handleSaveScenario = async () => {
     if (selectedChildId) {
       const result = await saveScenario(selectedChildId, scenarioName);
       queryClient.invalidateQueries({ queryKey: ["scenarioList"] });
       if (result) {
         closeModal();
+        closeNavModal();
+        setSenarioCreateModalOpen(false);
       }
     }
   };
@@ -323,12 +326,12 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
         />
         <button
           onClick={handleSendMessage}
-          className="bg-black absolute flex justify-center items-center bottom-2 right-2 w-6 h-6 object-contain rounded-full"
+          className="bg-black absolute flex justify-center items-center bottom-2 right-2 w-7 h-7 object-contain rounded-full"
         >
           {isLoading ? (
-            <div className="w-6 h-6 object-contain rounded-full bg-gray-400"></div>
+            <div className="w-3 h-3 object-contain rounded-xs bg-white"></div>
           ) : (
-            <ArrowUp width={16} height={16} fill="white" />
+            <ArrowUp width={24} height={24} fill="white" />
           )}
         </button>
       </div>

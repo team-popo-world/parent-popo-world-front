@@ -74,8 +74,6 @@ export const ProductManagementPage: React.FC = () => {
       queryClient.invalidateQueries({
         queryKey: ["storeItems", selectedChildId],
       });
-      // 삭제 완료 메시지 표시
-      alert("삭제가 완료됐습니다");
     },
   });
 
@@ -129,7 +127,6 @@ export const ProductManagementPage: React.FC = () => {
         return;
       }
 
-      console.log("selectedAddProduct", selectedAddProduct);
       let uploadedImageUrl;
       if (selectedAddProduct.image) {
         const uploaded = await uploadImageToCloudinary(selectedAddProduct.image);
@@ -144,7 +141,6 @@ export const ProductManagementPage: React.FC = () => {
         ...selectedAddProduct,
         imageUrl: uploadedImageUrl ? uploadedImageUrl : selectedAddProduct.imageUrl,
       };
-      console.log("product", product);
       createProductMutation.mutate(product);
 
       setIsAddProductBottomSheetOpen(false);
@@ -209,7 +205,7 @@ export const ProductManagementPage: React.FC = () => {
               )}
             </div>
             <div className="flex flex-col gap-y-0.5 px-0.5">
-              <span className="text-xs text-black">{item.productName}</span>
+              <span className="text-sm text-black">{item.productName}</span>
               <div className="flex gap-1 items-center">
                 <img src={coinIcon} alt="" className="w-3 h-3 object-contain" />
                 <span className="text-xs text-black ">{item.price}냥</span>

@@ -39,16 +39,12 @@ export default function ChatTurnSideModal({
             &times;
           </button>
         </div>
-        {/* <div className="flex gap-x-1">
-          <div className="text-xs text-gray-500">#태그</div>
-          <div className="text-xs text-gray-500">#태그</div>
-        </div> */}
       </div>
 
       {/* 시나리오 종류/태그 */}
       <div className="flex gap-x-2 px-6 py-4">
         <span
-          className="px-2 py-1 rounded text-xs font-medium"
+          className="px-2 py-1 rounded text-sm font-medium"
           style={{ backgroundColor: scenarioColor, color: "#fff" }}
         >
           {selectedTheme}
@@ -89,7 +85,7 @@ export default function ChatTurnSideModal({
         ))}
       </div>
       <div
-        className="w-fit mt-auto ml-auto bg-black text-sm text-white px-2 py-1 mb-8 mr-8 rounded-lg"
+        className="w-fit mt-auto ml-auto bg-black text-base text-white px-2 py-1 mb-8 mr-8 rounded-lg"
         onClick={quitButtonOnClick}
       >
         저장하고 나가기

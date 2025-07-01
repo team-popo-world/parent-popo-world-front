@@ -13,7 +13,7 @@ export const BackButton = ({ onClick, className = "" }: BackButtonProps) => {
   return (
     <div
       className={clsx(
-        "flex items-center justify-center w-13 h-13 rounded-full bg-white shadow-custom-2 border border-gray-50",
+        "flex items-center justify-center w-13 h-13 rounded-full bg-white shadow-custom-2 border border-gray-50 active:scale-95 transition-all duration-100",
         className
       )}
       onClick={onClick ?? (() => navigate(-1))}

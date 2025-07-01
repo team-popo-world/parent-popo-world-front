@@ -50,10 +50,6 @@ export const ScenarioCard = ({
       <div className="text-sm text-gray-600 mb-4">{summary}</div>
       {/* 시나리오 태그, 수정, 생성 날짜 */}
       <div className="flex mt-4">
-        {/* <div className="flex gap-x-1">
-          <div className="text-xs bg-gray-100 text-gray-500 p-1 rounded-sm">#태그</div>
-          <div className="text-xs bg-gray-100 text-gray-500 p-1 rounded-sm">#태그</div>
-        </div> */}
         <div className="text-xs text-gray-500 ml-auto">{updatedAt}</div>
       </div>
     </div>
