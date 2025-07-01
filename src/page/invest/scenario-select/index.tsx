@@ -134,10 +134,9 @@ export const InvestScenarioSelectPage: React.FC = () => {
     setSenarioModalOpen(true);
   };
 
-  const handleDelete = (scenarioId: string) => {
-    deleteScenario(scenarioId).then(() => {
-      queryClient.invalidateQueries({ queryKey: ["scenarioList"] });
-    });
+  const handleDelete = async (scenarioId: string) => {
+    await deleteScenario(scenarioId);
+    queryClient.invalidateQueries({ queryKey: ["scenarioList"] });
   };
 
   const parseTurns = (story: string | undefined) => {
