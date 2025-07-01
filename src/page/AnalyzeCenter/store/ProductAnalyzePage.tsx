@@ -26,7 +26,7 @@ export const ProductAnalyzePage = () => {
 
   if (!isSuccess) return null;
 
-  if (!storeAnalyzeData || !storeAnalyzeData.message || storeAnalyzeData.message === "아직 구매 데이터가 없어요!")
+  if (!storeAnalyzeData && storeAnalyzeData.message === "아직 구매 데이터가 없어요!")
     return (
       <>
         <div className="flex justify-between items-center mb-6 ">
