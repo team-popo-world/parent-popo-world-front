@@ -8,7 +8,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../../api/api";
 import { useAuthStore } from "../../../zustand/auth";
 import Cookies from "js-cookie";
-import { subscribe } from "../../../utils/pushNotification";
 
 interface SignInForm {
   email: string;
@@ -34,28 +33,10 @@ export function SignInPage() {
         return;
       }
     };
-    handlePermission();
+    if (Notification.permission !== "granted") {
+      handlePermission();
+    }
   }, []);
-
-  useEffect(() => {
-    const handleSubscribe = async () => {
-      if (accessToken) {
-        try {
-          if (Notification.permission === "granted") {
-            await subscribe();
-          } else {
-            alert("알림 권한이 거부되었습니다. 브라우저 알림을 허용해주세요");
-          }
-          if (isAuthenticated) {
-            navigate("/");
-          }
-        } catch (error) {
-          console.error("푸시 알림 구독 실패:", error);
-        }
-      }
-    };
-    handleSubscribe();
-  }, [accessToken, isAuthenticated]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -102,6 +83,7 @@ export function SignInPage() {
 
       // 모든 캐시 무효화 (다른 사용자의 데이터가 남아있을 수 있으므로)
       queryClient.clear();
+      navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);
       alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");

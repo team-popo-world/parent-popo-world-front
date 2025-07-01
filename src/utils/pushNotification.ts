@@ -8,7 +8,7 @@ export const subscribe = async () => {
         navigator.serviceWorker
           .register("/sw.js")
           .then((reg) => {
-            console.log("✅ Service Worker registered:", reg);
+            console.log("✅ Service Worker registered");
           })
           .catch((err) => {
             console.error("❌ Service Worker registration failed:", err);
@@ -18,11 +18,9 @@ export const subscribe = async () => {
 
     // 2. 서버에서 VAPID 공개키 받아오기
     const publicKey = await getPublicKey();
-    console.log("publicKey", publicKey);
 
     // 3. 서비스 워커 등록 및 준비 대기
     const registration = await navigator.serviceWorker.register("/sw.js");
-    console.log("registration", registration);
 
     // 기존 구독 해제
     const existingSubscription = await registration.pushManager.getSubscription();
@@ -40,15 +38,13 @@ export const subscribe = async () => {
     // 5. 구독 객체에서 암호화 키 추출
     const p256dhKey = subscription.getKey("p256dh");
     const authKey = subscription.getKey("auth");
-    console.log("p256dhKey", p256dhKey);
-    console.log("authKey", authKey);
 
     // 6. 두 키가 모두 존재할 때만 서버로 구독 정보 전송
     if (p256dhKey && authKey) {
       const p256dh = arrayBufferToBase64(p256dhKey);
       const auth = arrayBufferToBase64(authKey);
       const response = await postSubscribe(subscription.endpoint, p256dh, auth);
-      console.log("response, postSubscribe", response);
+      console.log("구독완료", response);
     } else {
       console.log("p256dh or auth key가 없음");
     }
