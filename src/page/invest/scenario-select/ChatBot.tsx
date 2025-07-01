@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Modal } from "../../../components/modal/Modal";
 import { SideModal } from "../../../components/modal/SideModal";
-import { ChildNavBar } from "../../../components/nav-bar/ChildNavBar";
 import { ChatBotHeader } from "../../../components/header/header";
 import ChatMessage from "../../../features/invest/ChatMessage";
 import ChatOutModal from "../../../features/invest/ChatOutModal";
@@ -135,14 +134,17 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
     const Refresh_key = Cookies.get("refreshToken");
 
     try {
-      const eventSource = new EventSourcePolyfill(`${import.meta.env.VITE_API_BASE_URL}/api/chatbot/sse`, {
-        headers: {
-          "Content-Type": "text/event-stream",
-          Authorization: `Bearer ${token}`,
-          Refresh_key: `Bearer ${Refresh_key}`,
-        },
-        withCredentials: true,
-      });
+      const eventSource = new EventSourcePolyfill(
+        `${import.meta.env.VITE_API_BASE_URL}/api/chatbot/sse`,
+        {
+          headers: {
+            "Content-Type": "text/event-stream",
+            Authorization: `Bearer ${token}`,
+            Refresh_key: `Bearer ${Refresh_key}`,
+          },
+          withCredentials: true,
+        }
+      );
 
       eventSourceRef.current = eventSource;
 
@@ -166,7 +168,10 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
             news: turn.news,
           }));
           setTurnData(turns);
-          setMessages((prev) => [...prev, { message: data.reply, isTeacher: true }]);
+          setMessages((prev) => [
+            ...prev,
+            { message: data.reply, isTeacher: true },
+          ]);
           setIsLoading(false);
         } catch (error) {
           console.error("메시지 파싱 에러:", error);
@@ -216,7 +221,10 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
   const handleSendMessage = () => {
     if (!inputRef.current?.textContent?.trim() || isLoading) return;
 
-    setMessages((prev) => [...prev, { message: inputRef.current?.textContent || "", isTeacher: false }]);
+    setMessages((prev) => [
+      ...prev,
+      { message: inputRef.current?.textContent || "", isTeacher: false },
+    ]);
     sendChatbotMessage({ message: inputRef.current?.textContent || "" });
     setIsSend(true);
     setIsLoading(true);
@@ -249,11 +257,20 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
   return (
     <>
       {/* 챗봇 나가기 모달 */}
-      <Modal isOpen={senarioCreateModalOpen} onClose={() => setSenarioCreateModalOpen(false)}>
-        <ChatOutModal setSenarioCreateModalOpen={setSenarioCreateModalOpen} onClick={handleCloseModal} />
+      <Modal
+        isOpen={senarioCreateModalOpen}
+        onClose={() => setSenarioCreateModalOpen(false)}
+      >
+        <ChatOutModal
+          setSenarioCreateModalOpen={setSenarioCreateModalOpen}
+          onClick={handleCloseModal}
+        />
       </Modal>
       {/* 사이드바 */}
-      <SideModal isOpen={senarioModalOpen} onClose={() => setSenarioModalOpen(false)}>
+      <SideModal
+        isOpen={senarioModalOpen}
+        onClose={() => setSenarioModalOpen(false)}
+      >
         <ChatTurnSideModal
           turns={turnData}
           scenarioColor={themes[scenarioType].color}
@@ -293,7 +310,9 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
         ) : (
           <ChatMessage
             key={"첫 메세지"}
-            message={"안녕하세요  포포 교수님입니다. 첫 메시지와 함께 수정된 오른쪽 위 턴 정보를 확인하세요!"}
+            message={
+              "안녕하세요  포포 교수님입니다. 첫 메시지와 함께 수정된 오른쪽 위 턴 정보를 확인하세요!"
+            }
             isTeacher={true}
             parentChatColor={themes[scenarioType].color}
           />
@@ -302,7 +321,11 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
           <div className="flex flex-col gap-y-1">
             <div className="flex">
               <div className="flex justify-center items-center w-8 h-8 rounded-full bg-main-white-500 border border-gray-100 shadow-custom-2">
-                <img src={theacher_popo} alt={"포포 교수님"} className="w-4/5 h-4/5 object-contain" />
+                <img
+                  src={theacher_popo}
+                  alt={"포포 교수님"}
+                  className="w-4/5 h-4/5 object-contain"
+                />
               </div>
               <div className="text-sm py-2.5 px-2">포포 교수님</div>
             </div>

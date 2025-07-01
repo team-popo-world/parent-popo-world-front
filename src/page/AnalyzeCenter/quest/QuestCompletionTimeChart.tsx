@@ -117,21 +117,19 @@ export const QuestCompletionTimeChart = () => {
     { quest: string; x: number; y: number }[]
   > = {};
 
+  // 초기화 - 값이 없어도 label은 항상 존재해야 하므로 빈 배열로 설정
   questLabelList.forEach((label) => {
-    chartDataMap[label] = [
-      { quest: label, x: questXMap[label as keyof typeof questXMap], y: null },
-    ];
+    chartDataMap[label] = [];
   });
 
-  // console.log("data:", data);
-  data?.forEach((quest) => {
+  data.forEach((quest) => {
     const label =
       questType === "parent"
         ? LABEL_KO[quest.label || ""] || quest.label || ""
         : DAILY_LABEL_MAP[quest.quest_name || ""] || quest.quest_name || "";
 
     const x = questXMap[label as keyof typeof questXMap];
-    if (!x) return;
+    if (x === undefined) return;
 
     const points = quest.distribution.flatMap(({ time_bin, count }) => {
       const hour = mapTimeBinToHour(time_bin);
@@ -141,7 +139,6 @@ export const QuestCompletionTimeChart = () => {
         y: hour + Math.random() * 2,
       }));
     });
-    // console.log("points:", points);
 
     if (points.length > 0) {
       chartDataMap[label] = points;

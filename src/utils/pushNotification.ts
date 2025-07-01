@@ -7,7 +7,7 @@ export const subscribe = async () => {
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/sw.js")
-          .then((reg) => {
+          .then(() => {
             console.log("✅ Service Worker registered");
           })
           .catch((err) => {
@@ -23,17 +23,19 @@ export const subscribe = async () => {
     const registration = await navigator.serviceWorker.register("/sw.js");
 
     // 기존 구독 해제
-    const existingSubscription = await registration.pushManager.getSubscription();
+    const existingSubscription =
+      await registration.pushManager.getSubscription();
     if (existingSubscription) {
       await existingSubscription.unsubscribe();
       console.log("기존 구독 해제 완료");
     }
 
     // 4. PushManager를 통해 푸시 구독 생성
-    const subscription: PushSubscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicKey),
-    });
+    const subscription: PushSubscription =
+      await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(publicKey),
+      });
 
     // 5. 구독 객체에서 암호화 키 추출
     const p256dhKey = subscription.getKey("p256dh");

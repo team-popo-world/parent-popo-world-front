@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { IMAGE_URLS } from "../../../constants/constants";
 import coinIcon from "@/assets/image/common/common_coin.webp";
 import { useAuthStore } from "../../../zustand/auth";
 import Pagination from "../../../components/page/Pagination";
@@ -23,10 +22,14 @@ export const PurchaseManagementPage: React.FC = () => {
   const { selectedChildId } = useAuthStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState<string>(
-    `${todayDate.getFullYear()}.${(todayDate.getMonth() + 1).toString().padStart(2, "0")}`
+    `${todayDate.getFullYear()}.${(todayDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}`
   );
   const [bottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
-  const [selectedYear, setSelectedYear] = useState<number>(todayDate.getFullYear());
+  const [selectedYear, setSelectedYear] = useState<number>(
+    todayDate.getFullYear()
+  );
   const itemsPerPage = 10;
 
   // 상품 데이터 조회
@@ -57,7 +60,11 @@ export const PurchaseManagementPage: React.FC = () => {
     console.log("updatedPendingApprove", updatedPendingApprove);
     console.log("updatedInventory", updatedInventory);
 
-    const allItems = [...updatedApproveHistory, ...updatedPendingApprove, ...updatedInventory];
+    const allItems = [
+      ...updatedApproveHistory,
+      ...updatedPendingApprove,
+      ...updatedInventory,
+    ];
     allItems.sort((a, b) => {
       const dateA = new Date(a.updatedAt || "");
       const dateB = new Date(b.updatedAt || "");
@@ -78,7 +85,9 @@ export const PurchaseManagementPage: React.FC = () => {
     const itemYear = itemDate.getFullYear();
     const itemMonth = itemDate.getMonth() + 1;
 
-    const [selectedYearFromDate, selectedMonth] = selectedDate.split(".").map(Number);
+    const [selectedYearFromDate, selectedMonth] = selectedDate
+      .split(".")
+      .map(Number);
 
     return itemYear === selectedYearFromDate && itemMonth === selectedMonth;
   });
@@ -128,7 +137,10 @@ export const PurchaseManagementPage: React.FC = () => {
 
   return (
     <>
-      <BottomSheet isOpen={bottomSheetOpen} onClose={() => setBottomSheetOpen(false)}>
+      <BottomSheet
+        isOpen={bottomSheetOpen}
+        onClose={() => setBottomSheetOpen(false)}
+      >
         <div className="flex flex-col">
           {/* 년도 선택 */}
           <div className="flex items-center justify-between mb-6 px-4">
@@ -136,8 +148,18 @@ export const PurchaseManagementPage: React.FC = () => {
               onClick={() => handleYearChange("prev")}
               className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-50 transition-colors"
             >
-              <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-4 h-4 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
             <div className="text-lg font-medium">{selectedYear}년</div>
@@ -145,8 +167,18 @@ export const PurchaseManagementPage: React.FC = () => {
               onClick={() => handleYearChange("next")}
               className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-50 transition-colors"
             >
-              <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg
+                className="w-4 h-4 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>
@@ -156,7 +188,8 @@ export const PurchaseManagementPage: React.FC = () => {
               <div
                 key={month}
                 className={`p-4 rounded-lg border cursor-pointer transition-all ${
-                  selectedDate === `${selectedYear}.${month.toString().padStart(2, "0")}`
+                  selectedDate ===
+                  `${selectedYear}.${month.toString().padStart(2, "0")}`
                     ? "bg-main-green-700 text-white border-main-green-700"
                     : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
                 }`}
@@ -198,10 +231,17 @@ export const PurchaseManagementPage: React.FC = () => {
             </div>
             {/* 오른쪽 */}
             <div className="flex gap-x-2 items-center">
-              <div className="text-xs text-gray-700 px-2 py-1 bg-gray-200 rounded-md">{item.updatedAt}</div>
+              <div className="text-xs text-gray-700 px-2 py-1 bg-gray-200 rounded-md">
+                {item.updatedAt}
+              </div>
               <div
                 className="text-xs text-main-white-500 rounded-sm px-2 py-1"
-                style={{ backgroundColor: PURCHASE_STATUS[item.status as keyof typeof PURCHASE_STATUS] }}
+                style={{
+                  backgroundColor:
+                    PURCHASE_STATUS[
+                      item.status as keyof typeof PURCHASE_STATUS
+                    ],
+                }}
               >
                 {item.status}
               </div>
@@ -215,7 +255,11 @@ export const PurchaseManagementPage: React.FC = () => {
       {/* 페이지네이션 */}
       {totalPages > 1 && (
         <div className="mt-8">
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       )}
     </>
