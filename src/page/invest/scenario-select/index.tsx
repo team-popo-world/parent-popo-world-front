@@ -225,10 +225,10 @@ export const InvestScenarioSelectPage: React.FC = () => {
             />
           ))}
         </div>
-        <div className="flex justify-between mb-8">
+        <div className="flex justify-between items-center mb-8">
           <div className="text-sm">시나리오</div>
           <div
-            className="text-xs px-2 py-1 rounded-sm border border-gray-100 shadow-sm active:scale-95 transition-all duration-100"
+            className="text-sm px-2 py-1 rounded-sm border border-gray-100 shadow-sm active:scale-95 transition-all duration-100"
             onClick={() => {
               setSenarioCreateModalOpen(true);
               setSelectedScenarioId(DEFAULT_SCENARIO_ID[selectedTheme as keyof typeof DEFAULT_SCENARIO_ID] || "");
