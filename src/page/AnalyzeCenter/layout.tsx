@@ -2,11 +2,8 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../../components/header/header";
 import { ChildNavBar } from "../../components/nav-bar/ChildNavBar";
 import { useEffect, useState } from "react";
-import clsx from "clsx";
 import { scrollToTop } from "../../utils/scrolltoTop";
-
-// http://localhost:5174/invest/analyze
-// http://localhost:5174/invest/chat-bot
+import clsx from "clsx";
 
 const urls = {
   index: "분석센터",

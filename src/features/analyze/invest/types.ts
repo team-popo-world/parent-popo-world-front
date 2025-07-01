@@ -56,3 +56,8 @@ export interface BalanceTrendGraphProps {
   avgCashRatio: number;
   avgCashRatioMean: number;
 }
+
+export interface InvestStyleGraphProps {
+  cluster_num: number;
+  count: number;
+}

@@ -110,8 +110,6 @@ export const InvestChatBot: React.FC<InvestChatBotProps> = ({
   closeModal,
   turns,
 }) => {
-  console.log("scenarioId", scenarioId);
-
   const { selectedChildId } = useAuthStore();
   const { openModal, closeModal: closeNavModal } = useModalStore();
 

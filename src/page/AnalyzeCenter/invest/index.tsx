@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import clsx from "clsx";
 import StayTimeGraph from "../../../features/analyze/invest/StayTimeGraph";
 import TradingRatioGraph1 from "../../../features/analyze/invest/TradingRatioGraph1";
@@ -6,6 +6,8 @@ import TradingRatioGraph2 from "../../../features/analyze/invest/TradingRatioGra
 import TradingRatioGraph3 from "../../../features/analyze/invest/TradingRatioGraph3";
 import BettingSuccessGraph from "../../../features/analyze/invest/BettingSuccessGraph";
 import BalanceTrendGraph from "../../../features/analyze/invest/BalanceTrendGraph";
+import { InvestStyleGraph } from "../../../features/analyze/invest/InvestStyleGraph";
+
 import { useQuery } from "@tanstack/react-query";
 import { getInvestAnalyze } from "../../../api/analyze/invest";
 import { useAuthStore } from "../../../zustand/auth";
@@ -16,6 +18,7 @@ import type {
   StayTimeGraphProps,
   TradingRatioGraph3Props,
   TradingRatioGraph1Props,
+  InvestStyleGraphProps,
 } from "../../../features/analyze/invest/types";
 import x_popo from "../../../assets/image/common/x_popo.png";
 import wait_popo from "../../../assets/image/common/wait_popo.png";
@@ -54,6 +57,10 @@ export const investTypes: Record<string, { title: string; color: string }> = {
     title: "여유자금 추이",
     color: "#FE4A4E",
   },
+  invest_style: {
+    title: "투자 성향",
+    color: "#cf6fff",
+  },
 };
 
 export const InvestAnalyzePage: React.FC = () => {
@@ -72,6 +79,7 @@ export const InvestAnalyzePage: React.FC = () => {
     | TradingRatioGraph3Props[]
     | BettingSuccessGraphProps[]
     | BalanceTrendGraphProps[]
+    | InvestStyleGraphProps[]
   >({
     queryKey: ["investAnalyze", selectedAnalyzeType, selectedAnalyzePeriod, selectedChildId],
     queryFn: () =>
@@ -83,6 +91,12 @@ export const InvestAnalyzePage: React.FC = () => {
     enabled: !!selectedAnalyzeType && !!selectedAnalyzePeriod && !!selectedChildId,
     staleTime: 1000 * 60 * 60, // 그래프는 데이터 받는데 오래걸리기도하고 게임 데이터 분석이 실시간반영이 안되서 길게둠
   });
+
+  useEffect(() => {
+    if (selectedAnalyzeType === "invest_style") {
+      setSelectedAnalyzePeriod("all");
+    }
+  }, [selectedAnalyzeType]);
 
   if (isLoading) {
     return (
@@ -144,6 +158,9 @@ export const InvestAnalyzePage: React.FC = () => {
     } else if (selectedAnalyzeType === "avg_cash_ratio") {
       // 여유자금 추이
       return <BalanceTrendGraph BalanceTrendData={investAnalyzeData as BalanceTrendGraphProps[]} />;
+    } else if (selectedAnalyzeType === "invest_style") {
+      // 투자 스타일
+      return <InvestStyleGraph InvestStyleData={investAnalyzeData as InvestStyleGraphProps[]} />;
     }
   };
 
@@ -170,25 +187,30 @@ export const InvestAnalyzePage: React.FC = () => {
       {/* 그래프 설명 영역 */}
       <div className="flex justify-between items-center mb-5">
         <div className="text-sm">{investTypes[selectedAnalyzeType].title}</div>
-        <div className="flex justify-between bg-gray-100 rounded-xl p-1">
-          {[
-            { label: "전체", value: "all" as const },
-            { label: "주간", value: "week" as const },
-          ].map((period) => (
-            <button
-              key={period.value}
-              className={`flex-1 py-1 px-3 rounded-lg text-sm font-semibold transition ${
-                selectedAnalyzePeriod === period.value ? "bg-white shadow" : ""
-              }`}
-              style={{
-                color: selectedAnalyzePeriod === period.value ? investTypes[selectedAnalyzeType].color : "#99a1af",
-              }}
-              onClick={() => setSelectedAnalyzePeriod(period.value)}
-            >
-              {period.label}
-            </button>
-          ))}
-        </div>
+        {/* 투자 스타일일 때는 기간 선택 버튼 숨김 */}
+        {selectedAnalyzeType !== "invest_style" && (
+          <div className="flex justify-between bg-gray-100 rounded-xl p-1">
+            {[
+              { label: "전체", value: "all" as const },
+              { label: "주간", value: "week" as const },
+            ].map((period) => (
+              <button
+                key={period.value}
+                className={`flex-1 py-1 px-3 rounded-lg text-sm font-semibold transition ${
+                  selectedAnalyzePeriod === period.value ? "bg-white shadow" : ""
+                }`}
+                style={{
+                  color: selectedAnalyzePeriod === period.value ? investTypes[selectedAnalyzeType].color : "#99a1af",
+                }}
+                onClick={() => setSelectedAnalyzePeriod(period.value)}
+              >
+                {period.label}
+              </button>
+            ))}
+          </div>
+        )}
+        {/* 투자 스타일일 때는 "전체" 텍스트만 표시 */}
+        {selectedAnalyzeType === "invest_style" && <div className="text-sm text-gray-600">전체</div>}
       </div>
 
       {AnalyzeGraph()}
