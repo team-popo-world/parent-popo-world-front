@@ -1,54 +1,38 @@
-# React + TypeScript + Vite
+# 부모용 금융 교육 플랫폼 (Parent-PoPoWorld)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📱 프로젝트 소개
+자녀의 금융 교육을 모니터링하고 관리할 수 있는 부모용 대시보드 플랫폼입니다. 자녀의 학습 현황, 투자 성과, 감정 상태 등을 실시간으로 확인하고 관리할 수 있습니다.
 
-Currently, two official plugins are available:
+## 🛠 기술 스택
+- **Framework**: React + TypeScript
+- **상태 관리**: Zustand
+- **API 통신**: Axios
+- **데이터 시각화**: Recharts
+- **스타일링**: CSS-in-JS
+- **빌드 도구**: Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📊 주요 기능
 
-## Expanding the ESLint configuration
+### 1. 분석 센터 (Analysis Center)
+- 자녀의 학습 진도 추적
+- 투자 패턴 분석
+- 감정 상태 트렌드 분석
+- 데이터 시각화 대시보드
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 2. 투자 관리
+- 자녀의 투자 포트폴리오 모니터링
+- 수익률 추적
+- 투자 성향 분석
+- 리스크 관리
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 3. 퀘스트 관리
+- 퀘스트 진행 상황 확인
+- 새로운 퀘스트 생성
+- 보상 설정 및 관리
+- 학습 목표 설정
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 4. 저축 관리
+- 저축 목표 설정 및 관리
+- 용돈 관리
+- 지출 패턴 분석
+- 재무 목표 설정
